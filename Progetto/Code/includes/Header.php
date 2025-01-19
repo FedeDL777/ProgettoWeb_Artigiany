@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <meta name="description" content="Il miglior sito per gli amanti dei sudoku" />
-    <meta name="author" content="Andrea Monaco, Davide Bartoli, Andrea Samori" />
+    <meta name="author" content="Pietro Sbaraccani, Baloons, Alex Guerrini" />
     <title>SudokuWorld</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,12 +42,7 @@ if (isUserLoggedIn()) {
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/pages/sudoku.php">
-                            <i class="bi bi-grid-3x3-gap-fill"></i> Sudoku del giorno
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/wishlist.php">
-                            <i class="bi bi-heart-fill"></i> Lista desideri
+                            <i class="bi bi-grid-3x3-gap-fill"></i> Prodotto Personalizzato
                         </a>
                     </li>
                     <li class="nav-item">
