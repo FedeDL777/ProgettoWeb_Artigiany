@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CustomCraftMania</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Stile personalizzato per il bottone e la barra laterale */
+        .custom-bar {
+            background-color: #F6B26B; /* orange3 */
+        }
+        .custom-button {
+            background-color: #F9CB9C; /* orange2 */
+            color: black;
+            border: none;
+        }
+        .custom-button:hover {
+            background-color: #f7b89a; /* Leggermente più scuro per hover */
+            color: white;
+        }
+
+        body {
+            background: linear-gradient(to right, #F6B26B 10%, #F9CB9C 10%, #F9CB9C 90%, #F6B26B 90%);
+            min-height: 100vh; /* Assicura che l'altezza copra tutta la pagina */
+        }
+    </style>
 </head>
 <body>
     <header class="bg-light border-bottom">
@@ -96,12 +116,8 @@
             </div>
 
             <!-- Custom Products Section -->
-            <div class="col-md-2 ms-auto bg-warning text-center pt-5">
-                <button class="btn btn-primary">Custom Products</button>
+            <div class="col-md-2 ms-auto custom-bar text-center pt-5">
+                <button class="btn custom-button">Custom Products</button>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
