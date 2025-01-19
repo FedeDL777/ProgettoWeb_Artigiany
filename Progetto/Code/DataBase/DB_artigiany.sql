@@ -6,7 +6,7 @@
 -- Database Section
 -- ________________
 
-create database ErFinale;
+create database DBVersioneDue;
 
 
 -- TableSpace Section
@@ -30,7 +30,7 @@ create table CATEGORIE (
 create table NOTIFICHE (
 	Email char(1) not null,
 	Testo char(1) not null,
-	Dataa date not null,
+	Data date not null,
 	Letto char not null,
 	orderID char(1),
 	primary key (Email, Data));
@@ -60,25 +60,33 @@ create table MATERIALE (
 	Colore char(1),
 	primary key (Nome));
 
+create table CARTA_DI_CREDITO (
+	Email char(1) not null,
+	Nome char(1) not null,
+	Cognome char(1) not null,
+	Numero char(1) not null,
+	Scadenza char(1) not null,
+	primary key (Email, Numero));
+
+create table COMPOSIZIONE_CARRELLO (
+	cartID char(1) not null,
+	productID char(1) not null,
+	primary key (cartID, productID));
+
+create table DETTAGLIO_ORDINE (
+	orderID char(1) not null,
+	productID char(1) not null,
+	primary key (orderID, productID));
+
 create table PRODOTTOMATERIALE (
 	Nome char(1) not null,
 	productID char(1) not null,
 	primary key (productID, Nome));
 
-create table COMPOSIZIONECARRELLO (
-	cartID char(1) not null,
-	productID char(1) not null,
-	primary key (cartID, productID));
-
-create table DETTAGLIOORDINE (
-	orderID char(1) not null,
-	productID char(1) not null,
-	primary key (orderID, productID));
-
 create table USERS (
 	Email char(1) not null,
-	Pw char(1) not null,
-	Admn char not null,
+	Password char(1) not null,
+	Admin/Client char not null,
 	primary key (Email));
 
 
@@ -113,7 +121,27 @@ alter table PRODOTTO add constraint FKAPPARTENENZA_1
 	foreign key (categoryID)
 	references CATEGORIE;
 
-alter table PRODOTTOMATERIALE add constraint FKR_PRO
+alter table CARTA_DI_CREDITO add constraint FKR
+	foreign key (Email)
+	references USERS;
+
+alter table COMPOSIZIONE_CARRELLO add constraint FKCOM_PRO
+	foreign key (productID)
+	references PRODOTTO;
+
+alter table COMPOSIZIONE_CARRELLO add constraint FKCOM_CAR
+	foreign key (cartID)
+	references CARRELLO;
+
+alter table DETTAGLIO_ORDINE add constraint FKDET_PRO
+	foreign key (productID)
+	references PRODOTTO;
+
+alter table DETTAGLIO_ORDINE add constraint FKDET_ORD
+	foreign key (orderID)
+	references ORDINI;
+
+alter table PRODOTTOMATERIALE add constraint FKPRO_PRO
 	foreign key (productID)
 	references PRODOTTO;
 
@@ -121,25 +149,9 @@ alter table PRODOTTO add constraint
 	check(exist(select * from PRODOTTOMATERIALE
 	            where PRODOTTOMATERIALE.productID = productID));
 
-alter table PRODOTTOMATERIALE add constraint FKR_MAT
+alter table PRODOTTOMATERIALE add constraint FKPRO_MAT
 	foreign key (Nome)
 	references MATERIALE;
-
-alter table COMPOSIZIONE CARRELLO add constraint FKR_1_PRO
-	foreign key (productID)
-	references PRODOTTO;
-
-alter table COMPOSIZIONE CARRELLO add constraint FKR_1_CAR
-	foreign key (cartID)
-	references CARRELLO;
-
-alter table DETTAGLIO ORDINE add constraint FKR_3_PRO
-	foreign key (productID)
-	references PRODOTTO;
-
-alter table DETTAGLIO ORDINE add constraint FKR_3_ORD
-	foreign key (orderID)
-	references ORDINI;
 
 
 -- Index Section
@@ -178,24 +190,26 @@ create index FKINSERIRE
 create unique index ID_MATERIALE
 	on MATERIALE(Nome);
 
-create unique index ID_R
+create unique index ID_CARTA_DI_CREDITO
+	on CARTA_DI_CREDITO(Email, Numero);
+
+create unique index ID_COMPOSIZIONE_CARRELLO
+	on COMPOSIZIONE_CARRELLO(cartID, productID);
+
+create index FKCOM_PRO
+	on COMPOSIZIONE_CARRELLO (productID);
+
+create unique index ID_DETTAGLIO_ORDINE
+	on DETTAGLIO_ORDINE(orderID, productID);
+
+create index FKDET_PRO
+	on DETTAGLIO_ORDINE (productID);
+
+create unique index ID_PRODOTTOMATERIALE
 	on PRODOTTOMATERIALE(productID, Nome);
 
-create index FKR_MAT
+create index FKPRO_MAT
 	on PRODOTTOMATERIALE (Nome);
-
-create unique index ID_R_1
-	on COMPOSIZIONE CARRELLO(cartID, productID);
-
-create index FKR_1_PRO
-	on COMPOSIZIONE CARRELLO (productID);
-
-create unique index ID_R_3
-	on DETTAGLIO ORDINE(orderID, productID);
-
-create index FKR_3_PRO
-	on DETTAGLIO ORDINE (productID);
 
 create unique index ID_USERS
 	on USERS(Email);
-
