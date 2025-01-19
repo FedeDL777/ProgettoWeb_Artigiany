@@ -6,7 +6,7 @@
 -- Database Section
 -- ________________
 
-create database ErFinale copia;
+create database ErFinale;
 
 
 -- TableSpace Section
@@ -30,7 +30,7 @@ create table CATEGORIE (
 create table NOTIFICHE (
 	Email char(1) not null,
 	Testo char(1) not null,
-	Data date not null,
+	Dataa date not null,
 	Letto char not null,
 	orderID char(1),
 	primary key (Email, Data));
@@ -65,20 +65,20 @@ create table PRODOTTOMATERIALE (
 	productID char(1) not null,
 	primary key (productID, Nome));
 
-create table COMPOSIZIONE CARRELLO (
+create table COMPOSIZIONECARRELLO (
 	cartID char(1) not null,
 	productID char(1) not null,
 	primary key (cartID, productID));
 
-create table DETTAGLIO ORDINE (
+create table DETTAGLIOORDINE (
 	orderID char(1) not null,
 	productID char(1) not null,
 	primary key (orderID, productID));
 
 create table USERS (
 	Email char(1) not null,
-	Password char(1) not null,
-	Admin/Client char not null,
+	Pw char(1) not null,
+	Admn char not null,
 	primary key (Email));
 
 

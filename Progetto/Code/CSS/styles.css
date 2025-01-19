@@ -1,3 +1,4 @@
+/* Stile generale */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,169 +6,113 @@ body {
     background-color: #f4a261;
 }
 
-.login-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
+main {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Stile per i form (login e registrazione) */
+form {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.login-container h1 {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.register-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 50px auto;
     padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.register-container h1 {
+form h2 {
     font-size: 24px;
+    color: #333;
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
+.form-label {
     font-size: 14px;
     color: #333;
-    margin-bottom: 5px;
 }
 
-input {
-    width: 100%;
+.form-control {
+    font-size: 14px;
     padding: 10px;
-    font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box;
 }
 
-button {
-    width: 100%;
+.btn-primary {
+    background-color: #f4a261;
+    border: none;
     padding: 10px;
     font-size: 16px;
-    background-color: #f4a261;
     color: #fff;
-    border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
-button:hover {
+.btn-primary:hover {
     background-color: #e76f51;
 }
 
-p {
-    font-size: 14px;
-    text-align: center;
-    color: #666;
+.btn-secondary {
+    background-color: #ccc;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-p a {
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+/* Stile per il messaggio di errore */
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Link */
+a {
     color: #f4a261;
     text-decoration: none;
 }
 
-p a:hover {
+a:hover {
     text-decoration: underline;
 }
 
-
-/* Stile per la sezione delle immagini di top prodotti */
-.slider {
-    width: 100%;
-    height: 200px;
-    background-color: #ddd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.slider-indicators {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.slider-indicators span {
-    font-size: 20px;
-    margin: 0 5px;
-    cursor: pointer;
-}
-
-.slider-indicators span:hover {
-    color: #e76f51;
-}
-
-/* Stile per la colonna laterale pubblicitaria */
-.ad-section {
-    width: 25%;
-    height: 200px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
-    padding: 10px;
-}
-
-/* Stile per la sezione dei prodotti */
-.products-section {
-    display: flex;
-    justify-content: space-between;
+/* Testo di collegamento */
+.mt-3 {
     margin-top: 20px;
-}
-
-.recent-products,
-.top-products {
-    width: 48%;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+    font-size: 14px;
     text-align: center;
 }
 
-.product-image {
-    width: 100%;
-    height: 100px;
-    background-color: #ddd;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-.recent-products h3,
-.top-products h3 {
-    font-size: 20px;
+/* Stile per il benvenuto dopo il login */
+h1 {
+    font-size: 32px;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-.recent-products p,
-.top-products p {
-    font-size: 14px;
-    color: #666;
+.text-center {
+    text-align: center;
+}
+
+.shadow-sm {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.vh-90 {
+    height: 90vh;
 }
