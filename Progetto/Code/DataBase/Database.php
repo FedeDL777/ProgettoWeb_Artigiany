@@ -17,7 +17,7 @@ class Database
         }
 
         $this->seller = new Seller($this);
-        $this->sudokuRunner = new SudokuRunner($this);
+        //$this->Artigiany = new Artigiany($this);
     }
 
     public function query($query, $param_types, ...$params)
@@ -40,6 +40,7 @@ class Database
         $stmt->execute();
     }
 
+    /*
     public function isProductInCart($email, $id_product)
     {
         $query = "SELECT * FROM CART WHERE email = ? AND id_product = ?";
@@ -297,4 +298,9 @@ class Database
         $query = "SELECT id_product FROM ORDERS_ITEM GROUP BY id_product ORDER BY COUNT(id_product) DESC LIMIT 3";
         return $this->query($query, '');
     }
+}*/
+
+
+
 }
+   
