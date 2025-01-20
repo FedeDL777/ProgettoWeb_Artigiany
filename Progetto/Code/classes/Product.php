@@ -9,11 +9,10 @@ class Product
     private $img;
     private $seller_email;
     private $category_tag;
-    private $discount;
     private $availability;
     private $removed;
 
-    public function __construct($id_product, $name, $price, $description, $email, $category_tag, $discount, $availability, $removed = 0)
+    public function __construct($id_product, $name, $price, $description, $email, $category_tag, $availability, $removed = 0)
     {
         $this->id = $id_product;
         $this->name = $name;
@@ -61,10 +60,6 @@ class Product
         return $this->category_tag;
     }
 
-    public function getDiscount()
-    {
-        return $this->discount;
-    }
 
     public function getAvailability()
     {
