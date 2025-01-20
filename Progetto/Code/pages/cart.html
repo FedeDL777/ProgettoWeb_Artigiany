@@ -5,54 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CustomCraftMania</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Definizione dello sfondo con gradiente */
-        body {
-            background: linear-gradient(to right, #F6B26B 10%, #F9CB9C 10%, #F9CB9C 90%, #F6B26B 90%);
-            min-height: 100vh; /* Assicura che l'altezza copra tutta la pagina */
-        }
-    </style>
+    <link rel="stylesheet" href="../CSS/styles.css">
 </head>
 <body>
     <header class="bg-light border-bottom">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="dropdown">
-                <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #d3d3d3; border: none;">
-                    <!-- Icona con tre righe -->
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Armi</a></li>
-                    <li><a class="dropdown-item" href="#">Oggettistica</a></li>
-                    <li><a class="dropdown-item" href="#">Mobilio</a></li>
-                    <li><a class="dropdown-item" href="#">Sedie</a></li>
-                    <li><a class="dropdown-item" href="#">Armadi</a></li>
-                    <li><a class="dropdown-item" href="#">Scrivanie</a></li>
-                </ul>
-            </div>
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html">CraftMania</a>
-                <form class="col-6">
+                <div class="d-flex align-items-center">
+                    <!-- Dropdown per il menu -->
+                    <div class="dropdown me-3">
+                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #d3d3d3; border: none;">
+                            <!-- Icona con tre righe -->
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Armi</a></li>
+                            <li><a class="dropdown-item" href="#">Oggettistica</a></li>
+                            <li><a class="dropdown-item" href="#">Mobilio</a></li>
+                            <li><a class="dropdown-item" href="#">Sedie</a></li>
+                            <li><a class="dropdown-item" href="#">Armadi</a></li>
+                            <li><a class="dropdown-item" href="#">Scrivanie</a></li>
+                        </ul>
+                    </div>
+                    <a class="navbar-brand" href="home.html">CraftMania</a>
+                </div>
+                
+                <!-- Barra di ricerca -->
+                <form class="d-flex flex-grow-1 mx-3">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 </form>
-                <div>
+                
+                <!-- Icone carrello e login -->
+                <div class="d-flex align-items-center">
                     <a href="cart.html" class="btn btn-outline-dark me-2">
-                        <span style="display: inline-block; width: 20px; height: 20px;">
-                            <img src="images\cartfull.png" class="img-fluid">
-                        </span>
+                        <img src="images/cartfull.png" class="img-fluid" alt="Cart" style="width: 20px; height: 20px;">
                     </a>
-                    <a href="login.html" class="btn btn-outline-dark me-2">
-                        <span style="display: inline-block; width: 20px; height: 20px;">
-                            <img src="images\userclear.png" class="img-fluid">
-                        </span>
+                    <a href="login.html" class="btn btn-outline-dark">
+                        <img src="images/userclear.png" class="img-fluid" alt="User" style="width: 20px; height: 20px;">
                     </a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="container-fluid">
+    <div class="container-fluid py-4">
         <!-- Contenuto della pagina -->
+        <h1 class="text-center">Il tuo carrello:</h1>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
