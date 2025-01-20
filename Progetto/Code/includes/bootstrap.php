@@ -7,4 +7,5 @@ error_reporting(E_ALL);
 
 define("UPLOAD_DIR", "./upload/");
 require_once("../database/Database.php");
-$db = new Database("db", "root", "example", "artigiany", 3306);
+#da sostituire con i dati del proprio database
+$db = new Database("db", "root", "", "artigiany", 3306);

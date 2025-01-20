@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
-
+<!-- Header del sito per tutte le pages -->
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <link href="/assets/css/style.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <meta name="description" content="Il miglior sito per gli amanti dei sudoku" />
+    <meta name="description" content="L'artigianalità italiana a casa tua!" />
     <meta name="author" content="Pietro Sbaraccani, Baloons, Alex Guerrini" />
     <title>SudokuWorld</title>
     <meta charset="utf-8" />
@@ -26,7 +26,7 @@ if (isUserLoggedIn()) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/pages/home.php"><strong>SudokuWorld</strong></a>
+            <a class="navbar-brand" href="/pages/home.php"><strong>Artigiany</strong></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
