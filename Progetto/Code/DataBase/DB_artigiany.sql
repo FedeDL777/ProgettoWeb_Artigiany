@@ -5,8 +5,9 @@
 
 -- Database Section
 -- ________________
-
-create database DBVersioneDue;
+DROP DATABASE IF EXISTS db_artigiany;
+CREATE DATABASE db_artigiany;
+USE db_artigiany;
 
 
 -- TableSpace Section
@@ -16,77 +17,77 @@ create database DBVersioneDue;
 -- _____________
 
 create table CARRELLO (
-	cartID char(1) not null,
+	cartID INT not null AUTO_INCREMENT,
 	Ora date not null,
-	Email char(1),
+	Email VARCHAR(25),
 	primary key (cartID),
 	unique (cartID));
 
 create table CATEGORIE (
-	categoryID char(1) not null,
-	Nome char(1) not null,
+	categoryID INT not null AUTO_INCREMENT,
+	Nome VARCHAR(25) not null,
 	primary key (categoryID));
 
 create table NOTIFICHE (
-	Email char(1) not null,
-	Testo char(1) not null,
-	Data date not null,
-	Letto char not null,
-	orderID char(1),
-	primary key (Email, Data));
+	Email VARCHAR(25) not null,
+	Testo VARCHAR(1000) not null,
+	Data_ date not null,
+	Letto boolean not null,
+	orderID INT,
+	primary key (Email, Data_));
 
 create table ORDINI (
-	orderID char(1) not null,
-	cartID char(1) not null,
-	Data date not null,
-	Luogo char(1) not null,
+	orderID INT not null AUTO_INCREMENT,
+	cartID INT not null,
+	Data_ date not null,
+	Luogo VARCHAR(25) not null,
 	primary key (orderID),
 	unique (cartID));
 
 create table PRODOTTO (
-	Costo float(1) not null,
-	Nome char(1) not null,
-	Descrizione char(255) not null,
-	Immagine char(1) not null,
-	productID char(1) not null,
-	categoryID char(1) not null,
-	Email char(1) not null,
+	Costo decimal(8,2) not null,
+	Nome VARCHAR(25) not null,
+	Descrizione VARCHAR(1000) not null,
+	PathImmagine VARCHAR(255) not null,
+	productID INT not null AUTO_INCREMENT,
+	categoryID INT not null,
+	Email VARCHAR(25) not null,
 	primary key (productID),
 	unique (categoryID, productID));
 
 create table MATERIALE (
-	Nome char(1) not null,
-	CostoXquadretto char(1),
-	Colore char(1),
+	Nome VARCHAR(25) not null,
+	CostoXquadretto decimal(8,2),
+	Colore VARCHAR(25),
 	primary key (Nome));
 
 create table CARTA_DI_CREDITO (
-	Email char(1) not null,
-	Nome char(1) not null,
-	Cognome char(1) not null,
-	Numero char(1) not null,
-	Scadenza char(1) not null,
+	Email VARCHAR(25) not null,
+	Nome VARCHAR(25) not null,
+	Cognome VARCHAR(25) not null,
+	Numero INT not null,
+	Scadenza date not null,
 	primary key (Email, Numero));
 
 create table COMPOSIZIONE_CARRELLO (
-	cartID char(1) not null,
-	productID char(1) not null,
+	cartID INT not null,
+	productID INT not null,
 	primary key (cartID, productID));
 
 create table DETTAGLIO_ORDINE (
-	orderID char(1) not null,
-	productID char(1) not null,
+	orderID INT not null,
+	productID INT not null,
 	primary key (orderID, productID));
 
 create table PRODOTTOMATERIALE (
-	Nome char(1) not null,
-	productID char(1) not null,
+	Nome VARCHAR(25) not null,
+	productID INT not null,
 	primary key (productID, Nome));
 
 create table USERS (
-	Email char(1) not null,
-	Password char(1) not null,
-	Admin/Client char not null,
+	Email VARCHAR(25) not null,
+	Password VARCHAR(25) not null,
+	AdminClient boolean not null,
 	primary key (Email));
 
 
@@ -167,7 +168,7 @@ create unique index ID_CATEGORIE
 	on CATEGORIE(categoryID);
 
 create unique index ID_NOTIFICHE
-	on NOTIFICHE(Email, Data);
+	on NOTIFICHE(Email, Data_);
 
 create index FKRiferito
 	on NOTIFICHE (orderID);
@@ -213,3 +214,4 @@ create index FKPRO_MAT
 
 create unique index ID_USERS
 	on USERS(Email);
+

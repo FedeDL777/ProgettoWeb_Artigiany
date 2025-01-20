@@ -7,4 +7,4 @@ error_reporting(E_ALL);
 
 define("UPLOAD_DIR", "./upload/");
 require_once("../database/Database.php");
-$db = new Database("db", "root", "example", "artigiany", 3306);
+$db = new DatabaseHelper("db", "root", "", "db_artigiany", 3306);

@@ -1,8 +1,9 @@
 <?php
 
 include_once("../includes/bootstrap.php");
-include_once("../includes/functions.php");
+//include_once("../includes/functions.php");
 
+/*
 if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["password"])) {
     if (count($db->getUser($_POST["email"])) > 0) {
         $register_error = "Errore! Email gia' utilizzata!";
@@ -12,7 +13,7 @@ if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["password"])
         header("Location: login.php");
     }
 }
-
+*/
 include("../includes/header.php");
 ?>
 <main>
@@ -26,17 +27,13 @@ include("../includes/header.php");
             <?php else: ?>
                 <div class="row justify-content-center">
                     <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                        <form action="#" method="POST" class="p-4 shadow-sm rounded bg-white">
+                        <form action="insert.php" method="POST" class="p-4 shadow-sm rounded bg-white">
                             <h2 class="mb-4">Registrazione</h2>
                             <?php if (isset($register_error)): ?>
                                 <div class="alert alert-danger" role="alert">
                                     <?php echo $register_error; ?>
                                 </div>
                             <?php endif; ?>
-                            <div class="mb-3 text-start">
-                                <label for="name" class="form-label">Nome:</label>
-                                <input type="text" id="name" name="name" class="form-control" required>
-                            </div>
                             <div class="mb-3 text-start">
                                 <label for="email" class="form-label">Email:</label>
                                 <input type="email" id="email" name="email" class="form-control" required>
