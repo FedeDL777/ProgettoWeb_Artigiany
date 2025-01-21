@@ -1,8 +1,8 @@
 <?php
 include("../includes/header.php"); // Include il file header.php
 ?>
-<link rel="stylesheet" href="../CSS/styles.css">
 <main class="container-fluid py-4">
+<link rel="stylesheet" href="../CSS/styles.css">
     <!-- Contenuto della pagina -->
     <h1 class="text-center">Benvenuto su CraftMania!</h1>
     <p class="text-center">Esplora la nostra collezione di prodotti artigianali.</p>
@@ -53,10 +53,6 @@ include("../includes/header.php"); // Include il file header.php
         </div>
     </div>
 
-    <!-- Custom Products Button -->
-    <div class="custom-products-section">
-        <button class="btn btn-primary">Prodotti Personalizzati</button>
-    </div>
 </main>
 <?php
 include("../includes/footer.php"); // Include il file footer.php

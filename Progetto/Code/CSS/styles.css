@@ -7,145 +7,17 @@ body {
     min-height: 100vh; /* Assicura che l'altezza copra tutta la pagina */
 }
 
-main {
-    min-height: 90vh;
+.carousel {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: center; /* Allinea orizzontalmente */
+    align-items: center; /* Allinea verticalmente */
 }
 
-/* Stile per i form (login e registrazione) */
-form {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.carousel-inner img {
+    margin: 0 auto; /* Centra le immagini del carousel */
 }
 
-form h2 {
-    font-size: 24px;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
 
-.form-label {
-    font-size: 14px;
-    color: #333;
-}
-
-.form-control {
-    font-size: 14px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.btn-primary {
-    background-color: #f4a261;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: #e76f51;
-}
-
-.btn-secondary {
-    background-color: #ccc;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    color: #333;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-secondary:hover {
-    background-color: #bbb;
-}
-
-/* Stile per il messaggio di errore */
-.alert-danger {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-/* Link */
-a {
-    color: #f4a261;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Testo di collegamento */
-.mt-3 {
-    margin-top: 20px;
-    font-size: 14px;
-    text-align: center;
-}
-
-/* Stile per il benvenuto dopo il login */
-h1 {
-    font-size: 32px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.shadow-sm {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.vh-90 {
-    height: 90vh;
-}
-
-.dropdown-menu {
-    min-width: 100%;
-}
-.navbar-brand {
-    white-space: nowrap;
-}
-@media (max-width: 768px) {
-    .form-control {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    .navbar-brand {
-        font-size: 1.5rem;
-    }
-}
-
-.custom-bar {
-    background-color: #F6B26B; /* orange3 */
-}
-.custom-button {
-    background-color: #F9CB9C; /* orange2 */
-    color: black;
-    border: none;
-}
-.custom-button:hover {
-    background-color: #f7b89a; /* Leggermente più scuro per hover */
-    color: white;
-}
 
 
 
