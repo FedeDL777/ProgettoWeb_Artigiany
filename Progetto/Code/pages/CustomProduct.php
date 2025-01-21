@@ -17,7 +17,7 @@ include("../includes/header.php");
 <style>
     #grid {
         display: grid;
-        grid-template-columns: repeat(10, 1fr);
+        grid-template-columns: repeat(20, 1fr);
         gap: 5px;
         max-width: 100%;
     }
@@ -89,7 +89,7 @@ include("../includes/header.php");
 
 <!-- JavaScript -->
 <script>
-    const gridSize = 10; // 10x10
+    const gridSize = 20; // 10x10
     const grid = document.getElementById('grid');
     const submitBtn = document.getElementById('submitBtn');
     const colorSelect = document.getElementById('colorSelect');

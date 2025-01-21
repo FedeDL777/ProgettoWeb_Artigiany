@@ -115,12 +115,32 @@ class DatabaseHelper
 */
     public function updateClientPassword($email, $password)
     {
-        $query = "UPDATE client SET password = ? WHERE email = ?";
+        $query = "UPDATE client SET password_ = ? WHERE email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ss', $password, $email);
         $stmt->execute();
     }
 
     // SELECT SECTION
+    public function getHashedPasswordAdmin($email)
+    {
+        $query = "SELECT password_ FROM users WHERE email = ? AND AdminClient = 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+        
+    }
+    public function getHashedPasswordClient($email)
+    {
+        $query = "SELECT password_ FROM users WHERE email = ? AND AdminClient = 0";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+        
+    }
 }
 ?>
