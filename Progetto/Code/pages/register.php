@@ -27,7 +27,7 @@ include("../includes/header.php");
             <?php else: ?>
                 <div class="row justify-content-center">
                     <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                        <form action="insert.php" method="POST" class="p-4 shadow-sm rounded bg-white">
+                        <form action="../utils/registra-utente.php" method="POST" class="p-4 shadow-sm rounded bg-white">
                             <h2 class="mb-4">Registrazione</h2>
                             <?php if (isset($register_error)): ?>
                                 <div class="alert alert-danger" role="alert">

@@ -29,6 +29,24 @@ class DatabaseHelper
         $stmt->execute();
 
     }
+    public function insertAdmin($email, $password)
+    {
+        $query = "INSERT INTO client (email, password) VALUES (?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssi', $email, $password, 1);
+        $stmt->execute();
+
+    }
+    public function checkUsermail($email)
+    {
+        $query = "SELECT * FROM client WHERE email = ?";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
     // DELETE SECTION
 /*
     public function deleteCartProduct($username, $id_product)
