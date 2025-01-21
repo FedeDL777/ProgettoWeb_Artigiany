@@ -41,7 +41,7 @@ if (isUserLoggedIn()) {
 
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/pages/sudoku.php">
+                        <a class="nav-link" href="../pages/customproduct.php">
                             <i class="bi bi-grid-3x3-gap-fill"></i> Prodotto Personalizzato
                         </a>
                     </li>
