@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <meta name="description" content="L'artigianalità italiana a casa tua!" />
     <meta name="author" content="Pietro Sbaraccani, Baloons, Alex Guerrini" />
-    <title>SudokuWorld</title>
+    <title>Artigiany</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -26,7 +26,7 @@ if (isUserLoggedIn()) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/pages/home.php"><strong>Artigiany</strong></a>
+            <a class="navbar-brand" href="home.php"><strong>Artigiany</strong></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,17 +41,17 @@ if (isUserLoggedIn()) {
 
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/pages/sudoku.php">
+                        <a class="nav-link" href="customproduct.php">
                             <i class="bi bi-grid-3x3-gap-fill"></i> Prodotto Personalizzato
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/pages/cart.php">
+                        <a class="nav-link" href="cart.php">
                             <i class="bi bi-cart-fill"></i> Carrello
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/pages/profile.php">
+                        <a class="nav-link" href="login.php">
                             <i class="bi bi-person-fill"></i> Profilo
                         </a>
                     </li>
