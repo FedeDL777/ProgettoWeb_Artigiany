@@ -27,7 +27,7 @@ class DatabaseHelper
         $stmt = $this->db->prepare($query);
         $client = 0;
         $stmt->bind_param('ssi', $email, $password, $client);
-        $stmt->execute();
+        return $stmt->execute();
 
     }
     public function insertAdmin($email, $password)
@@ -36,7 +36,7 @@ class DatabaseHelper
         $stmt = $this->db->prepare($query);
         $client = 0;
         $stmt->bind_param('ssi', $email, $password, $client);
-        $stmt->execute();
+        return $stmt->execute();
 
     }
     public function checkUsermail($email)
@@ -49,6 +49,42 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    //SEARCH SECTION
+    public function searchClientCart($email)
+    {
+        $query_cart = "SELECT * 
+                        FROM `carrello`
+                        WHERE Email = ?
+                        ORDER BY Ora DESC
+                        LIMIT 1";
+        $stmt = $this->db->prepare($query_cart);
+        $stmt->execute([$email]);
+        $cart = $stmt->get_result();
+        return $cart->fetch_all(MYSQLI_ASSOC);
+    }
+    public function searchCartProducts($cart_id)
+    {
+        //Query generata
+        $query_items = "SELECT 
+                            p.Nome AS product_name, 
+                            p.Costo AS price, 
+                            c.productID AS product_id 
+                        FROM COMPOSIZIONE_CARRELLO c
+                        INNER JOIN PRODOTTO p ON c.productID = p.productID
+                        WHERE c.cartID = ?";
+        $stmt = $this->db->prepare($query_items);
+        $stmt->execute([$cart_id]);
+        $cart_items = $stmt->get_result();
+        return $cart_items->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+
+
+
+
+
+    
     // DELETE SECTION
 /*
     public function deleteCartProduct($username, $id_product)

@@ -14,11 +14,7 @@ $user = getLoggedUser(); // Ottiene i dati dell'utente loggato
 $email = $user['Email'];
 
 // Recupera il cartID dell'utente loggato
-$query_cart = "SELECT cartID FROM CARRELLO WHERE Email = ?";
-$stmt = $db->prepare($query_cart);
-$stmt->execute([$email]);
-$cart = $stmt->fetch(PDO::FETCH_ASSOC);
-
+$cart = $dbh->searchClientCart($email);
 // Se il carrello non esiste
 if (!$cart) {
     echo "<div class='container py-5'><div class='alert alert-info'>Il tuo carrello è vuoto!</div></div>";
@@ -28,17 +24,7 @@ if (!$cart) {
 $cart_id = $cart['cartID'];
 
 // Recupera gli articoli del carrello
-$query_items = "
-    SELECT 
-        p.Nome AS product_name, 
-        p.Costo AS price, 
-        c.productID AS product_id 
-    FROM COMPOSIZIONE_CARRELLO c
-    INNER JOIN PRODOTTO p ON c.productID = p.productID
-    WHERE c.cartID = ?";
-$stmt = $db->prepare($query_items);
-$stmt->execute([$cart_id]);
-$cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$cart_items = $dbh->searchCartProducts($cart_id);
 
 include("../includes/header.php");
 ?>
