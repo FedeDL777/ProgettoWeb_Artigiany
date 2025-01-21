@@ -19,7 +19,9 @@ if (isUserLoggedIn()) {
 
 include("../includes/header.php");
 ?>
-<main>
+
+<main class="container-fluid py-4">
+<body>
 <link rel="stylesheet" href="../CSS/styles.css">
     <div class="d-flex justify-content-center align-items-center vh-90">
         <div class="container-fluid text-center px-3">
@@ -49,7 +51,9 @@ include("../includes/header.php");
             </div>
         </div>
     </div>
+</body>
 </main>
+
 <?php
     include("../includes/footer.php");
 ?>
