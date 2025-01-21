@@ -43,6 +43,7 @@ $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 include("../includes/header.php");
 ?>
 <main>
+<link rel="stylesheet" href="../CSS/styles.css">
     <div class="container py-5">
         <h1 class="mb-4">Il tuo carrello</h1>
         <?php if (empty($cart_items)): ?>

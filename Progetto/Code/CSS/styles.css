@@ -1,8 +1,6 @@
 /* Stile generale */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background: linear-gradient(to right, #F6B26B 10%, #F9CB9C 10%, #F9CB9C 90%, #F6B26B 90%);
     min-height: 100vh; /* Assicura che l'altezza copra tutta la pagina */
 }

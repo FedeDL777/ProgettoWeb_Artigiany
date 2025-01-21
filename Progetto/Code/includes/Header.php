@@ -46,7 +46,7 @@ if (isUserLoggedIn()) {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/pages/cart.php">
+                        <a class="nav-link" href="cart.php">
                             <i class="bi bi-cart-fill"></i> Carrello
                         </a>
                     </li>

@@ -20,7 +20,7 @@ if (isUserLoggedIn()) {
 include("../includes/header.php");
 ?>
 <main>
-    
+<link rel="stylesheet" href="../CSS/styles.css">
     <div class="d-flex justify-content-center align-items-center vh-90">
         <div class="container-fluid text-center px-3">
             <div class="row justify-content-center">
