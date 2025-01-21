@@ -1,116 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Pagina per la selezione delle celle adiacenti -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prodotto Custom</title>
     <style>
-        .grid {
+        #grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
-            gap: 2px;
-            width: 300px;
-            height: 300px;
+            /* 10 colonne */
+            gap: 5px;
+            /* Spaziatura tra le celle */
+            max-width: 100%;
+            /* Adattamento responsive */
         }
 
-        .cell {
+        .grid-cell {
             width: 100%;
             aspect-ratio: 1;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
+            /* Cella quadrata */
+            background-color: #f8f9fa;
+            /* Sfondo chiaro */
+            border: 1px solid #ced4da;
+            /* Bordo */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: background-color 0.3s;
+            user-select: none;
         }
 
-        .cell.active {
-            background-color: #4caf50;
+        .grid-cell.selected {
+            background-color: #007bff;
+            /* Colore blu per le celle selezionate */
+            color: white;
         }
 
-        button:disabled {
+        .grid-cell.active {
+            background-color: #28a745;
+            /* Colore verde */
+            color: white;
+        }
+
+        #submitBtn:disabled {
             background-color: #ccc;
             cursor: not-allowed;
         }
     </style>
-</head>
 
 <body>
-    <div class="grid" id="grid"></div>
-    <button id="submitButton" disabled>Invia</button>
+    <div class="container my-4">
+        <h1 class="text-center">Griglia con Selezione Adiacente</h1>
+        <p class="text-center">Seleziona celle adiacenti e premi "Invia" se sono tutte adiacenti.</p>
+        <div id="grid" class="mx-auto mb-3"></div>
+        <button id="submitBtn" class="btn btn-primary" disabled>Invia</button>
+    </div>
 
+    <!-- JavaScript -->
     <script>
+        const gridSize = 10; // 10x10
         const grid = document.getElementById('grid');
-        const submitButton = document.getElementById('submitButton');
-        const gridSize = 10;
-        const selectedCells = new Set();
+        const submitBtn = document.getElementById('submitBtn');
+        let selectedCells = [];
 
-        // Funzione per verificare se tutte le celle selezionate sono adiacenti
-        function areCellsAdjacent(selectedCells) {
-            if (selectedCells.size === 0) return false;
-
-            const directions = [-1, 1, -gridSize, gridSize];
-            const visited = new Set();
-            const selectedArray = Array.from(selectedCells).map(Number);
-
-            function dfs(cell) {
-                visited.add(cell);
-                for (const dir of directions) {
-                    const neighbor = cell + dir;
-
-                    // Controlla se il vicino è valido e appartiene alle celle selezionate
-                    if (
-                        selectedCells.has(neighbor) &&
-                        !visited.has(neighbor) &&
-                        isValidNeighbor(cell, neighbor)
-                    ) {
-                        dfs(neighbor);
-                    }
-                }
+        // Creazione della griglia dinamica
+        for (let row = 0; row < gridSize; row++) {
+            for (let col = 0; col < gridSize; col++) {
+                const cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.dataset.row = row;
+                cell.dataset.col = col;
+                grid.appendChild(cell);
             }
-
-            function isValidNeighbor(cell, neighbor) {
-                // Controlla se il vicino è nella stessa riga o colonna corretta
-                if (Math.abs(cell - neighbor) === 1) {
-                    return Math.floor(cell / gridSize) === Math.floor(neighbor / gridSize);
-                }
-                return true;
-            }
-
-            dfs(selectedArray[0]); // Avvia DFS dalla prima cella selezionata
-
-            // Verifica se tutte le celle selezionate sono state visitate
-            return visited.size === selectedCells.size;
         }
 
-        // Genera la griglia 10x10
-        for (let i = 0; i < gridSize * gridSize; i++) {
-            const cell = document.createElement('div');
-            cell.className = 'cell';
-            cell.dataset.index = i;
-            grid.appendChild(cell);
-        }
-
-        // Gestione del clic sulle celle
-        grid.addEventListener('click', (event) => {
-            const cell = event.target;
-            if (!cell.classList.contains('cell')) return;
-
-            const index = Number(cell.dataset.index);
-
-            if (cell.classList.contains('active')) {
-                cell.classList.remove('active');
-                selectedCells.delete(index);
-            } else {
-                cell.classList.add('active');
-                selectedCells.add(index);
-            }
-
-            // Verifica l'adiacenza e abilita/disabilita il bottone
+        // Funzione per abilitare/disabilitare il bottone
+        function toggleSubmitButton() {
             if (areCellsAdjacent(selectedCells)) {
-                submitButton.disabled = false;
+                submitBtn.disabled = false;
             } else {
-                submitButton.disabled = true;
+                submitBtn.disabled = true;
             }
+        }
+
+        // Funzione per verificare se le celle selezionate sono adiacenti
+        function areCellsAdjacent(cells) {
+            if (cells.length < 2) return true; // Se c'è solo una cella, è automaticamente adiacente a se stessa
+
+            for (let i = 0; i < cells.length - 1; i++) {
+                const [row1, col1] = cells[i];
+                const [row2, col2] = cells[i + 1];
+                // Verifica se la cella è adiacente (orizzontale o verticale)
+                if (!(Math.abs(row1 - row2) === 1 && col1 === col2 || Math.abs(col1 - col2) === 1 && row1 === row2)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Gestione del click sulle celle
+        grid.addEventListener('click', (e) => {
+            const cell = e.target;
+            if (!cell.classList.contains('grid-cell')) return;
+
+            const row = parseInt(cell.dataset.row);
+            const col = parseInt(cell.dataset.col);
+
+            // Aggiungi o rimuovi la cella dalla selezione
+            if (cell.classList.contains('selected')) {
+                cell.classList.remove('selected');
+                selectedCells = selectedCells.filter(([r, c]) => r !== row || c !== col);
+            } else {
+                cell.classList.add('selected');
+                selectedCells.push([row, col]);
+            }
+
+            // Controlla se le celle selezionate sono adiacenti e aggiorna il bottone
+            toggleSubmitButton();
         });
     </script>
 </body>
