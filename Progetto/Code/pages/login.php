@@ -25,7 +25,7 @@ include("../includes/header.php");
         <div class="container-fluid text-center px-3">
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <form action="#" method="POST" class="p-4 shadow-sm rounded bg-white">
+                    <form action="../utils/login-access.php" method="POST" class="p-4 shadow-sm rounded bg-white">
                         <h2 class="mb-4">Login</h2>
                         <?php if (isset($login_error)): ?>
                             <div class="alert alert-danger" role="alert">
