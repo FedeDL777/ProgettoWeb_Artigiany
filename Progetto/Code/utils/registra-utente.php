@@ -9,6 +9,7 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
             // Registration failed
             $templateParams["error"] = "Un account con questa email è già stato registrato";
             echo "Un account con questa email è già stato registrato";
+            header("Location: ../pages/register.php");
         } 
         else {
             $hashedPassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
@@ -19,11 +20,11 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
             }
             $templateParams["error"] = "Registration succesfull";
             echo "Registration succesfull";
-            header("Location: ?page=login");
+            header("Location: ../pages/login.php");
         }
     }
 } else {
-    header("Location: ?page=account");
+    header("Location: ../pages/home.php");
 }
 
 ?>
