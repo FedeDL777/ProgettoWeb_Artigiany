@@ -23,23 +23,25 @@ class DatabaseHelper
 */
     public function insertClient($email, $password)
     {
-        $query = "INSERT INTO client (email, password) VALUES (?, ?)";
+        $query = "INSERT INTO users (email, password_, AdminClient) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssi', $email, $password, 0);
+        $client = 0;
+        $stmt->bind_param('ssi', $email, $password, $client);
         $stmt->execute();
 
     }
     public function insertAdmin($email, $password)
     {
-        $query = "INSERT INTO client (email, password) VALUES (?, ?)";
+        $query = "INSERT INTO users (email, password_, AdminClient) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssi', $email, $password, 1);
+        $client = 0;
+        $stmt->bind_param('ssi', $email, $password, $client);
         $stmt->execute();
 
     }
     public function checkUsermail($email)
     {
-        $query = "SELECT * FROM client WHERE email = ?";
+        $query = "SELECT * FROM users WHERE email = ?";
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $email);
