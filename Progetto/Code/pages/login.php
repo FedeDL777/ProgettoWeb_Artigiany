@@ -5,12 +5,70 @@ include_once("../includes/bootstrap.php");
 require_once("../includes/functions.php");
 
 if (!isUserLoggedIn() && !isAdminLoggedIn()) {
+    if (isset($_POST["email"]) && isset($_POST["password"])) {
+        //controllo admin
+        $adminResult = $dbh->getHashedPasswordAdmin($_POST["email"]);
+        $loginAdmin = password_verify($_POST["password"], $adminResult[0]["Pw"]);
+        if($loginAdmin && $dbh->checkLogin($_POST["email"], $adminResult[0]["Pw"], 1)){
+            registerAdminLogged($_POST);
+            unset($login_error);
+            header("Location: accountAdmin.php");
+            exit();
+        }
+        //controllo client 
+        $clientResult = $dbh->getHashedPasswordClient($_POST["email"]);
+        $loginClient = password_verify($_POST["password"], $clientResult[0]["Pw"]);
+        if($loginClient && $dbh->checkLogin($_POST["email"], $clientResult[0]["Pw"], 0)){
+            registerLoggedUser($_POST);
+            unset($login_error);
+            header("Location: accountClient.php");
+            exit();
+        }
+        else {
+            $login_error = "Errore! Controllare email o password!";
+        }
+        
+    }
+    else {
+        $login_error = "Errore! Controllare email o password!";
+    }
+}
+else {
+    // Se già loggato, reindirizza alla pagina corretta
+    if (isAdminLoggedIn()) {
+        header("Location: accountAdmin.php");
+    
+    } else {
+        header("Location: accountClient.php");
+    }
+    exit();
+}
+
+
+/*
+if (isset($_POST["email"]) && isset($_POST["password"])) {
+    $login_result = $db->checkLogin($_POST["email"], $_POST["password"]);
+    if (count($login_result) == 0) {
+        $login_error = "Errore! Controllare email o password!";
+    } else {
+        unset($login_error);
+        registerLoggedUser($login_result[0]);
+    }
+}
+
+if (isUserLoggedIn()) {
+    header("Location: /pages/profile.php");
+}
+
+// da cambiare
+if (!isUserLoggedIn() && !isAdminLoggedIn()) {
     // Se non è loggato né come utente né come admin
     if (isset($_POST["email"]) && isset($_POST["pw"])) {
         // Verifica admin
         $adminResult = $dbh->getHashedPasswordAdmin($_POST["email"]);
         if (!empty($adminResult) && isset($adminResult[0]["pw"])) {
             $hashedPasswordAdmin = $adminResult[0]["Pw"];
+            //$dbh->checkLogin($_POST["email"], password_verify($_POST["pw"], $hashedPasswordAdmin), 1) 
             if (password_verify($_POST["pw"], $hashedPasswordAdmin)) {
                 registerAdminLogged($_POST); // Registra l'admin nella sessione
                 header("Location: ../pages/accountAdmin.php");
@@ -21,8 +79,8 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
         // Verifica client
         $clientResult = $dbh->getHashedPasswordClient($_POST["email"]);
         if (!empty($clientResult) && isset($clientResult[0]["pw"])) {
-            $hashedPasswordClient = $clientResult[0]["password"];
-            if (password_verify($_POST["pw"], $hashedPasswordClient)) {
+            $hashedPasswordClient = $clientResult[0]["pw"];
+            if (password_verify($_POST["pw"], $hashedPasswordClient))   {
                 registerLoggedUser($user); // Registra l'utente nella sessione
                 header("Location: ../pages/accountClient.php");
                 exit();
@@ -41,7 +99,7 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
         header("Location: ../pages/accountClient.php");
     }
     exit();
-}
+}*/
 
 include("../includes/header.php");
 ?>

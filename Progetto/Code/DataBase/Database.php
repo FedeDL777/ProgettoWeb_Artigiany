@@ -29,7 +29,7 @@ class DatabaseHelper
     // Inserimento di un nuovo cliente
     public function insertClient($email, $password)
     {
-        $query = "INSERT INTO users (email, Password, AdminClient) VALUES (?, ?, ?)";
+        $query = "INSERT INTO users (email, Pw, AdminClient) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
 
         $client = 0;
@@ -40,7 +40,7 @@ class DatabaseHelper
     // Inserimento di un nuovo admin
     public function insertAdmin($email, $password)
     {
-        $query = "INSERT INTO users (email, Password, AdminClient) VALUES (?, ?, ?)";
+        $query = "INSERT INTO users (email, Pw, AdminClient) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
 
         $admin = 1;
@@ -59,6 +59,17 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    public function checkLogin($email, $password, $adminClient)
+    {
+        $query = "SELECT * FROM users WHERE email = ? AND Pw = ? AND AdminClient = ?";
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bind_param('ssi', $email, $password, $adminClient);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
 
     // Recupera il carrello di un cliente
     public function searchClientCart($email)
@@ -100,7 +111,7 @@ class DatabaseHelper
     // Aggiorna la password di un cliente
     public function updateClientPassword($email, $password)
     {
-        $query = "UPDATE client SET Password = ? WHERE email = ?";
+        $query = "UPDATE client SET Pw = ? WHERE email = ?";
         $stmt = $this->db->prepare($query);
 
         $stmt->bind_param('ss', $password, $email);
@@ -110,7 +121,7 @@ class DatabaseHelper
     // Recupera la password hashata di un admin
     public function getHashedPasswordAdmin($email)
     {
-        $query = "SELECT Password FROM users WHERE email = ? AND AdminClient = 1";
+        $query = "SELECT Pw FROM users WHERE email = ? AND AdminClient = 1";
         $stmt = $this->db->prepare($query);
 
         $stmt->bind_param('s', $email);
@@ -119,10 +130,10 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    // Recupera la password hashata di un cliente
+    // Recupera la Pw hashata di un cliente
     public function getHashedPasswordClient($email)
     {
-        $query = "SELECT Password FROM users WHERE email = ? AND AdminClient = 0";
+        $query = "SELECT Pw FROM users WHERE email = ? AND AdminClient = 0";
         $stmt = $this->db->prepare($query);
 
         $stmt->bind_param('s', $email);

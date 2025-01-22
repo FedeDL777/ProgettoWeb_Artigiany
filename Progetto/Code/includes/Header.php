@@ -19,7 +19,8 @@ include_once("../includes/bootstrap.php");
 include_once("../includes/functions.php");
 $hasUnreadNotifications = false;
 if (isUserLoggedIn()) {
-    $hasUnreadNotifications = $db->hasUnreadNotifications($_SESSION["email"]);
+    //TO DO
+    //$hasUnreadNotifications = $db->hasUnreadNotifications($_SESSION["email"]);
 }
 ?>
 
