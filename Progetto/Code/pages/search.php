@@ -15,34 +15,44 @@ include("../includes/header.php");
 ?>
 
 <main class="container my-4">
-    <h1 class="text-center mb-4">Risultati per "<?= htmlspecialchars($searchQuery) ?>"</h1>
+    <link rel="stylesheet" href="../CSS/styles.css">
 
-    <?php if ($searchQuery === ''): ?>
-        <p class="text-center">Inserisci un termine di ricerca per trovare articoli.</p>
-    <?php elseif (empty($products)): ?>
-        <p class="text-center">Nessun prodotto trovato per la tua ricerca.</p>
-    <?php else: ?>
-        <div class="row">
-            <?php foreach ($products as $product): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="product.php?product_id=<?= urlencode($product['ID']) ?>">
-                            <img src="<?= htmlspecialchars($product['PathImmagine']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['Nome']) ?>">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="product.php?product_id=<?= urlencode($product['ID']) ?>" class="text-dark">
-                                    <?= htmlspecialchars($product['Nome']) ?>
-                                </a>
-                            </h5>
-                            <p class="card-text"><?= htmlspecialchars($product['Descrizione']) ?></p>
-                            <p class="card-text"><strong>€ <?= number_format($product['Costo'], 2) ?></strong></p>
+    <body>
+        <div class="container-page">
+            <div id="main-content">
+                <h1 class="text-center mb-4">Risultati per "<?= htmlspecialchars($searchQuery) ?>"</h1>
+
+                <?php if ($searchQuery === ''): ?>
+                <p class="text-center">Inserisci un termine di ricerca per trovare articoli.</p>
+                <?php elseif (empty($products)): ?>
+                <p class="text-center">Nessun prodotto trovato per la tua ricerca.</p>
+                <?php else: ?>
+                <div class="row">
+                    <?php foreach ($products as $product): ?>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <a href="product.php?product_id=<?= urlencode($product['productID']) ?>">
+                                <img src="<?= htmlspecialchars($product['PathImmagine']) ?>" class="card-img-top"
+                                    alt="<?= htmlspecialchars($product['Nome']) ?>">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="product.php?product_id=<?= urlencode($product['productID']) ?>"
+                                        class="text-dark">
+                                        <?= htmlspecialchars($product['Nome']) ?>
+                                    </a>
+                                </h5>
+                                <p class="card-text"><?= htmlspecialchars($product['Descrizione']) ?></p>
+                                <p class="card-text"><strong>€ <?= number_format($product['Costo'], 2) ?></strong></p>
+                            </div>
                         </div>
                     </div>
+                    <?php endforeach; ?>
                 </div>
-            <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </div>
-    <?php endif; ?>
+    </body>
 </main>
 
 <?php include("../includes/footer.php"); ?>
