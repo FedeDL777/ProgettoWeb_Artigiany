@@ -7,18 +7,8 @@ $searchQuery = isset($_GET['searched-product']) ? trim($_GET['searched-product']
 
 $products = [];
 if ($searchQuery !== '') {
-    // Connessione al database e ricerca dei prodotti
-    $stmt = $db->prepare("SELECT Nome, Descrizione, Costo, PathImmagine FROM PRODOTTO WHERE Nome LIKE ? OR Descrizione LIKE ?");
-    $likeQuery = "%" . $searchQuery . "%";
-    $stmt->bind_param("ss", $likeQuery, $likeQuery);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    while ($row = $result->fetch_assoc()) {
-        $products[] = $row;
-    }
-
-    $stmt->close();
+    // Usa il metodo della classe DatabaseHelper per cercare i prodotti
+    $products = $dbh->searchProducts($searchQuery);
 }
 
 include("../includes/header.php");
@@ -36,9 +26,15 @@ include("../includes/header.php");
             <?php foreach ($products as $product): ?>
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img src="<?= htmlspecialchars($product['PathImmagine']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['Nome']) ?>">
+                        <a href="product.php?product_id=<?= urlencode($product['ID']) ?>">
+                            <img src="<?= htmlspecialchars($product['PathImmagine']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['Nome']) ?>">
+                        </a>
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($product['Nome']) ?></h5>
+                            <h5 class="card-title">
+                                <a href="product.php?product_id=<?= urlencode($product['ID']) ?>" class="text-dark">
+                                    <?= htmlspecialchars($product['Nome']) ?>
+                                </a>
+                            </h5>
                             <p class="card-text"><?= htmlspecialchars($product['Descrizione']) ?></p>
                             <p class="card-text"><strong>€ <?= number_format($product['Costo'], 2) ?></strong></p>
                         </div>
