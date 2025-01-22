@@ -8,7 +8,7 @@ $searchQuery = isset($_GET['searched-product']) ? trim($_GET['searched-product']
 $products = [];
 if ($searchQuery !== '') {
     // Connessione al database e ricerca dei prodotti
-    $stmt = $db->prepare("SELECT ID, Nome, Descrizione, Costo, PathImmagine FROM PRODOTTO WHERE Nome LIKE ? OR Descrizione LIKE ?");
+    $stmt = $dbh->prepare("SELECT ID, Nome, Descrizione, Costo, PathImmagine FROM PRODOTTO WHERE Nome LIKE ? OR Descrizione LIKE ?");
     $likeQuery = "%" . $searchQuery . "%";
     $stmt->bind_param("ss", $likeQuery, $likeQuery);
     $stmt->execute();
