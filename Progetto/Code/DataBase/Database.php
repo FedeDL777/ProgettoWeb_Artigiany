@@ -29,7 +29,7 @@ class DatabaseHelper
     // Inserimento di un nuovo cliente
     public function insertClient($email, $password)
     {
-        $query = "INSERT INTO users (email, password_, AdminClient) VALUES (?, ?, ?)";
+        $query = "INSERT INTO users (email, Password, AdminClient) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
         if (!$stmt) {
             die("Errore nella preparazione della query: " . $this->db->error);
@@ -42,7 +42,7 @@ class DatabaseHelper
     // Inserimento di un nuovo admin
     public function insertAdmin($email, $password)
     {
-        $query = "INSERT INTO users (email, password_, AdminClient) VALUES (?, ?, ?)";
+        $query = "INSERT INTO users (email, Password, AdminClient) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
         if (!$stmt) {
             die("Errore nella preparazione della query: " . $this->db->error);
@@ -112,7 +112,7 @@ class DatabaseHelper
     // Aggiorna la password di un cliente
     public function updateClientPassword($email, $password)
     {
-        $query = "UPDATE client SET password_ = ? WHERE email = ?";
+        $query = "UPDATE client SET Password = ? WHERE email = ?";
         $stmt = $this->db->prepare($query);
         if (!$stmt) {
             die("Errore nella preparazione della query: " . $this->db->error);
@@ -124,7 +124,7 @@ class DatabaseHelper
     // Recupera la password hashata di un admin
     public function getHashedPasswordAdmin($email)
     {
-        $query = "SELECT password_ FROM users WHERE email = ? AND AdminClient = 1";
+        $query = "SELECT Password FROM users WHERE email = ? AND AdminClient = 1";
         $stmt = $this->db->prepare($query);
         if (!$stmt) {
             die("Errore nella preparazione della query: " . $this->db->error);
@@ -138,7 +138,7 @@ class DatabaseHelper
     // Recupera la password hashata di un cliente
     public function getHashedPasswordClient($email)
     {
-        $query = "SELECT password_ FROM users WHERE email = ? AND AdminClient = 0";
+        $query = "SELECT Password FROM users WHERE email = ? AND AdminClient = 0";
         $stmt = $this->db->prepare($query);
         if (!$stmt) {
             die("Errore nella preparazione della query: " . $this->db->error);
