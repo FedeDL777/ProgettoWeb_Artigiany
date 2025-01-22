@@ -3,6 +3,8 @@ class DatabaseHelper
 {
     private $db;
 
+    
+
     public function __construct($servername, $username, $password, $dbname, $port)
     {
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
@@ -10,7 +12,26 @@ class DatabaseHelper
             die("Connection failed: " . $this->db->connect_error);
         }
     }
+    
+    //permette a un admin di aggiungere una categoria
+    public function addCategory($category)
+    {
+        $query = "INSERT INTO CATEGORIE (Nome) VALUES (?)";
+        $stmt = $this->db->prepare($query);
+        if (!$stmt) {
+            die("Errore nella preparazione della query: " . $this->db->error);
+        }
+        $stmt->bind_param('s', $category);
+        return $stmt->execute();
+    }
 
+    //ottiene tutte le categoria da visualizzare nella home
+    public function getCategories()
+    {
+        $query = "SELECT * FROM CATEGORIE";
+        $result = $this->db->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
     // Metodo per cercare prodotti
     public function searchProducts($searchQuery)
     {

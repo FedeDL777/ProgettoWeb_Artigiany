@@ -40,3 +40,16 @@ footer {
     padding: 1rem 0;
     text-align: center;
 }
+
+
+aside {
+    width: 250px;
+    /* Larghezza della barra laterale */
+    background-color: #f8f9fa;
+    padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    /* Scorrimento verticale per contenuti lunghi */
+    flex-shrink: 0;
+    /* La larghezza resta fissa */
+}
