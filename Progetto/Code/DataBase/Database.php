@@ -2,7 +2,7 @@
 class DatabaseHelper
 {
     private $db;
-
+    private $emailLength = 100;
     public function __construct($servername, $username, $password, $dbname, $port)
     {
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
@@ -10,15 +10,15 @@ class DatabaseHelper
             die("Connection failed: " . $this->db->connect_error);
         }
     }
-
+    public function getEmailLength(){
+        return $this->emailLength;
+    }
     // Metodo per cercare prodotti
     public function searchProducts($searchQuery)
     {
         $query = "SELECT productID, Nome, Descrizione, Costo, PathImmagine FROM PRODOTTO WHERE Nome LIKE ? OR Descrizione LIKE ?";
         $stmt = $this->db->prepare($query);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $likeQuery = "%" . $searchQuery . "%";
         $stmt->bind_param("ss", $likeQuery, $likeQuery);
         $stmt->execute();
@@ -31,9 +31,7 @@ class DatabaseHelper
     {
         $query = "INSERT INTO users (email, Password, AdminClient) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $client = 0;
         $stmt->bind_param('ssi', $email, $password, $client);
         return $stmt->execute();
@@ -44,9 +42,7 @@ class DatabaseHelper
     {
         $query = "INSERT INTO users (email, Password, AdminClient) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $admin = 1;
         $stmt->bind_param('ssi', $email, $password, $admin);
         return $stmt->execute();
@@ -57,9 +53,7 @@ class DatabaseHelper
     {
         $query = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->db->prepare($query);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -71,9 +65,7 @@ class DatabaseHelper
     {
         $query_cart = "SELECT * FROM `carrello` WHERE Email = ? ORDER BY Ora DESC LIMIT 1";
         $stmt = $this->db->prepare($query_cart);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $cart = $stmt->get_result();
@@ -88,9 +80,7 @@ class DatabaseHelper
                         INNER JOIN PRODOTTO p ON c.productID = p.productID
                         WHERE c.cartID = ?";
         $stmt = $this->db->prepare($query_items);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $stmt->bind_param('i', $cart_id);
         $stmt->execute();
         $cart_items = $stmt->get_result();
@@ -102,9 +92,7 @@ class DatabaseHelper
     {
         $query = "DELETE FROM client WHERE email = ?";
         $stmt = $this->db->prepare($query);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $stmt->bind_param('s', $email);
         return $stmt->execute();
     }
@@ -114,9 +102,7 @@ class DatabaseHelper
     {
         $query = "UPDATE client SET Password = ? WHERE email = ?";
         $stmt = $this->db->prepare($query);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $stmt->bind_param('ss', $password, $email);
         return $stmt->execute();
     }
@@ -126,9 +112,7 @@ class DatabaseHelper
     {
         $query = "SELECT Password FROM users WHERE email = ? AND AdminClient = 1";
         $stmt = $this->db->prepare($query);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -140,9 +124,7 @@ class DatabaseHelper
     {
         $query = "SELECT Password FROM users WHERE email = ? AND AdminClient = 0";
         $stmt = $this->db->prepare($query);
-        if (!$stmt) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
+
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();

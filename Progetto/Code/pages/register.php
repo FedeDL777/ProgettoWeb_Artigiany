@@ -6,14 +6,20 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
 
     if (isset($_POST["email"]) && isset($_POST["password"])) {
 
+        if (strlen($_POST["email"]) > $dbh->getEmailLength()) {
+            $register_error = "L'email inserita è troppo lunga. Deve essere al massimo di ". $dbh->getEmailLength() . " caratteri.";
+            exit;
+        }
+        
         //c'è più di uno user con la stessa email
+        var_dump(count($dbh->checkUsermail($_POST["email"])));
         if (count($dbh->checkUsermail($_POST["email"]))) {
 
             // Registration failed
             $register_error = "Un account con questa email è già stato registrato";
-            header("Location: register.php");
         } 
         else {
+            var_dump("sas");
             $hashedPassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
                 $dbh->insertClient($_POST["email"], $hashedPassword);
@@ -24,7 +30,6 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
     }
 } else {
     $register_error = "Effettuare il logout per registrare un nuovo account";
-    header("Location: register.php");
 }
 
 
