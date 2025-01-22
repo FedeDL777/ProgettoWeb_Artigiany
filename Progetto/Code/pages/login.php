@@ -45,62 +45,6 @@ else {
 }
 
 
-/*
-if (isset($_POST["email"]) && isset($_POST["password"])) {
-    $login_result = $db->checkLogin($_POST["email"], $_POST["password"]);
-    if (count($login_result) == 0) {
-        $login_error = "Errore! Controllare email o password!";
-    } else {
-        unset($login_error);
-        registerLoggedUser($login_result[0]);
-    }
-}
-
-if (isUserLoggedIn()) {
-    header("Location: /pages/profile.php");
-}
-
-// da cambiare
-if (!isUserLoggedIn() && !isAdminLoggedIn()) {
-    // Se non è loggato né come utente né come admin
-    if (isset($_POST["email"]) && isset($_POST["pw"])) {
-        // Verifica admin
-        $adminResult = $dbh->getHashedPasswordAdmin($_POST["email"]);
-        if (!empty($adminResult) && isset($adminResult[0]["pw"])) {
-            $hashedPasswordAdmin = $adminResult[0]["Pw"];
-            //$dbh->checkLogin($_POST["email"], password_verify($_POST["pw"], $hashedPasswordAdmin), 1) 
-            if (password_verify($_POST["pw"], $hashedPasswordAdmin)) {
-                registerAdminLogged($_POST); // Registra l'admin nella sessione
-                header("Location: ../pages/accountAdmin.php");
-                exit();
-            }
-        }
-
-        // Verifica client
-        $clientResult = $dbh->getHashedPasswordClient($_POST["email"]);
-        if (!empty($clientResult) && isset($clientResult[0]["pw"])) {
-            $hashedPasswordClient = $clientResult[0]["pw"];
-            if (password_verify($_POST["pw"], $hashedPasswordClient))   {
-                registerLoggedUser($user); // Registra l'utente nella sessione
-                header("Location: ../pages/accountClient.php");
-                exit();
-            }
-        }
-
-        // Se nessuna verifica ha successo, mostra errore
-        $login_error = "Error! Check username or password!";
-    }
-} else {
-    // Se già loggato, reindirizza alla pagina corretta
-    if (isAdminLoggedIn()) {
-        header("Location: ../pages/accountAdmin.php");
-    
-    } else {
-        header("Location: ../pages/accountClient.php");
-    }
-    exit();
-}*/
-
 include("../includes/header.php");
 ?>
 
