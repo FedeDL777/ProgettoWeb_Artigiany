@@ -1,6 +1,6 @@
 <?php
 include("../includes/header.php"); // Include il file header.php
-
+include("../includes/sidebar.php");
 // Ottieni le categorie dalla funzione
 ?>
 <main class="container-fluid py-4">
