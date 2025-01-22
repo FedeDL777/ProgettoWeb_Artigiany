@@ -1,26 +1,13 @@
 <?php
 include("../includes/header.php"); // Include il file header.php
-
+include("../includes/sidebar.php");
 // Ottieni le categorie dalla funzione
-$categories = $dbh->getCategories(); // $db è l'istanza della classe Database
 ?>
 <main class="container-fluid py-4">
     <link rel="stylesheet" href="../CSS/styles.css">
     <div class="container-page">
         <div class="row">
-            <!-- Banda laterale -->
-            <aside class="col-md-2 col-sm-12 bg-light p-1 px-0 border-end">
-                <h5 class="text-center">Categorie</h5>
-                <ul class="list-group">
-                    <?php foreach ($categories as $category): ?>
-                        <li class="list-group-item">
-                            <a href="prodotti.php?categoria=<?php echo urlencode($category['categoryID']); ?>" class="text-decoration-none">
-                                <?php echo htmlspecialchars($category['Nome']); ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </aside>
+            
 
             <!-- Contenuto principale -->
             <section class="col-md-9 col-sm-12">

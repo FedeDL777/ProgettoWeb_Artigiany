@@ -1,54 +1,52 @@
 <?php
+ob_start();
 
 include_once("../includes/bootstrap.php");
 require_once("../includes/functions.php");
 
 if (!isUserLoggedIn() && !isAdminLoggedIn()) {
-    //template
-    if (isset($_POST["email"]) && isset($_POST["password"])) {
-        //c'è più di uno user con la stessa email
-        //controllo admin
+    // Se non è loggato né come utente né come admin
+    if (isset($_POST["email"]) && isset($_POST["pw"])) {
+        // Verifica admin
         $adminResult = $dbh->getHashedPasswordAdmin($_POST["email"]);
-        if (!empty($adminResult) && isset($adminResult[0]["password"])) {
-            $hashedPasswordAdmin = $adminResult[0]["password"];
-            $loginResultAdmin = password_verify($_POST["password"], $hashedPasswordAdmin);
-            if ($loginResultAdmin) {
-                // Admin login
-                //Apre la sessione ad admin
-                registerAdminLogged($_POST);
-                unset($login_error);
+        if (!empty($adminResult) && isset($adminResult[0]["pw"])) {
+            $hashedPasswordAdmin = $adminResult[0]["Pw"];
+            if (password_verify($_POST["pw"], $hashedPasswordAdmin)) {
+                registerAdminLogged($_POST); // Registra l'admin nella sessione
                 header("Location: ../pages/accountAdmin.php");
                 exit();
             }
+        }
 
-            //non è admin
-            $clientResult = $dbh->getHashedPasswordClient($_POST["email"]);
+        // Verifica client
+        $clientResult = $dbh->getHashedPasswordClient($_POST["email"]);
+        if (!empty($clientResult) && isset($clientResult[0]["pw"])) {
             $hashedPasswordClient = $clientResult[0]["password"];
-            $loginResultClient = password_verify($_POST["password"], $hashedPasswordClient);
-            if ($loginResultClient) {
-                // Admin login
-                //Apre la sessione a client
-                registerLoggedUser($_POST);
-                unset($login_error);
+            if (password_verify($_POST["pw"], $hashedPasswordClient)) {
+                $user = $dbh->getUserInfo($_POST["email"])[0]; // Ottieni le informazioni sull'utente
+                registerLoggedUser($user); // Registra l'utente nella sessione
                 header("Location: ../pages/accountClient.php");
                 exit();
-            } else {
-                $login_error = "Error! Check username or password!";
             }
-        } else {
-            $login_error = "Error! Check username or password!";
         }
+
+        // Se nessuna verifica ha successo, mostra errore
+        $login_error = "Error! Check username or password!";
     }
 } else {
+    // Se già loggato, reindirizza alla pagina corretta
     if (isAdminLoggedIn()) {
         header("Location: ../pages/accountAdmin.php");
+    
     } else {
         header("Location: ../pages/accountClient.php");
     }
+    exit();
 }
 
 include("../includes/header.php");
 ?>
+
 <main class="container-fluid py-4">
 
     <body>
@@ -86,4 +84,5 @@ include("../includes/header.php");
 
 <?php
 include("../includes/footer.php");
+ob_end_flush();
 ?>

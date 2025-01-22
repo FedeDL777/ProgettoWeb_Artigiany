@@ -86,7 +86,7 @@ create table PRODOTTOMATERIALE (
 
 create table USERS (
 	Email VARCHAR(100) not null,
-	Password VARCHAR(255) not null,
+	Pw VARCHAR(255) not null,
 	AdminClient boolean not null,
 	primary key (Email));
 
@@ -218,7 +218,7 @@ create unique index ID_USERS
 -- Popolamento del database db_artigiany
 
 -- Popolamento tabella USERS
-INSERT INTO USERS (Email, Password, AdminClient) VALUES
+INSERT INTO USERS (Email, Pw, AdminClient) VALUES
 ('utente1@example.com', 'password1', false),
 ('utente2@example.com', 'password2', false),
 ('admin@example.com', 'adminpass', true);
