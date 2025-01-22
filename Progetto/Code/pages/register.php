@@ -31,6 +31,7 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
 include("../includes/header.php");
 ?>
 <main>
+    
     <link rel="stylesheet" href="../CSS/styles.css">
     <div class="d-flex justify-content-center align-items-center vh-90">
         <div class="container-fluid text-center px-3">
@@ -42,7 +43,7 @@ include("../includes/header.php");
             <?php else: ?>
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <form action="../utils/registra-utente.php" method="POST" class="p-4 shadow-sm rounded bg-white">
+                    <form action="#" method="POST" class="p-4 shadow-sm rounded bg-white">
                         <h2 class="mb-4">Registrazione</h2>
                         <?php endif; ?>
                         <div class="mb-3 text-start">
@@ -54,9 +55,10 @@ include("../includes/header.php");
                             <input type="password" id="password" name="password" class="form-control" required>
                         </div>
                         <?php if (isset($register_error)): ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?php echo $register_error; ?>
-                        </div>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo $register_error; ?>
+                            </div>
+                        <?php endif; ?>
                         <button type="submit" name="submit" class="btn btn-primary w-100">Invia</button>
                     </form>
                     <div class="mt-3">
@@ -64,7 +66,6 @@ include("../includes/header.php");
                     </div>
                 </div>
             </div>
-            <?php endif; ?>
         </div>
     </div>
 </main>

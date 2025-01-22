@@ -56,6 +56,11 @@ if (isUserLoggedIn()) {
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="logout.php">
+                        <i class="bi bi-box-arrow-right"></i> Log-out
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/pages/notifications.php">
                             <i class="bi bi-bell-fill <?php if ($hasUnreadNotifications) echo 'redNotify' ?>"></i> Notifiche
                         </a>
