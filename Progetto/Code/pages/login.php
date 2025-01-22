@@ -6,12 +6,12 @@ require_once("../includes/functions.php");
 
 if (!isUserLoggedIn() && !isAdminLoggedIn()) {
     // Se non è loggato né come utente né come admin
-    if (isset($_POST["email"]) && isset($_POST["password"])) {
+    if (isset($_POST["email"]) && isset($_POST["pw"])) {
         // Verifica admin
         $adminResult = $dbh->getHashedPasswordAdmin($_POST["email"]);
-        if (!empty($adminResult) && isset($adminResult[0]["password"])) {
-            $hashedPasswordAdmin = $adminResult[0]["password"];
-            if (password_verify($_POST["password"], $hashedPasswordAdmin)) {
+        if (!empty($adminResult) && isset($adminResult[0]["pw"])) {
+            $hashedPasswordAdmin = $adminResult[0]["Pw"];
+            if (password_verify($_POST["pw"], $hashedPasswordAdmin)) {
                 registerAdminLogged($_POST); // Registra l'admin nella sessione
                 header("Location: ../pages/accountAdmin.php");
                 exit();
@@ -20,9 +20,9 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
 
         // Verifica client
         $clientResult = $dbh->getHashedPasswordClient($_POST["email"]);
-        if (!empty($clientResult) && isset($clientResult[0]["password"])) {
+        if (!empty($clientResult) && isset($clientResult[0]["pw"])) {
             $hashedPasswordClient = $clientResult[0]["password"];
-            if (password_verify($_POST["password"], $hashedPasswordClient)) {
+            if (password_verify($_POST["pw"], $hashedPasswordClient)) {
                 $user = $dbh->getUserInfo($_POST["email"])[0]; // Ottieni le informazioni sull'utente
                 registerLoggedUser($user); // Registra l'utente nella sessione
                 header("Location: ../pages/accountClient.php");
@@ -37,7 +37,7 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
     // Se già loggato, reindirizza alla pagina corretta
     if (isAdminLoggedIn()) {
         header("Location: ../pages/accountAdmin.php");
-    } else {
+    
     } else {
         header("Location: ../pages/accountClient.php");
     }
