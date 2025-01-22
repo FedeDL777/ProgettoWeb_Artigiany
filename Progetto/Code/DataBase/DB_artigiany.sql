@@ -215,3 +215,66 @@ create index FKPRO_MAT
 create unique index ID_USERS
 	on USERS(Email);
 
+-- Popolamento del database db_artigiany
+
+-- Popolamento tabella USERS
+INSERT INTO USERS (Email, Password, AdminClient) VALUES
+('utente1@example.com', 'password1', false),
+('utente2@example.com', 'password2', false),
+('admin@example.com', 'adminpass', true);
+
+-- Popolamento tabella CATEGORIE
+INSERT INTO CATEGORIE (Nome) VALUES
+('Gioielli'),
+('Abbigliamento'),
+('Decorazioni');
+
+-- Popolamento tabella PRODOTTO
+INSERT INTO PRODOTTO (Costo, Nome, Descrizione, PathImmagine, categoryID, Email) VALUES
+(29.99, 'Anello di argento', 'Un bellissimo anello fatto a mano.', '/images/anello.jpg', 1, 'utente1@example.com'),
+(15.50, 'Sciarpa di lana', 'Sciarpa calda realizzata a maglia.', '/images/sciarpa.jpg', 2, 'utente2@example.com'),
+(45.00, 'Quadretto dipinto a mano', 'Quadretto decorativo per la casa.', '/images/quadretto.jpg', 3, 'utente1@example.com');
+
+-- Popolamento tabella MATERIALE
+INSERT INTO MATERIALE (Nome, CostoXquadretto, Colore) VALUES
+('Argento', 20.00, 'Grigio'),
+('Lana', 10.00, 'Rosso'),
+('Acrilico', 5.00, 'Multicolore');
+
+-- Popolamento tabella PRODOTTOMATERIALE
+INSERT INTO PRODOTTOMATERIALE (Nome, productID) VALUES
+('Argento', 1),
+('Lana', 2),
+('Acrilico', 3);
+
+-- Popolamento tabella CARTA_DI_CREDITO
+INSERT INTO CARTA_DI_CREDITO (Email, Nome, Cognome, Numero, Scadenza) VALUES
+('utente1@example.com', 'Mario', 'Rossi', 1234567890123456, '2026-12-31'),
+('utente2@example.com', 'Anna', 'Bianchi', 9876543210987654, '2025-11-30');
+
+-- Popolamento tabella CARRELLO
+INSERT INTO CARRELLO (Ora, Email) VALUES
+('2025-01-01', 'utente1@example.com'),
+('2025-01-02', 'utente2@example.com');
+
+-- Popolamento tabella COMPOSIZIONE_CARRELLO
+INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID) VALUES
+(1, 1),
+(1, 3),
+(2, 2);
+
+-- Popolamento tabella ORDINI
+INSERT INTO ORDINI (cartID, Data_, Luogo) VALUES
+(1, '2025-01-03', 'Bologna'),
+(2, '2025-01-04', 'Imola');
+
+-- Popolamento tabella DETTAGLIO_ORDINE
+INSERT INTO DETTAGLIO_ORDINE (orderID, productID) VALUES
+(1, 1),
+(1, 3),
+(2, 2);
+
+-- Popolamento tabella NOTIFICHE
+INSERT INTO NOTIFICHE (Email, Testo, Data_, Letto, orderID) VALUES
+('utente1@example.com', 'Il tuo ordine è stato spedito.', '2025-01-03', true, 1),
+('utente2@example.com', 'Il tuo ordine è stato ricevuto.', '2025-01-04', false, 2);
