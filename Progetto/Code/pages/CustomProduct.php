@@ -3,10 +3,10 @@ include_once("../includes/bootstrap.php");
 include_once("../includes/functions.php");
 
 // Verifica se l'utente è loggato
-/*if (!isUserLoggedIn()) {
+if (!isUserLoggedIn()) {
     header("Location: login.php");
     exit();
-}*/
+}
 
 // Recupera l'email dell'utente loggato
 /*$user = getLoggedUser(); // Ottiene i dati dell'utente loggato
