@@ -12,14 +12,12 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
         }
         
         //c'è più di uno user con la stessa email
-        var_dump(count($dbh->checkUsermail($_POST["email"])));
         if (count($dbh->checkUsermail($_POST["email"]))) {
 
             // Registration failed
             $register_error = "Un account con questa email è già stato registrato";
         } 
         else {
-            var_dump("sas");
             $hashedPassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
                 $dbh->insertClient($_POST["email"], $hashedPassword);

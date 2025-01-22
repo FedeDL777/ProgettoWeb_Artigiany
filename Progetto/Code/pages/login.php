@@ -3,40 +3,6 @@
 include_once("../includes/bootstrap.php");
 require_once("../includes/functions.php");
 
-/*
-            if (isset($_POST["username"]) && isset($_POST["password"])) {
-                // get hashed admin password 
-                $adminResult = $dbh->getHashedPasswordAdmin($_POST["username"]);
-                if (!empty($adminResult) && isset($adminResult[0]["password"])) {
-                    $hashedPassword = $adminResult[0]["password"];
-                    $loginResult = password_verify($_POST["password"], $hashedPassword);
-                    if ($loginResult) {
-                        // Admin login
-                        registerAdminLogged($_POST);
-                        header("Location: ?page=account");
-                        exit();
-                    }
-                }
-
-                // try with the user
-                $userResult = $dbh->getHashedPasswordUser($_POST["username"]);
-                if (!empty($userResult) && isset($userResult[0]["password"])) {
-                    $hashedPassword = $userResult[0]["password"];
-                    $loginResult = password_verify($_POST["password"], $hashedPassword);
-                    if ($loginResult) {
-                        // User login
-                        $user = $dbh->getUserInfo($_POST["username"])[0];
-                        registerLoggedUser($user);
-                        header("Location: ?page=account");
-                        exit();
-                    } else {
-                        $templateParams["error"] = "Error! Check username or password!";
-                    }
-                } else {
-                    $templateParams["error"] = "Error! Check username or password!";
-                }
-
-*/
 if (!isUserLoggedIn() && !isAdminLoggedIn()) {
     //template
     if (isset($_POST["email"]) && isset($_POST["password"])) {
@@ -56,6 +22,7 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
             }
 
             //non è admin
+            $clientResult = $dbh->getHashedPasswordClient($_POST["email"]);
             $hashedPasswordClient = $clientResult[0]["password"];
             $loginResultClient = password_verify($_POST["password"], $hashedPasswordClient);
             if ($loginResultClient) {

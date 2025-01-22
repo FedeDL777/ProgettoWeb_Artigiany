@@ -31,12 +31,12 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
                 exit();
             }
              else {
-            //$templateParams["error"] = "Error! Check username or password!";
-            echo "Error! Check username or password!";
+            //$templateParams["error"] = "Password o UsernameErrati!";
+            echo "Password o UsernameErrati!";
             }
         } else {
-        //$templateParams["error"] = "Error! Check username or password!";
-        echo "Error! Check username or password!";
+        //$templateParams["error"] = "Password o UsernameErrati!";
+        echo "Password o UsernameErrati!";
          }
      
     }   
