@@ -2,20 +2,41 @@
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to right, #F6B26B 10%, #F9CB9C 10%, #F9CB9C 90%, #F6B26B 90%);
-    min-height: 100vh; /* Assicura che l'altezza copra tutta la pagina */
+    min-height: 100vh;
+
+    /* Assicura che l'altezza copra tutta la pagina */
 }
 
 .carousel {
     display: flex;
-    justify-content: center; /* Allinea orizzontalmente */
-    align-items: center; /* Allinea verticalmente */
+    justify-content: center;
+    /* Allinea orizzontalmente */
+    align-items: center;
+    /* Allinea verticalmente */
 }
 
 .carousel-inner img {
-    margin: 0 auto; /* Centra le immagini del carousel */
+    margin: 0 auto;
+    /* Centra le immagini del carousel */
 }
 
+/* Contenitore principale della pagina */
+.container-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* L'altezza totale della pagina sarà almeno quella della finestra */
+}
 
+/* Contenuto principale */
+#main-content {
+    flex: 1;
+    /* Occupa lo spazio rimanente sopra il footer */
+}
 
-
-
+/* Stile del footer */
+footer {
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    text-align: center;
+}
