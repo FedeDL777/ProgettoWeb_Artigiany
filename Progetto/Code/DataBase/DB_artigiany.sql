@@ -19,7 +19,7 @@ USE db_artigiany;
 create table CARRELLO (
 	cartID INT not null AUTO_INCREMENT,
 	Ora date not null,
-	Email VARCHAR(25),
+	Email VARCHAR(100),
 	primary key (cartID),
 	unique (cartID));
 
@@ -29,7 +29,7 @@ create table CATEGORIE (
 	primary key (categoryID));
 
 create table NOTIFICHE (
-	Email VARCHAR(25) not null,
+	Email VARCHAR(100) not null,
 	Testo VARCHAR(1000) not null,
 	Data_ date not null,
 	Letto boolean not null,
@@ -51,7 +51,7 @@ create table PRODOTTO (
 	PathImmagine VARCHAR(255) not null,
 	productID INT not null AUTO_INCREMENT,
 	categoryID INT not null,
-	Email VARCHAR(25) not null,
+	Email VARCHAR(100) not null,
 	primary key (productID),
 	unique (categoryID, productID));
 
@@ -62,7 +62,7 @@ create table MATERIALE (
 	primary key (Nome));
 
 create table CARTA_DI_CREDITO (
-	Email VARCHAR(25) not null,
+	Email VARCHAR(100) not null,
 	Nome VARCHAR(25) not null,
 	Cognome VARCHAR(25) not null,
 	Numero INT not null,
@@ -85,8 +85,8 @@ create table PRODOTTOMATERIALE (
 	primary key (productID, Nome));
 
 create table USERS (
-	Email VARCHAR(25) not null,
-	Password VARCHAR(25) not null,
+	Email VARCHAR(100) not null,
+	Password VARCHAR(255) not null,
 	AdminClient boolean not null,
 	primary key (Email));
 
