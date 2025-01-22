@@ -21,7 +21,7 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
         // Verifica client
         $clientResult = $dbh->getHashedPasswordClient($_POST["email"]);
         if (!empty($clientResult) && isset($clientResult[0]["pw"])) {
-            $hashedPasswordClient = $clientResult[0]["password"];
+            $hashedPasswordClient = $clientResult[0]["pw"];
             if (password_verify($_POST["pw"], $hashedPasswordClient)) {
                 $user = $dbh->getUserInfo($_POST["email"])[0]; // Ottieni le informazioni sull'utente
                 registerLoggedUser($user); // Registra l'utente nella sessione
