@@ -37,12 +37,16 @@ create table NOTIFICHE (
 	primary key (Email, Data_));
 
 create table ORDINI (
-	orderID INT not null AUTO_INCREMENT,
-	cartID INT not null,
-	Data_ date not null,
-	Luogo VARCHAR(25) not null,
-	primary key (orderID),
-	unique (cartID));
+    orderID INT not null AUTO_INCREMENT,
+    cartID INT not null,
+    Data_ date not null,
+    Luogo VARCHAR(25) not null,
+    Numero CHAR(16) not null, -- Riferimento alla carta di credito
+    primary key (orderID),
+    unique (cartID),
+    foreign key (cartID) references CARRELLO(cartID),
+    foreign key (Numero) references CARTA_DI_CREDITO(Numero)
+);
 
 create table PRODOTTO (
 	Costo decimal(8,2) not null,
@@ -106,9 +110,12 @@ alter table NOTIFICHE add constraint FKA
 	foreign key (Email)
 	references USERS;
 
-alter table ORDINI add constraint FKGENERARE
-	foreign key (cartID)
-	references CARRELLO;
+alter table ORDINI add column Numero CHAR(16) not null;
+
+alter table ORDINI add constraint FKORDINI_CARTA
+    foreign key (Numero)
+    references CARTA_DI_CREDITO(Numero);
+
 
 alter table CARRELLO add constraint 
 	check(exist(select * from ORDINI
