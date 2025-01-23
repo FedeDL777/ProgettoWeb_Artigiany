@@ -202,13 +202,13 @@ h1, p {
         </div>
 
         <!-- Descrizione e bottone -->
-        <div class="col-lg-8 col-md-12 mx-auto mb-4 text-center">  
+        <div class="col-lg-8 col-md-12 mx-auto mb-4">  
             <div class="mb-4">
                 <h5>Descrizione</h5>
                 <textarea id="description" class="form-control" rows="4" placeholder="Descrivi il tuo prodotto (obbligatorio)"></textarea>
             </div>
 
-            <button id="submitBtn" class="btn btn-primary w-100" disabled>Invia</button>
+            <button id="submitBtn" class="btn btn-primary w-50" disabled>Invia</button>
         </div>
     </div>
 </div>
