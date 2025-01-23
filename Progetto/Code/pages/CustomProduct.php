@@ -63,6 +63,24 @@ include("../includes/header.php");
         position: sticky;
         top: 20px;
     }
+
+    #description:placeholder-shown {
+        border-color: #dc3545;
+        background-color: #fff5f5;
+    }
+
+    .eraser {
+        background-color: #ffffff;
+        border: 2px solid #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
+
+    .eraser.selected {
+        background-color: #f8f9fa;
+    }
 </style>
 
 <body>
@@ -85,6 +103,7 @@ include("../includes/header.php");
                     <div class="color-option" style="background-color: #fd7e14" data-color="#fd7e14"></div>
                     <div class="color-option" style="background-color: #e83e8c" data-color="#e83e8c"></div>
                     <div class="color-option" style="background-color: #17a2b8" data-color="#17a2b8"></div>
+                    <div class="color-option eraser" data-color="#ffffff">🧽</div>
                 </div>
             </div>
 
@@ -101,7 +120,7 @@ include("../includes/header.php");
             <!-- Descrizione -->
             <div class="mb-4">
                 <h5>Descrizione</h5>
-                <textarea id="description" class="form-control" rows="4"></textarea>
+                <textarea id="description" class="form-control" rows="4" placeholder="Descrivi il tuo prodotto (obbligatorio)"></textarea>
             </div>
 
             <button id="submitBtn" class="btn btn-primary w-100" disabled>Invia</button>
@@ -118,13 +137,14 @@ include("../includes/header.php");
     const grid = document.getElementById('grid');
     const submitBtn = document.getElementById('submitBtn');
     const colorOptions = document.querySelectorAll('.color-option');
-    let selectedColor = '#007bff'; // Colore di default
+    const description = document.getElementById('description');
+    let selectedColor = '#007bff';
     let selectedCells = [];
 
     // Inizializza la palette
     colorOptions[0].classList.add('selected');
     
-    // Gestione selezione colore
+    // Gestione selezione colore/gomma
     colorOptions.forEach(option => {
         option.addEventListener('click', () => {
             colorOptions.forEach(opt => opt.classList.remove('selected'));
@@ -152,12 +172,19 @@ include("../includes/header.php");
         const row = parseInt(cell.dataset.row);
         const col = parseInt(cell.dataset.col);
 
-        if (cell.style.backgroundColor === selectedColor) {
+        if (selectedColor === '#ffffff') {
+            // Modalità gomma
             cell.style.backgroundColor = '#ffffff';
             selectedCells = selectedCells.filter(([r, c]) => r !== row || c !== col);
         } else {
-            cell.style.backgroundColor = selectedColor;
-            selectedCells.push([row, col]);
+            // Modalità colore
+            if (cell.style.backgroundColor === selectedColor) {
+                cell.style.backgroundColor = '#ffffff';
+                selectedCells = selectedCells.filter(([r, c]) => r !== row || c !== col);
+            } else {
+                cell.style.backgroundColor = selectedColor;
+                selectedCells.push([row, col]);
+            }
         }
 
         toggleSubmitButton();
@@ -165,17 +192,53 @@ include("../includes/header.php");
 
     // Abilita/disabilita bottone
     function toggleSubmitButton() {
-        submitBtn.disabled = !areCellsAdjacent(selectedCells);
+        const hasDescription = description.value.trim().length > 0;
+        const hasDrawing = selectedCells.length > 0;
+        const validShape = areCellsAdjacent(selectedCells);
+        
+        submitBtn.disabled = !(validShape && hasDescription && hasDrawing);
     }
 
-    // Verifica celle adiacenti (come prima)
+    // Verifica celle adiacenti
     function areCellsAdjacent(cells) {
-        // Mantieni la stessa implementazione precedente
+        if (cells.length < 2) return true;
+
+        const visited = Array.from({ length: gridSize }, () => Array(gridSize).fill(false));
+        const [startRow, startCol] = cells[0];
+        dfs(startRow, startCol, visited, cells);
+
+        for (let i = 0; i < cells.length; i++) {
+            const [row, col] = cells[i];
+            if (!visited[row][col]) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     function dfs(row, col, visited, cells) {
-        // Mantieni la stessa implementazione precedente
+        if (row < 0 || col < 0 || row >= gridSize || col >= gridSize || visited[row][col]) {
+            return;
+        }
+
+        visited[row][col] = true;
+
+        if (!cells.some(([r, c]) => r === row && c === col)) {
+            return;
+        }
+
+        dfs(row + 1, col, visited, cells);
+        dfs(row - 1, col, visited, cells);
+        dfs(row, col + 1, visited, cells);
+        dfs(row, col - 1, visited, cells);
     }
+
+    // Aggiungi listener per l'input della descrizione
+    description.addEventListener('input', toggleSubmitButton);
+
+    // Controllo iniziale
+    toggleSubmitButton();
 </script>
 </body>
 
