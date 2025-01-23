@@ -13,6 +13,8 @@ class DatabaseHelper
     public function getEmailLength(){
         return $this->emailLength;
     }
+    //SELECT QUERY
+
     // Metodo per cercare prodotti
     public function searchProducts($searchQuery)
     {
@@ -26,27 +28,7 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    // Inserimento di un nuovo cliente
-    public function insertClient($email, $password)
-    {
-        $query = "INSERT INTO users (email, Pw, AdminClient) VALUES (?, ?, ?)";
-        $stmt = $this->db->prepare($query);
 
-        $client = 0;
-        $stmt->bind_param('ssi', $email, $password, $client);
-        return $stmt->execute();
-    }
-
-    // Inserimento di un nuovo admin
-    public function insertAdmin($email, $password)
-    {
-        $query = "INSERT INTO users (email, Pw, AdminClient) VALUES (?, ?, ?)";
-        $stmt = $this->db->prepare($query);
-
-        $admin = 1;
-        $stmt->bind_param('ssi', $email, $password, $admin);
-        return $stmt->execute();
-    }
 
     // Verifica se un'email è già registrata
     public function checkUsermail($email)
@@ -97,6 +79,29 @@ class DatabaseHelper
         $cart_items = $stmt->get_result();
         return $cart_items->fetch_all(MYSQLI_ASSOC);
     }
+    //INSERT QUERY
+    // Inserimento di un nuovo cliente
+    public function insertClient($email, $password)
+    {
+        $query = "INSERT INTO users (email, Pw, AdminClient) VALUES (?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+
+        $client = 0;
+        $stmt->bind_param('ssi', $email, $password, $client);
+        return $stmt->execute();
+    }
+
+    // Inserimento di un nuovo admin
+    public function insertAdmin($email, $password)
+    {
+        $query = "INSERT INTO users (email, Pw, AdminClient) VALUES (?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+
+        $admin = 1;
+        $stmt->bind_param('ssi', $email, $password, $admin);
+        return $stmt->execute();
+    }
+    //DELETE QUERY
 
     // Elimina un cliente
     public function deleteClient($email)
@@ -108,6 +113,7 @@ class DatabaseHelper
         return $stmt->execute();
     }
 
+    //UPDATE QUERY
     // Aggiorna la password di un cliente
     public function updateClientPassword($email, $password)
     {
@@ -143,24 +149,24 @@ class DatabaseHelper
     }
 
 
-//permette a un admin di aggiungere una categoria
-public function addCategory($category)
-{
-    $query = "INSERT INTO CATEGORIE (Nome) VALUES (?)";
-    $stmt = $this->db->prepare($query);
-    if (!$stmt) {
-        die("Errore nella preparazione della query: " . $this->db->error);
+    //permette a un admin di aggiungere una categoria
+    public function addCategory($category)
+    {
+        $query = "INSERT INTO CATEGORIE (Nome) VALUES (?)";
+        $stmt = $this->db->prepare($query);
+        if (!$stmt) {
+            die("Errore nella preparazione della query: " . $this->db->error);
+        }
+        $stmt->bind_param('s', $category);
+        return $stmt->execute();
     }
-    $stmt->bind_param('s', $category);
-    return $stmt->execute();
-}
 
-//ottiene tutte le categoria da visualizzare nella home
-public function getCategories()
-{
-    $query = "SELECT * FROM CATEGORIE";
-    $result = $this->db->query($query);
-    return $result->fetch_all(MYSQLI_ASSOC);
-}
+    //ottiene tutte le categoria da visualizzare nella home
+    public function getCategories()
+    {
+        $query = "SELECT * FROM CATEGORIE";
+        $result = $this->db->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

@@ -1,9 +1,9 @@
 <?php
-ob_start();
+//ob_start();
 
 include_once("../includes/bootstrap.php");
 require_once("../includes/functions.php");
-
+unset($login_error);
 if (!isUserLoggedIn() && !isAdminLoggedIn()) {
     if (isset($_POST["email"]) && isset($_POST["password"])) {
         //controllo admin
