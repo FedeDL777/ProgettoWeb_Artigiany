@@ -2,19 +2,36 @@
 include_once("../includes/bootstrap.php");
 include_once("../includes/functions.php");
 
-// Verifica se l'utente è loggato
 if (!isUserLoggedIn()) {
     header("Location: login.php");
     exit();
 }
 
-// Recupera l'email dell'utente loggato
-/*$user = getLoggedUser(); // Ottiene i dati dell'utente loggato
-$email = $user['Email'];*/
-
 include("../includes/header.php");
 ?>
 <style>
+    .color-palette {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .color-option {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .color-option.selected {
+        transform: scale(1.1);
+        border-color: #000;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
     #grid {
         display: grid;
         grid-template-columns: repeat(20, 1fr);
@@ -25,28 +42,44 @@ include("../includes/header.php");
     .grid-cell {
         width: 100%;
         aspect-ratio: 1;
-        background-color: #ffffff; /* Colore di base bianco */
+        background-color: #ffffff;
         border: 1px solid #ced4da;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         cursor: pointer;
-        user-select: none;
-    }
-
-    .grid-cell.selected {
-        background-color: #007bff; /* Colore blu per le celle selezionate */
-        color: white;
-    }
-
-    .grid-cell.active {
-        background-color: #28a745; /* Colore verde per altre celle attive */
-        color: white;
     }
 
     #submitBtn:disabled {
         background-color: #ccc;
         cursor: not-allowed;
+    }
+
+    .container-wrapper {
+        display: flex;
+        gap: 30px;
+        align-items: start;
+    }
+
+    .controls-section {
+        min-width: 200px;
+        position: sticky;
+        top: 20px;
+    }
+
+    #description:placeholder-shown {
+        border-color: #dc3545;
+        background-color: #fff5f5;
+    }
+
+    .eraser {
+        background-color: #ffffff;
+        border: 2px solid #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
+
+    .eraser.selected {
+        background-color: #f8f9fa;
     }
 </style>
 
@@ -57,58 +90,71 @@ include("../includes/header.php");
     <h1 class="text-center">Crea il tuo prodotto personalizzato!</h1>
     <p class="text-center">Seleziona il materiale e il colore del tuo pezzo personalizzato, dagli una forma e dacci una descrizione per darci una linea guida da seguire</p>
     
-    <!-- Selezione Materiale -->
-    <div class="mb-3">
-        <label for="materialSelect" class="form-label">Seleziona Materiale</label>
-        <select id="materialSelect" class="form-select">
-            <option value="material1">Materiale 1</option>
-            <option value="material2">Materiale 2</option>
-            <option value="material3">Materiale 3</option>
-        </select>
-    </div>
+    <div class="container-wrapper">
+        <div class="controls-section">
+            <!-- Palette colori -->
+            <div class="mb-4">
+                <h5>Seleziona Colore</h5>
+                <div class="color-palette" id="colorPalette">
+                    <div class="color-option" style="background-color: #007bff" data-color="#007bff"></div>
+                    <div class="color-option" style="background-color: #dc3545" data-color="#dc3545"></div>
+                    <div class="color-option" style="background-color: #28a745" data-color="#28a745"></div>
+                    <div class="color-option" style="background-color: #ffc107" data-color="#ffc107"></div>
+                    <div class="color-option" style="background-color: #6f42c1" data-color="#6f42c1"></div>
+                    <div class="color-option" style="background-color: #fd7e14" data-color="#fd7e14"></div>
+                    <div class="color-option" style="background-color: #e83e8c" data-color="#e83e8c"></div>
+                    <div class="color-option" style="background-color: #17a2b8" data-color="#17a2b8"></div>
+                    <div class="color-option eraser" data-color="#ffffff">🧽</div>
+                </div>
+            </div>
 
-    <!-- Selezione Colore -->
-    <div class="mb-3">
-        <label for="colorSelect" class="form-label">Seleziona Colore</label>
-        <select id="colorSelect" class="form-select">
-            <option value="#007bff">Blu</option>
-            <option value="#ff0000">Rosso</option>
-            <option value="#28a745">Verde</option>
-            <option value="#ffc107">Giallo</option>
-        </select>
-    </div>
+            <!-- Selezione Materiale -->
+            <div class="mb-4">
+                <h5>Seleziona Materiale</h5>
+                <select id="materialSelect" class="form-select">
+                    <option value="material1">Materiale 1</option>
+                    <option value="material2">Materiale 2</option>
+                    <option value="material3">Materiale 3</option>
+                </select>
+            </div>
 
-    <div id="grid" class="mx-auto mb-3"></div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Descrizione</label>
-        <textarea id="description" class="form-control" rows="3">
+            <!-- Descrizione -->
+            <div class="mb-4">
+                <h5>Descrizione</h5>
+                <textarea id="description" class="form-control" rows="4" placeholder="Descrivi il tuo prodotto (obbligatorio)"></textarea>
+            </div>
 
-        </textarea>
+            <button id="submitBtn" class="btn btn-primary w-100" disabled>Invia</button>
+        </div>
+
+        <!-- Griglia -->
+        <div id="grid" class="flex-grow-1"></div>
     </div>
-    <button id="submitBtn" class="btn btn-primary" disabled>Invia</button>
 </div>
 
 <!-- JavaScript -->
 <script>
-    const gridSize = 20; // 10x10
+    const gridSize = 20;
     const grid = document.getElementById('grid');
     const submitBtn = document.getElementById('submitBtn');
-    const colorSelect = document.getElementById('colorSelect');
+    const colorOptions = document.querySelectorAll('.color-option');
+    const description = document.getElementById('description');
+    let selectedColor = '#007bff';
     let selectedCells = [];
 
-    // Funzione per cambiare il colore delle celle in base alla selezione
-    function changeCellColor(color) {
-        const cells = document.querySelectorAll('.grid-cell');
-        clearGrid(); // Resetta il colore delle celle
-    }
-
-    // Aggiungi un listener per la selezione del colore
-    colorSelect.addEventListener('change', (e) => {
-        const selectedColor = e.target.value;
-        changeCellColor(selectedColor); // Cambia il colore delle celle in base alla selezione
+    // Inizializza la palette
+    colorOptions[0].classList.add('selected');
+    
+    // Gestione selezione colore/gomma
+    colorOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            colorOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            selectedColor = option.dataset.color;
+        });
     });
 
-    // Creazione della griglia dinamica
+    // Crea griglia
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
             const cell = document.createElement('div');
@@ -119,25 +165,42 @@ include("../includes/header.php");
         }
     }
 
-    function clearGrid() {
-        const cells = document.querySelectorAll('.grid-cell');
-        cells.forEach(cell => {
-            cell.classList.remove('selected');
+    // Gestione click celle
+    grid.addEventListener('click', (e) => {
+        const cell = e.target;
+        if (!cell.classList.contains('grid-cell')) return;
+
+        const row = parseInt(cell.dataset.row);
+        const col = parseInt(cell.dataset.col);
+
+        if (selectedColor === '#ffffff') {
+            // Modalità gomma
             cell.style.backgroundColor = '#ffffff';
-        });
-        selectedCells = [];
-    }
-
-    // Funzione per abilitare/disabilitare il bottone
-    function toggleSubmitButton() {
-        if (areCellsAdjacent(selectedCells)) {
-            submitBtn.disabled = false;
+            selectedCells = selectedCells.filter(([r, c]) => r !== row || c !== col);
         } else {
-            submitBtn.disabled = true;
+            // Modalità colore
+            if (cell.style.backgroundColor === selectedColor) {
+                cell.style.backgroundColor = '#ffffff';
+                selectedCells = selectedCells.filter(([r, c]) => r !== row || c !== col);
+            } else {
+                cell.style.backgroundColor = selectedColor;
+                selectedCells.push([row, col]);
+            }
         }
+
+        toggleSubmitButton();
+    });
+
+    // Abilita/disabilita bottone
+    function toggleSubmitButton() {
+        const hasDescription = description.value.trim().length > 0;
+        const hasDrawing = selectedCells.length > 0;
+        const validShape = areCellsAdjacent(selectedCells);
+        
+        submitBtn.disabled = !(validShape && hasDescription && hasDrawing);
     }
 
-    // Funzione per verificare se le celle selezionate sono adiacenti tramite DFS
+    // Verifica celle adiacenti
     function areCellsAdjacent(cells) {
         if (cells.length < 2) return true;
 
@@ -172,27 +235,11 @@ include("../includes/header.php");
         dfs(row, col - 1, visited, cells);
     }
 
-    // Gestione del click sulle celle
-    grid.addEventListener('click', (e) => {
-        const cell = e.target;
-        if (!cell.classList.contains('grid-cell')) return;
+    // Aggiungi listener per l'input della descrizione
+    description.addEventListener('input', toggleSubmitButton);
 
-        const row = parseInt(cell.dataset.row);
-        const col = parseInt(cell.dataset.col);
-        const selectedColor = colorSelect.value; // Ottiene il colore selezionato dalla tendina
-
-        if (cell.classList.contains('selected')) {
-            cell.classList.remove('selected');
-            selectedCells = selectedCells.filter(([r, c]) => r !== row || c !== col);
-            cell.style.backgroundColor = '#ffffff'; // Reset al colore di base
-        } else {
-            cell.classList.add('selected');
-            selectedCells.push([row, col]);
-            cell.style.backgroundColor = selectedColor; // Colore della cella selezionata
-        }
-
-        toggleSubmitButton();
-    });
+    // Controllo iniziale
+    toggleSubmitButton();
 </script>
 </body>
 
