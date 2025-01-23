@@ -65,7 +65,7 @@ create table CARTA_DI_CREDITO (
 	Email VARCHAR(100) not null,
 	Nome VARCHAR(25) not null,
 	Cognome VARCHAR(25) not null,
-	Numero INT not null,
+	Numero CHAR(16) not null,
 	Scadenza date not null,
 	primary key (Email, Numero));
 
