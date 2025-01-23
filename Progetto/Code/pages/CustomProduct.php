@@ -6,7 +6,7 @@ if (!isUserLoggedIn()) {
     header("Location: login.php");
     exit();
 }
-
+$materialiCustom = $dbh->getMaterials();
 include("../includes/header.php");
 ?>
 <style>
@@ -97,25 +97,37 @@ include("../includes/header.php");
                 <div class="color-palette" id="colorPalette">
                     <div class="color-option" style="background-color: #007bff" data-color="#007bff"></div>
                     <div class="color-option" style="background-color: #dc3545" data-color="#dc3545"></div>
-                    <div class="color-option" style="background-color: #28a745" data-color="#28a745"></div>
-                    <div class="color-option" style="background-color: #ffc107" data-color="#ffc107"></div>
-                    <div class="color-option" style="background-color: #6f42c1" data-color="#6f42c1"></div>
-                    <div class="color-option" style="background-color: #fd7e14" data-color="#fd7e14"></div>
-                    <div class="color-option" style="background-color: #e83e8c" data-color="#e83e8c"></div>
-                    <div class="color-option" style="background-color: #17a2b8" data-color="#17a2b8"></div>
+                    <div class="color-option" style="background-color:rgb(66, 193, 72)" data-color="#6f42c1"></div>
+                    <div class="color-option" style="background-color:rgb(189, 189, 186)" data-color="#28a745"></div>
+                    <div class="color-option" style="background-color:rgb(248, 187, 5)" data-color="#ffc107"></div>
+                    <div class="color-option" style="background-color:rgb(42, 19, 0)" data-color="#fd7e14"></div>
+                    <div class="color-option" style="background-color:rgb(155, 70, 0)" data-color="#e83e8c"></div>
+                    <div class="color-option" style="background-color:rgb(255, 197, 142)" data-color="#17a2b8"></div>
                     <div class="color-option eraser" data-color="#ffffff">🧽</div>
                 </div>
             </div>
 
             <!-- Selezione Materiale -->
-            <div class="mb-4">
-                <h5>Seleziona Materiale</h5>
-                <select id="materialSelect" class="form-select">
-                    <option value="material1">Materiale 1</option>
-                    <option value="material2">Materiale 2</option>
-                    <option value="material3">Materiale 3</option>
-                </select>
-            </div>
+                <?php
+                    if ($materialiCustom->num_rows > 0) {
+                    echo '<div class="mb-4">';
+                    echo '<h5>Seleziona Materiale</h5>';
+                    echo '<select id="materialSelect" class="form-select">';
+                    // Itera attraverso i risultati e crea le opzioni del <select>
+                    while ($row = $materialiCustom->fetch_assoc()) {
+                        echo '<option value="' . htmlspecialchars($row['Nome']) . '">' . htmlspecialchars($row['Nome']) . '</option>';
+                    }
+                    echo '</select>';
+                    echo '</div>';
+                } else {
+                    echo '<div class="mb-4">';
+                    echo '<h5>Seleziona Materiale</h5>';
+                    echo '<select id="materialSelect" class="form-select">';
+                    echo '<option value="">Nessun materiale disponibile</option>';
+                    echo '</select>';
+                    echo '</div>';
+                }
+                ?>
 
             <!-- Descrizione -->
             <div class="mb-4">

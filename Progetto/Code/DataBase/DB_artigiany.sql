@@ -62,7 +62,6 @@ create table PRODOTTO (
 create table MATERIALE (
 	Nome VARCHAR(25) not null,
 	CostoXquadretto decimal(8,2),
-	Colore VARCHAR(25),
 	primary key (Nome));
 
 create table CARTA_DI_CREDITO (
@@ -242,11 +241,19 @@ INSERT INTO PRODOTTO (Costo, Nome, Descrizione, PathImmagine, categoryID, Email)
 (15.50, 'Sciarpa di lana', 'Sciarpa calda realizzata a maglia.', '../pages/images/sciarpa.jpg', 2, 'utente2@example.com'),
 (45.00, 'Quadretto dipinto a mano', 'Quadretto decorativo per la casa.', '../pages/images/quadretto.jpg', 3, 'utente1@example.com');
 
+
 -- Popolamento tabella MATERIALE
-INSERT INTO MATERIALE (Nome, CostoXquadretto, Colore) VALUES
-('Argento', 20.00, 'Grigio'),
-('Lana', 10.00, 'Rosso'),
-('Acrilico', 5.00, 'Multicolore');
+-- se un materiale costa zero non può essere utilizzato per la creazione di un prodotto custom
+INSERT INTO MATERIALE (Nome, CostoXquadretto) VALUES
+('Oro', 40.00),
+('Argento', 10.00),
+('Diamante', 1000.00),
+('Legno di abete', 0.50),
+('Legno di ebano', 1),
+('Ferro', 2.50),
+('Lana', 2),
+('Acrilico', 0.00);
+
 
 -- Popolamento tabella PRODOTTOMATERIALE
 INSERT INTO PRODOTTOMATERIALE (Nome, productID) VALUES
