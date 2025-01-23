@@ -27,8 +27,19 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
-
+    //Restituisce tuttle carte attualemte valide di un utente
+    public function getUserCards($email)
+    {
+        $query = "SELECT C.*
+                FROM carta_di_credito AS C, users AS U
+                WHERE C.Email = U.Email AND DATE(C.Scadenza) > CURRENT_DATE AND U.Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+        
+    }
 
     // Verifica se un'email è già registrata
     public function checkUsermail($email)
@@ -101,6 +112,16 @@ class DatabaseHelper
         $stmt->bind_param('ssi', $email, $password, $admin);
         return $stmt->execute();
     }
+    // Inserimento di una nuova carta di credito
+    public function insertCreditCard($email, $nome, $cognome, $numero, $scadenza)
+    {
+        $query = "INSERT INTO `carta_di_credito`(`Email`, `Nome`, `Cognome`, `Numero`, `Scadenza`) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bind_param('sssis', $email,  $nome, $cognome, $numero, $scadenza);
+        return $stmt->execute();
+    }
+
     //DELETE QUERY
 
     // Elimina un cliente
