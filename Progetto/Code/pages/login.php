@@ -29,9 +29,10 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
         }
         
     }
+    /*
     else {
         $login_error = "Errore! Controllare email o password!";
-    }
+    }*/
 }
 else {
     // Se già loggato, reindirizza alla pagina corretta
