@@ -28,17 +28,17 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     //Restituisce tuttle carte attualemte valide di un utente
-    public function getUserCards($email)
-    {
-        $query = "SELECT C.*
-                FROM carta_di_credito AS C, users AS U
-                WHERE C.Email = U.Email AND DATE(C.Scadenza) > CURRENT_DATE AND U.Email = ?";
+    public function getUserCards($email) {
+        $query = "SELECT C.* 
+                  FROM carta_di_credito AS C 
+                  WHERE C.Email = ? 
+                  AND C.Scadenza >= CURDATE()"; // Controllo diretto sulla data
+        
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
-        
     }
 
     // Verifica se un'email è già registrata
@@ -122,6 +122,7 @@ class DatabaseHelper
         return $stmt->execute();
     }
 
+
     //DELETE QUERY
 
     // Elimina un cliente
@@ -133,6 +134,27 @@ class DatabaseHelper
         $stmt->bind_param('s', $email);
         return $stmt->execute();
     }
+
+    // Eliminazione di una carta di credito
+    public function deleteCreditCard($email, $numero) {
+        $query = "DELETE FROM CARTA_DI_CREDITO 
+                WHERE Email = ? AND Numero = ?";
+        $stmt = $this->db->prepare($query);
+    
+        if ($stmt === false) {
+            error_log("Errore preparazione statement: " . $this->db->error);
+            return false;
+        }
+    
+        $stmt->bind_param('ss', $email, $numero);
+        $result = $stmt->execute();
+    
+        if (!$result) {
+            error_log("Errore eliminazione carta: " . $stmt->error);
+        }
+    
+        return $result;
+    }   
 
     //UPDATE QUERY
     // Aggiorna la password di un cliente

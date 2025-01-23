@@ -7,18 +7,24 @@ if (!isUserLoggedIn()) {
     exit();
 }
 
+$email = getLoggedUserEmail();
+
 if (isset($_POST['numero'])) {
-    $user = getLoggedUser();
+    $numero = $_POST['numero'];
     
     try {
-        $stmt = $dbh->prepare("DELETE FROM CARTA_DI_CREDITO 
-                             WHERE Email = ? AND Numero = ?");
-        $stmt->execute([$user['Email'], $_POST['numero']]);
-    } catch (PDOException $e) {
-        error_log("Errore nell'eliminazione della carta: " . $e->getMessage());
+        $success = $dbh->deleteCreditCard($email, $numero);
+        if ($success) {
+            $_SESSION['success_message'] = "Carta eliminata con successo";
+        } else {
+            $_SESSION['error_message'] = "Errore nell'eliminazione della carta";
+        }
+    } catch (Exception $e) {
+        error_log("Errore database: " . $e->getMessage());
+        $_SESSION['error_message'] = "Errore tecnico durante l'eliminazione";
     }
 }
 
-header("Location: cards.php");
+header("Location: info_carte.php");
 exit();
 ?>

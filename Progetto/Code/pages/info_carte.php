@@ -2,17 +2,14 @@
 include_once("../includes/bootstrap.php");
 include_once("../includes/functions.php");
 
-// Verifica se l'utente è loggato
 if (!isUserLoggedIn()) {
     header("Location: login.php");
     exit();
 }
 
-$user = getLoggedUser();
+$email = getloggeduseremail();
 
-$email = $user['Email'];
 
-// Recupera le carte usando il metodo del DatabaseHelper
 try {
     $cards = $dbh->getUserCards($email);
 } catch (Exception $e) {
