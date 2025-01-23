@@ -1,7 +1,7 @@
 <?php
 
-function getLoggedUser() {
-    return isset($_SESSION['user']) ? $_SESSION['user'] : null;
+function getLoggedUserEmail() {
+    return isset($_SESSION["email"]) ? $_SESSION["email"] : null;
 }
 
 //ok
