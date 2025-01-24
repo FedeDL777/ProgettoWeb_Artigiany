@@ -143,6 +143,20 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC); // Restituisce tutte le righe
     }
 
+    public function getNotificationsByEmail($email) {
+        $query = "SELECT * FROM NOTIFICHE WHERE Email = ? ORDER BY Data_ DESC";
+        $stmt = $this->db->prepare($query);
+        
+        if ($stmt === false) {
+            die("Errore preparazione statement: " . $this->db->error);
+        }
+        
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     //INSERT QUERY
     // Inserimento di un nuovo cliente
     public function insertClient($email, $password)
@@ -174,7 +188,30 @@ class DatabaseHelper
         $stmt->bind_param('sssis', $email,  $nome, $cognome, $numero, $scadenza);
         return $stmt->execute();
     }
+    public function insertProduct($nome, $descrizione, $costo, $pathImmagine, $categoria)
+    {
+        $query = "INSERT INTO PRODOTTO (Nome, Descrizione, Costo, PathImmagine, Categoria) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
 
+        $stmt->bind_param('ssiss', $nome, $descrizione, $costo, $pathImmagine, $categoria);
+        return $stmt->execute();
+    }
+    public function insertCart($email)
+    {
+        $query = "INSERT INTO carrello (Ora, Email, Used) VALUES (NOW(), ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $used = 0;
+        $stmt->bind_param('si', $email, $used);
+        return $stmt->execute();
+    }
+    public function insertProductInCart($cart_id, $product_id)
+    {
+        $query = "INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID) VALUES (?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii', $cart_id, $product_id);
+        return $stmt->execute();
+    }
+    
 
     //DELETE QUERY
 
