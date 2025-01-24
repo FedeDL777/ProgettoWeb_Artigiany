@@ -151,6 +151,8 @@ h1, p {
 </style>
 
 <body>
+    <div class="container-page">
+        <div id="main-content">
 <link rel="stylesheet" href="../CSS/styles.css">
 <div class="container my-4">
     <h1 class="text-center">Crea il tuo prodotto personalizzato!</h1>
@@ -341,6 +343,8 @@ const gridSize = 20;
     // Controllo iniziale
     toggleSubmitButton();
 </script>
+</div>
+</div>
 </body>
 
 <?php
