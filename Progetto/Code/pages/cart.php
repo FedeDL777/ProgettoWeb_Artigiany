@@ -16,13 +16,15 @@ $email = getLoggedUserEmail();
 // Recupera il cartID dell'utente loggato
 $cart = $dbh->searchClientCart($email);
 // Se il carrello non esiste
+$cart = $cart[0];
+/*
 if (!$cart) {
-    echo "<div class='container py-5'><div class='alert alert-info'>Il tuo carrello è vuoto!</div></div>";
+    echo "<div class='container py-5'><div class='alert alert-info'>Il tuo carrello non esiste!</div></div>";
     exit();
-}
+}*/
 
 $cart_id = $cart['cartID'];
-
+echo $cart_id;
 // Recupera gli articoli del carrello
 $cart_items = $dbh->searchCartProducts($cart_id);
 
@@ -33,6 +35,7 @@ $cart_items = $dbh->searchCartProducts($cart_id);
     <div class="container py-5">
         <h1 class="mb-4">Il tuo carrello</h1>
         <?php if (empty($cart_items)): ?>
+
             <div class="alert alert-info">Il tuo carrello è vuoto!</div>
         <?php else: ?>
             <table class="table table-bordered">

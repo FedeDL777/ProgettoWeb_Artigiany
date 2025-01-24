@@ -72,10 +72,12 @@ create table CARTA_DI_CREDITO (
 	Scadenza date not null,
 	primary key (Email, Numero));
 
-create table COMPOSIZIONE_CARRELLO (
-	cartID INT not null,
-	productID INT not null,
-	primary key (cartID, productID));
+CREATE TABLE COMPOSIZIONE_CARRELLO (
+    cartID INT NOT NULL,
+    productID INT NOT NULL,
+    Quantity INT NOT NULL CHECK (Quantity > 0), -- La quantità deve essere positiva
+    PRIMARY KEY (cartID, productID)
+);
 
 create table DETTAGLIO_ORDINE (
 	orderID INT not null,
@@ -274,9 +276,9 @@ INSERT INTO CARRELLO (Ora, Email, Used) VALUES
 
 -- Popolamento tabella COMPOSIZIONE_CARRELLO
 INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID) VALUES
-(1, 1),
-(1, 3),
-(2, 2);
+(1, 1, 3),
+(1, 3, 1),
+(2, 2, 9);
 
 -- Popolamento tabella ORDINI
 INSERT INTO ORDINI (cartID, Data_, Luogo) VALUES

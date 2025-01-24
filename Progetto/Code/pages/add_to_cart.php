@@ -8,18 +8,34 @@ if (!isUserLoggedIn()) {
     header("Location: login.php");
     exit();
 }
+
 // Recupera l'email dell'utente loggato
- // Ottiene i dati dell'utente loggato
 $email = getLoggedUserEmail();
+echo $email;
 
 // Recupera il cartID dell'utente loggato
-$cart = $dbh->searchClientCart($email);
-// Se il carrello non esiste
-if (!$cart || $cart['used'] == 1) {
+
+
+// Se il carrello non esiste o manca la chiave 'Used'
+if (!$dbh->searchClientCart($email) || !isset($cart['Used']) || $cart['Used'] == 1) {
     $dbh->insertCart($email);
+    // Dopo l'inserimento, ricarica il carrello aggiornato
+    $cart = $dbh->searchClientCart($email);
 }
-foreach ($POST["Quantity"] as $q ) {
-    $dbh->insertProductInCart($cart['cartID'], $POST["product_id"]);
+else {
+    $cart = $dbh->searchClientCart($email);
 }
-header("Location: cart.php");
+$cart = $cart[0];
+$quantity = (int)$_POST["quantity"]; // Converte in intero
+$productId = $_POST["product_id"] ?? null;
+
+if (!empty($dbh->getProductInCart($cart['cartID'], $productId))) {
+    $dbh->AddCartProductQuantity($cart['cartID'], $productId, $quantity);
+} 
+else{
+        $dbh->insertProductInCart($cart['cartID'], $productId, $quantity);
+}
+
+// header("Location: cart.php");
+
 ?>

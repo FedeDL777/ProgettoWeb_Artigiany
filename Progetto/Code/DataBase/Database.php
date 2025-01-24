@@ -129,6 +129,16 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC); // Restituisce tutte le righe
     }
+    public function getProductInCart($cart_id, $product_id)
+    {
+        $query = "SELECT * FROM COMPOSIZIONE_CARRELLO WHERE cartID = ? AND productID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii', $cart_id, $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+        
+    }
 
     //INSERT QUERY
     // Inserimento di un nuovo cliente
@@ -177,14 +187,14 @@ class DatabaseHelper
         $stmt->bind_param('si', $email, $used);
         return $stmt->execute();
     }
-    public function insertProductInCart($cart_id, $product_id)
+    public function insertProductInCart($cart_id, $product_id, $quantity)
     {
-        $query = "INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID) VALUES (?, ?)";
+        $query = "INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID, Quantity) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ii', $cart_id, $product_id);
+        $stmt->bind_param('iii', $cart_id, $product_id, $quantity);
         return $stmt->execute();
     }
-    
+
 
     //DELETE QUERY
 
@@ -218,6 +228,13 @@ class DatabaseHelper
     
         return $result;
     }   
+    public function deleteProductFromCart($cart_id, $product_id)
+    {
+        $query = "DELETE FROM COMPOSIZIONE_CARRELLO WHERE cartID = ? AND productID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii', $cart_id, $product_id);
+        return $stmt->execute();
+    }
 
     //UPDATE QUERY
     // Aggiorna la password di un cliente
@@ -229,6 +246,31 @@ class DatabaseHelper
         $stmt->bind_param('ss', $password, $email);
         return $stmt->execute();
     }
+    public function AddCartProductQuantity($cart_id, $product_id, $quantity)
+    {
+        $query = "UPDATE COMPOSIZIONE_CARRELLO SET Quantity = Quantity + ? WHERE cartID = ? AND productID = ?";
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bind_param('iii', $quantity, $cart_id, $product_id);
+        return $stmt->execute();
+    }
+    public function decreaseCartProductQuantity($cart_id, $product_id, $quantity)
+    {
+        $result = $this->getProductInCart($cart_id, $product_id);
+        if(!empty($result) && $result[0]['Quantity'] <= $quantity){
+            return $this->deleteProductFromCart($cart_id, $product_id);
+        }
+        else if(!empty($result)){
+            $query = "UPDATE COMPOSIZIONE_CARRELLO SET Quantity = Quantity - ? WHERE cartID = ? AND productID = ?";
+            $stmt = $this->db->prepare($query);
+    
+            $stmt->bind_param('iii', $quantity, $cart_id, $product_id);
+            return $stmt->execute();
+        }
+
+    }
+
+
 
     // Recupera la password hashata di un admin
     public function getHashedPasswordAdmin($email)
