@@ -21,6 +21,14 @@ class DatabaseHelper
         $query = "SELECT * FROM MATERIALE WHERE NOT CostoXquadretto = 0.00";
         return $this->db->query($query);
     }
+    public function getProductFromCategory($category)
+    {
+        $query = "SELECT productID, Nome, Descrizione, Costo, PathImmagine FROM PRODOTTO WHERE Categoria = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $category);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    }
     // Metodo per cercare prodotti
     public function searchProducts($searchQuery)
     {
@@ -196,6 +204,16 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getProductById($productID)
+{
+    $query = "SELECT * FROM PRODOTTO WHERE productID = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param('i', $productID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc(); // Cambiato da fetch_all a fetch_assoc
+}
 
 
     //permette a un admin di aggiungere una categoria
