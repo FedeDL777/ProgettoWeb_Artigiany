@@ -47,6 +47,16 @@ create table ORDINI (
     foreign key (cartID) references CARRELLO(cartID),
     foreign key (Numero) references CARTA_DI_CREDITO(Numero)
 );
+create table ORDINI (
+    orderID INT not null AUTO_INCREMENT,
+    cartID INT not null,
+    Data_ date not null,
+    Luogo VARCHAR(25) not null,
+    Numero CHAR(16) not null, -- Riferimento alla carta di credito
+	Email VARCHAR(100) not null,
+	primary key (orderID),
+	unique (Email, Numero, Luogo),
+	unique (cartID));
 
 create table PRODOTTO (
 	Costo decimal(8,2) not null,
@@ -109,11 +119,9 @@ alter table NOTIFICHE add constraint FKA
 	foreign key (Email)
 	references USERS;
 
-alter table ORDINI add column Numero CHAR(16) not null;
-
-alter table ORDINI add constraint FKORDINI_CARTA
-    foreign key (Numero)
-    references CARTA_DI_CREDITO(Numero);
+alter table ORDINI add constraint FKGENERARE
+	foreign key (cartID)
+	references CARRELLO;
 
 
 alter table CARRELLO add constraint 
@@ -181,6 +189,9 @@ create index FKRiferito
 
 create unique index ID_ORDINI
 	on ORDINI(orderID);
+
+create unique index SID_ORDINI
+	on ORDINI(Email, Numero, Luogo);
 
 create unique index FKGENERARE
 	on ORDINI(cartID);
