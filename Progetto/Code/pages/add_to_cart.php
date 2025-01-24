@@ -36,6 +36,6 @@ else{
         $dbh->insertProductInCart($cart['cartID'], $productId, $quantity);
 }
 
-// header("Location: cart.php");
+ header("Location: cart.php");
 
 ?>

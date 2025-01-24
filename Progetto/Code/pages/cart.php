@@ -24,7 +24,7 @@ if (!$cart) {
 }*/
 
 $cart_id = $cart['cartID'];
-echo $cart_id;
+
 // Recupera gli articoli del carrello
 $cart_items = $dbh->searchCartProducts($cart_id);
 
@@ -43,6 +43,7 @@ $cart_items = $dbh->searchCartProducts($cart_id);
                     <tr>
                         <th>Prodotto</th>
                         <th>Prezzo</th>
+                        <th>Quantità</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +51,7 @@ $cart_items = $dbh->searchCartProducts($cart_id);
                         <tr>
                             <td><?php echo htmlspecialchars($item['product_name']); ?></td>
                             <td><?php echo number_format($item['price'], 2); ?> €</td>
+                            <td><?php echo number_format($item['quantity'], 0); ?> </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

@@ -275,7 +275,7 @@ INSERT INTO CARRELLO (Ora, Email, Used) VALUES
 ('2025-01-02', 'utente2@example.com', false);
 
 -- Popolamento tabella COMPOSIZIONE_CARRELLO
-INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID) VALUES
+INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID, Quantity) VALUES
 (1, 1, 3),
 (1, 3, 1),
 (2, 2, 9);
