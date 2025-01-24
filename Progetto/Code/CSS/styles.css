@@ -39,8 +39,9 @@ footer {
     background-color: #f8f9fa;
     padding: 1rem 0;
     text-align: center;
-}
+    height: auto;
 
+}
 
 aside {
     width: 250px;
@@ -52,4 +53,15 @@ aside {
     /* Scorrimento verticale per contenuti lunghi */
     flex-shrink: 0;
     /* La larghezza resta fissa */
+}
+
+
+
+.notifications-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card.border-primary {
+    border-left: 4px solid #0d6efd;
 }
