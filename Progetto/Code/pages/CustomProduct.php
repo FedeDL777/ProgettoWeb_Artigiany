@@ -6,7 +6,7 @@ if (!isUserLoggedIn()) {
     header("Location: login.php");
     exit();
 }
-$materialiCustom = $dbh->getMaterials();
+$materials = $dbh->getMaterials();
 include("../includes/header.php");
 ?>
 <style>
@@ -175,26 +175,19 @@ h1, p {
             </div>
 
             <!-- Selezione Materiale -->
-                <?php
-                    if ($materialiCustom->num_rows > 0) {
-                    echo '<div class="mb-4">';
-                    echo '<h5>Seleziona Materiale</h5>';
-                    echo '<select id="materialSelect" class="form-select">';
-                    // Itera attraverso i risultati e crea le opzioni del <select>
-                    while ($row = $materialiCustom->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($row['Nome']) . '">' . htmlspecialchars($row['Nome']) . '</option>';
-                    }
-                    echo '</select>';
-                    echo '</div>';
-                } else {
-                    echo '<div class="mb-4">';
-                    echo '<h5>Seleziona Materiale</h5>';
-                    echo '<select id="materialSelect" class="form-select">';
-                    echo '<option value="">Nessun materiale disponibile</option>';
-                    echo '</select>';
-                    echo '</div>';
-                }
-                ?>
+                
+            <div class="mb-4">
+            <h5>Seleziona Materiale</h5>
+            <select id="materialSelect" class="form-select">
+                <?php foreach ($materials as $material): ?>
+                    <!-- Genera dinamicamente le opzioni -->
+                    <option value="<?= htmlspecialchars($material['Nome']) ?>">
+                        <?= htmlspecialchars($material['Nome']) ?> - €<?= htmlspecialchars(number_format($material['CostoXquadretto'], 2, ',', '.')) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            </div>
+
 
 
         <!-- Griglia -->

@@ -15,11 +15,16 @@ class DatabaseHelper
     }
     //SELECT QUERY
 
-    // Recupera i materiali per custom product
+    // Recupera i materiali per custom product 
     public function getMaterials()
     {
-        $query = "SELECT * FROM MATERIALE WHERE NOT CostoXquadretto = 0.00";
-        return $this->db->query($query);
+        $query = "SELECT * FROM MATERIALE 
+        WHERE NOT CostoXquadretto = 0
+        ORDER BY CostoXquadretto ASC";	
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
     // Metodo per cercare prodotti
     public function searchProducts($searchQuery)
