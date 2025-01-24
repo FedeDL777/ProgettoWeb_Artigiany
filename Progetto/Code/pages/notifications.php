@@ -2,8 +2,26 @@
 include_once("../includes/bootstrap.php");
 include_once("../includes/functions.php");
 
+// Verifica autenticazione
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
+    exit();
+}
+
+// Gestione delle azioni
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['delete_notification'])) {
+        // Elimina singola notifica
+        $email = $_SESSION['email'];
+        $data = $_POST['notification_data'];
+        $dbh->deleteNotification($email, $data);
+    } elseif (isset($_POST['mark_all_read'])) {
+        // Segna tutte come lette
+        $dbh->markAllNotificationsAsRead($_SESSION['email']);
+    }
+    
+    // Redirect per evitare resubmission
+    header("Location: notifications.php");
     exit();
 }
 
@@ -34,9 +52,17 @@ include("../includes/header.php");
                                             <?= date('d/m/Y H:i', strtotime($notification['Data_'])) ?>
                                         </small>
                                     </div>
-                                    <?php if (!$notification['Letto']): ?>
-                                        <span class="badge bg-primary ms-2">Nuova</span>
-                                    <?php endif; ?>
+                                    <div class="d-flex flex-column align-items-end">
+                                        <?php if (!$notification['Letto']): ?>
+                                            <span class="badge bg-primary mb-2">Nuova</span>
+                                        <?php endif; ?>
+                                        <form method="POST" class="mt-auto">
+                                            <input type="hidden" name="notification_data" value="<?= $notification['Data_'] ?>">
+                                            <button type="submit" name="delete_notification" class="btn btn-danger btn-sm" title="Elimina notifica">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                                 
                                 <?php if ($notification['orderID']): ?>
@@ -50,6 +76,14 @@ include("../includes/header.php");
                             </div>
                         </div>
                     <?php endforeach; ?>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <form method="POST">
+                        <button type="submit" name="mark_all_read" class="btn btn-primary">
+                            <i class="bi bi-check-all"></i> Segna tutte come lette
+                        </button>
+                    </form>
                 </div>
             <?php endif; ?>
         </div>

@@ -233,6 +233,13 @@ class DatabaseHelper
         return $result;
     }   
 
+    public function deleteNotification($email, $data) {
+        $query = "DELETE FROM NOTIFICHE WHERE Email = ? AND Data_ = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $email, $data);
+        return $stmt->execute();
+    }
+
     //UPDATE QUERY
     // Aggiorna la password di un cliente
     public function updateClientPassword($email, $password)
@@ -268,6 +275,13 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function markAllNotificationsAsRead($email) {
+        $query = "UPDATE NOTIFICHE SET Letto = 1 WHERE Email = ? AND Letto = 0";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        return $stmt->execute();
+    }
+
     public function getProductById($productID)
 {
     $query = "SELECT * FROM PRODOTTO WHERE productID = ?";
@@ -298,5 +312,24 @@ class DatabaseHelper
         $result = $this->db->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function countUnreadNotifications($email) {
+        $query = "SELECT COUNT(*) AS unread_count FROM NOTIFICHE WHERE Email = ? AND Letto = 0";
+        $stmt = $this->db->prepare($query);
+        
+        if ($stmt === false) {
+            die("Errore preparazione statement: " . $this->db->error);
+        }
+        
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['unread_count'];
+    }
+
 }
+
+
+
 ?>

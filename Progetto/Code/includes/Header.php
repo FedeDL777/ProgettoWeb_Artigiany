@@ -17,10 +17,9 @@
 <?php
 include_once("../includes/bootstrap.php");
 include_once("../includes/functions.php");
-$hasUnreadNotifications = false;
+$unreadCount = 0;
 if (isUserLoggedIn()) {
-    //TO DO
-    //$hasUnreadNotifications = $db->hasUnreadNotifications($_SESSION["email"]);
+    $unreadCount = $dbh->countUnreadNotifications($_SESSION['email']);
 }
 ?>
 
@@ -63,7 +62,13 @@ if (isUserLoggedIn()) {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="notifications.php">
-                            <i class="bi bi-bell-fill <?php if ($hasUnreadNotifications) echo 'redNotify' ?>"></i> Notifiche
+                        <i class="bi bi-bell-fill position-relative">
+                        <?php if ($unreadCount > 0): ?>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <?= $unreadCount ?>
+                        </span>
+                        <?php endif; ?>
+                        </i> Notifiche
                         </a>
                     </li>
                 </ul>
