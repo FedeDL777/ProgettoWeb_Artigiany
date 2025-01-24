@@ -130,6 +130,20 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC); // Restituisce tutte le righe
     }
 
+    public function getNotificationsByEmail($email) {
+        $query = "SELECT * FROM NOTIFICHE WHERE Email = ? ORDER BY Data_ DESC";
+        $stmt = $this->db->prepare($query);
+        
+        if ($stmt === false) {
+            die("Errore preparazione statement: " . $this->db->error);
+        }
+        
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     //INSERT QUERY
     // Inserimento di un nuovo cliente
     public function insertClient($email, $password)
