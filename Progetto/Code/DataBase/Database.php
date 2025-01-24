@@ -109,6 +109,19 @@ class DatabaseHelper
         $cart_items = $stmt->get_result();
         return $cart_items->fetch_all(MYSQLI_ASSOC);
     }
+    public function getLastProductID()
+    {
+        $query = "SELECT productID, Nome, PathImmagine, Costo FROM PRODOTTO ORDER BY productID DESC LIMIT 1;";
+        $result = $this->db->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getTopSelledProduct()
+    {
+        //count from dettaglio_ordine and group by productID
+        $query = "SELECT productID, COUNT(*) AS vendite FROM DETTAGLIO_ORDINE GROUP BY productID ORDER BY vendite DESC LIMIT 1";
+        $result = $this->db->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     public function getCategoryById($categoryID) {
         $query = "SELECT * FROM CATEGORIE WHERE categoryID = ?";
