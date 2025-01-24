@@ -1,8 +1,7 @@
 <?php
 include_once("../includes/bootstrap.php");
 require_once("../includes/functions.php");
-include("../includes/header.php"); 
-include("../includes/sidebar.php");
+include("../includes/header.php");
 
 // Ottieni l'ID della categoria dall'URL
 $categoryID = isset($_GET['categoria']) ? (int)$_GET['categoria'] : 0;
@@ -16,55 +15,45 @@ if (!$category) {
 
 // Recupera i prodotti della categoria
 $products = $dbh->getProductsByCategory($categoryID);
-
 ?>
 
 <link rel="stylesheet" href="../CSS/styles.css">
-<div class="container-page">
-<div id="main-content">
-    
-    
-    
-    <main class="container mt-4">
-        <div class="row">
 
-            
-            <!-- Contenuto principale -->
-            <div class="col-md-10 col-sm-12">
-                <h2 class="mb-4"><?php echo htmlspecialchars($category['Nome']); ?></h2>
-                
-                <?php if (empty($products)): ?>
-                    <div class="alert alert-info">Nessun prodotto disponibile in questa categoria</div>
-                <?php else: ?>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                        <?php foreach ($products as $product): ?>
-                            <div class="col">
-                                <div class="card h-100">
+<main class="container my-4">
+    <div class="container-page">
+        <div id="main-content">
+            <h1 class="text-center mb-4"><?php echo htmlspecialchars($category['Nome']); ?></h1>
+
+            <?php if (empty($products)): ?>
+                <p class="text-center">Nessun prodotto disponibile in questa categoria</p>
+            <?php else: ?>
+                <div class="row">
+                    <?php foreach ($products as $product): ?>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <a href="product.php?productId=<?= urlencode($product['productID']) ?>">
                                     <img src="<?php echo htmlspecialchars($product['PathImmagine']); ?>" 
                                          class="card-img-top" 
                                          alt="<?php echo htmlspecialchars($product['Nome']); ?>"
                                          style="height: 200px; object-fit: cover;">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?php echo htmlspecialchars($product['Nome']); ?></h5>
-                                        <p class="card-text"><?php echo htmlspecialchars($product['Descrizione']); ?></p>
-                                    </div>
-                                    <div class="card-footer bg-white">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="h5">€<?php echo number_format($product['Costo'], 2); ?></span>
-                                            <button class="btn btn-primary">Aggiungi al carrello</button>
-                                        </div>
-                                    </div>
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="product.php?productId=<?= urlencode($product['productID']) ?>" 
+                                           class="text-dark">
+                                            <?php echo htmlspecialchars($product['Nome']); ?>
+                                        </a>
+                                    </h5>
+                                    <p class="card-text"><?php echo htmlspecialchars($product['Descrizione']); ?></p>
+                                    <p class="card-text"><strong>€<?php echo number_format($product['Costo'], 2); ?></strong></p>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
         </div>
-    </main>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</div>
-</div>
+    </div>
+</main>
 
 <?php include("../includes/footer.php"); ?>
