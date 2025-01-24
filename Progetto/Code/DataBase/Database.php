@@ -96,6 +96,27 @@ class DatabaseHelper
         $cart_items = $stmt->get_result();
         return $cart_items->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getCategoryById($categoryID) {
+        $query = "SELECT * FROM CATEGORIE WHERE categoryID = ?";
+        $stmt = $this->db->prepare($query);
+        
+        $stmt->bind_param('i', $categoryID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc(); // Restituisce una singola riga
+    }
+    
+    public function getProductsByCategory($categoryID) {
+        $query = "SELECT * FROM PRODOTTO WHERE categoryID = ?";
+        $stmt = $this->db->prepare($query);
+        
+        $stmt->bind_param('i', $categoryID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC); // Restituisce tutte le righe
+    }
+
     //INSERT QUERY
     // Inserimento di un nuovo cliente
     public function insertClient($email, $password)
