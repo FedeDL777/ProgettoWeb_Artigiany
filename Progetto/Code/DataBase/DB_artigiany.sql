@@ -20,6 +20,7 @@ create table CARRELLO (
 	cartID INT not null AUTO_INCREMENT,
 	Ora date not null,
 	Email VARCHAR(100),
+	Used boolean not null,
 	primary key (cartID),
 	unique (cartID));
 
@@ -36,17 +37,6 @@ create table NOTIFICHE (
 	orderID INT,
 	primary key (Email, Data_));
 
-create table ORDINI (
-    orderID INT not null AUTO_INCREMENT,
-    cartID INT not null,
-    Data_ date not null,
-    Luogo VARCHAR(25) not null,
-    Numero CHAR(16) not null, -- Riferimento alla carta di credito
-    primary key (orderID),
-    unique (cartID),
-    foreign key (cartID) references CARRELLO(cartID),
-    foreign key (Numero) references CARTA_DI_CREDITO(Numero)
-);
 create table ORDINI (
     orderID INT not null AUTO_INCREMENT,
     cartID INT not null,
@@ -278,9 +268,9 @@ INSERT INTO CARTA_DI_CREDITO (Email, Nome, Cognome, Numero, Scadenza) VALUES
 ('utente2@example.com', 'Anna', 'Bianchi', 9876543210987654, '2025-11-30');
 
 -- Popolamento tabella CARRELLO
-INSERT INTO CARRELLO (Ora, Email) VALUES
-('2025-01-01', 'utente1@example.com'),
-('2025-01-02', 'utente2@example.com');
+INSERT INTO CARRELLO (Ora, Email, Used) VALUES
+('2025-01-01', 'utente1@example.com', false),
+('2025-01-02', 'utente2@example.com', false);
 
 -- Popolamento tabella COMPOSIZIONE_CARRELLO
 INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID) VALUES

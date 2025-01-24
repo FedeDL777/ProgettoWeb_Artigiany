@@ -175,7 +175,30 @@ class DatabaseHelper
         $stmt->bind_param('sssis', $email,  $nome, $cognome, $numero, $scadenza);
         return $stmt->execute();
     }
+    public function insertProduct($nome, $descrizione, $costo, $pathImmagine, $categoria)
+    {
+        $query = "INSERT INTO PRODOTTO (Nome, Descrizione, Costo, PathImmagine, Categoria) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
 
+        $stmt->bind_param('ssiss', $nome, $descrizione, $costo, $pathImmagine, $categoria);
+        return $stmt->execute();
+    }
+    public function insertCart($email)
+    {
+        $query = "INSERT INTO carrello (Ora, Email, Used) VALUES (NOW(), ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $used = 0;
+        $stmt->bind_param('si', $email, $used);
+        return $stmt->execute();
+    }
+    public function insertProductInCart($cart_id, $product_id)
+    {
+        $query = "INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID) VALUES (?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii', $cart_id, $product_id);
+        return $stmt->execute();
+    }
+    
 
     //DELETE QUERY
 
