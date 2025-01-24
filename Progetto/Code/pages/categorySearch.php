@@ -1,6 +1,8 @@
 <?php
 include_once("../includes/bootstrap.php");
 require_once("../includes/functions.php");
+include("../includes/header.php"); 
+include("../includes/sidebar.php");
 
 // Ottieni l'ID della categoria dall'URL
 $categoryID = isset($_GET['categoria']) ? (int)$_GET['categoria'] : 0;
@@ -17,25 +19,15 @@ $products = $dbh->getProductsByCategory($categoryID);
 
 ?>
 
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($category['Nome']); ?> - Artigiany</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../CSS/styles.css">
-</head>
-<body>
-
+<link rel="stylesheet" href="../CSS/styles.css">
 <div class="container-page">
 <div id="main-content">
-    <?php include("../includes/header.php"); ?>
+    
+    
     
     <main class="container mt-4">
         <div class="row">
-            <!-- Sidebar -->
-            <?php include("../includes/sidebar.php"); ?>
+
             
             <!-- Contenuto principale -->
             <div class="col-md-10 col-sm-12">
@@ -70,11 +62,9 @@ $products = $dbh->getProductsByCategory($categoryID);
             </div>
         </div>
     </main>
-
-    <?php include("../includes/footer.php"); ?>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </div>
 </div>
-</body>
-</html>
+
+<?php include("../includes/footer.php"); ?>
