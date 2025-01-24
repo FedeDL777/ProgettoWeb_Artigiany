@@ -39,8 +39,9 @@ footer {
     background-color: #f8f9fa;
     padding: 1rem 0;
     text-align: center;
-}
+    height: auto;
 
+}
 
 aside {
     width: 250px;
@@ -53,6 +54,8 @@ aside {
     flex-shrink: 0;
     /* La larghezza resta fissa */
 }
+
+
 
 .notifications-list {
     max-width: 800px;
