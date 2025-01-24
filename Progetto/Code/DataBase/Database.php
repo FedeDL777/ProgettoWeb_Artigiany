@@ -26,6 +26,14 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    public function getProductFromCategory($category)
+    {
+        $query = "SELECT productID, Nome, Descrizione, Costo, PathImmagine FROM PRODOTTO WHERE Categoria = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $category);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    }
     // Metodo per cercare prodotti
     public function searchProducts($searchQuery)
     {
@@ -101,6 +109,27 @@ class DatabaseHelper
         $cart_items = $stmt->get_result();
         return $cart_items->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getCategoryById($categoryID) {
+        $query = "SELECT * FROM CATEGORIE WHERE categoryID = ?";
+        $stmt = $this->db->prepare($query);
+        
+        $stmt->bind_param('i', $categoryID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc(); // Restituisce una singola riga
+    }
+    
+    public function getProductsByCategory($categoryID) {
+        $query = "SELECT * FROM PRODOTTO WHERE categoryID = ?";
+        $stmt = $this->db->prepare($query);
+        
+        $stmt->bind_param('i', $categoryID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC); // Restituisce tutte le righe
+    }
+
     //INSERT QUERY
     // Inserimento di un nuovo cliente
     public function insertClient($email, $password)
@@ -201,6 +230,16 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getProductById($productID)
+{
+    $query = "SELECT * FROM PRODOTTO WHERE productID = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param('i', $productID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc(); // Cambiato da fetch_all a fetch_assoc
+}
 
 
     //permette a un admin di aggiungere una categoria

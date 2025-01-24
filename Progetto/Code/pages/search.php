@@ -31,13 +31,13 @@ include("../includes/header.php");
                     <?php foreach ($products as $product): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
-                            <a href="product.php?product_id=<?= urlencode($product['productID']) ?>">
+                            <a href="product.php?productId=<?= urlencode($product['productID']) ?>">
                                 <img src="<?= htmlspecialchars($product['PathImmagine']) ?>" class="card-img-top"
                                     alt="<?= htmlspecialchars($product['Nome']) ?>">
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <a href="product.php?product_id=<?= urlencode($product['productID']) ?>"
+                                    <a href="product.php?productId=<?= urlencode($product['productID']) ?>"
                                         class="text-dark">
                                         <?= htmlspecialchars($product['Nome']) ?>
                                     </a>
