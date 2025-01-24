@@ -8,10 +8,10 @@ if (!isUserLoggedIn()) {
     header("Location: login.php");
     exit();
 }
-
+include("../includes/header.php");
 // Recupera l'email dell'utente loggato
-$user = getLoggedUser(); // Ottiene i dati dell'utente loggato
-$email = $user['Email'];
+ // Ottiene i dati dell'utente loggato
+$email = getLoggedUserEmail();
 
 // Recupera il cartID dell'utente loggato
 $cart = $dbh->searchClientCart($email);
@@ -26,7 +26,7 @@ $cart_id = $cart['cartID'];
 // Recupera gli articoli del carrello
 $cart_items = $dbh->searchCartProducts($cart_id);
 
-include("../includes/header.php");
+
 ?>
 <main>
 <link rel="stylesheet" href="../CSS/styles.css">
