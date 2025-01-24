@@ -15,7 +15,7 @@
         <?php else: ?>
             <?php foreach ($categories as $category): ?>
                 <li class="list-group-item">
-                    <a href="prodotti.php?categoria=<?php echo urlencode($category['categoryID']); ?>" class="text-decoration-none">
+                    <a href="categorySearch.php?categoria=<?php echo urlencode($category['categoryID']); ?>" class="text-decoration-none">
                         <?php echo htmlspecialchars($category['Nome']); ?>
                     </a>
                 </li>
