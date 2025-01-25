@@ -93,7 +93,7 @@ create table USERS (
 	Email VARCHAR(100) not null,
 	Pw VARCHAR(255) not null,
 	AdminClient boolean not null,
-	luogo VARCHAR(225) NULL
+	luogo VARCHAR(225) NULL,
 	primary key (Email));
 
 
