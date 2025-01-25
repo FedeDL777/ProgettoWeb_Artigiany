@@ -141,6 +141,16 @@ public function saveUserAddress($email, $address) {
         $cart = $stmt->get_result();
         return $cart->fetch_all(MYSQLI_ASSOC);
     }
+    public function searchClientUsedCarts($email)
+    {
+        $query_cart = "SELECT * FROM `carrello` WHERE Email = ? AND Used = 1 ORDER BY Ora DESC";
+        $stmt = $this->db->prepare($query_cart);
+
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $cart = $stmt->get_result();
+        return $cart->fetch_all(MYSQLI_ASSOC);
+    }
 
     // Recupera i prodotti nel carrello
     public function searchCartProducts($cart_id)
@@ -209,6 +219,18 @@ public function saveUserAddress($email, $address) {
         }
         
         $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getOrderByCardandEmail($email, $card) {
+        $query = "SELECT orderID as ID
+                        FROM ORDINI 
+                        WHERE Email = ? AND Numero = ?
+                        ORDER BY Data_ DESC
+                        LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $email, $card);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -292,15 +314,15 @@ public function saveUserAddress($email, $address) {
     }
     public function insertOrder($cart_id, $luogo, $numero, $email, $totale)
     {
-        $query = "INSERT INTO ORDINE (cartID, Data_, Luogo, Numero, Email, Totale) VALUES (?, NOW(), ?, ?, ?, ?)";
+        $query = "INSERT INTO ORDINI (cartID, Data_, Luogo, Numero, Email, Totale) VALUES (?, NOW(), ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('isssd', $cart_id, $luogo, $numero, $email, $totale);
         return $stmt->execute();
     }
-    public function insertNotification($email, $message) {
-        $query = "INSERT INTO NOTIFICHE (Email, Messaggio, Data_) VALUES (?, ?, NOW())";
+    public function insertNotification($email, $message, $orderID, $read = 0) {
+        $query = "INSERT INTO NOTIFICHE (Email, Testo, Data_, Letto, orderID) VALUES (?, ?, NOW(), ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ss', $email, $message);
+        $stmt->bind_param('ssii', $email, $message, $read, $orderID);
         return $stmt->execute();
     }
     //DELETE QUERY

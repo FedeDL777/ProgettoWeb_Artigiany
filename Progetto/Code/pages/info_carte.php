@@ -68,7 +68,5 @@ include("../includes/header.php");
 include("../includes/footer.php");
 
 // Funzione per mascherare il numero della carta
-function maskCardNumber($number) {
-    return '**** **** **** ' . substr(strval($number), -4);
-}
+
 ?>

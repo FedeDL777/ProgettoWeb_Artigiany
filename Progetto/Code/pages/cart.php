@@ -18,6 +18,7 @@ $email = getLoggedUserEmail();
 $cart = $dbh->searchClientCart($email);
 
 // Se il carrello non esiste
+
 if (!$cart) {
     echo "<div class='container py-5'><div class='alert alert-info'>Il tuo carrello non esiste!</div></div>";
     exit();

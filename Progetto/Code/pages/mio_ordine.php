@@ -98,8 +98,8 @@ include("../includes/header.php");
                     <label for="card-select" class="form-label">Seleziona una carta per il pagamento:</label>
                     <select name="selected_card" id="card-select" class="form-select">
                         <?php foreach ($cards as $card): ?>
-                            <option value="<?= htmlspecialchars($card['Nome']) ?>">
-                                <?= htmlspecialchars(maskCardNumber($card['Numero'])) ?> 
+                            <option value="<?= htmlspecialchars(($card['Numero']))  ?>">
+                                <?= htmlspecialchars($card['Nome']) ?> 
                                 (<?= htmlspecialchars($card['Email']) ?> - <?= htmlspecialchars($card['Scadenza']) ?>)
                             </option>
                         <?php endforeach; ?>
@@ -109,6 +109,7 @@ include("../includes/header.php");
                     <i class="bi bi-credit-card"></i> Usa questa carta e procedi al pagamento
                 </button>
             </form>
+
         <?php endif; ?>
             </div>
         <?php endif; ?>
@@ -116,8 +117,6 @@ include("../includes/header.php");
 </main>
 
 <?php
-function maskCardNumber($number) {
-    return '**** **** **** ' . substr(strval($number), -4);
-}
+
 include("../includes/footer.php");
 ?>

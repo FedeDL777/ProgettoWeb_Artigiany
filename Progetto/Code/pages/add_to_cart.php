@@ -16,8 +16,8 @@ echo $email;
 // Recupera il cartID dell'utente loggato
 
 
-// Se il carrello non esiste o manca la chiave 'Used'
-if (!$dbh->searchClientCart($email)) {
+// Se il carrello non esiste o 'Used è 1'
+if (!$dbh->searchClientCart($email) ) {
     $dbh->insertCart($email);
     echo "Carrello inserito";
     // Dopo l'inserimento, ricarica il carrello aggiornato

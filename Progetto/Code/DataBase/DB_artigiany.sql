@@ -30,12 +30,13 @@ create table CATEGORIE (
 	primary key (categoryID));
 
 create table NOTIFICHE (
+	NotifyID INT not null AUTO_INCREMENT,	
 	Email VARCHAR(100) not null,
 	Testo VARCHAR(1000) not null,
 	Data_ date not null,
 	Letto boolean not null,
 	orderID INT,
-	primary key (Email, Data_));
+	primary key (NotifyID));
 
 create table ORDINI (
     orderID INT not null AUTO_INCREMENT,
@@ -46,7 +47,6 @@ create table ORDINI (
 	Email VARCHAR(100) not null,
 	Totale decimal(8,2) not null,
 	primary key (orderID),
-	unique (Email, Numero, Luogo),
 	unique (cartID));
 
 create table PRODOTTO (
@@ -176,16 +176,13 @@ create unique index ID_CATEGORIE
 	on CATEGORIE(categoryID);
 
 create unique index ID_NOTIFICHE
-	on NOTIFICHE(Email, Data_);
+	on NOTIFICHE(NotifyID);
 
 create index FKRiferito
 	on NOTIFICHE (orderID);
 
 create unique index ID_ORDINI
 	on ORDINI(orderID);
-
-create unique index SID_ORDINI
-	on ORDINI(Email, Numero, Luogo);
 
 create unique index FKGENERARE
 	on ORDINI(cartID);

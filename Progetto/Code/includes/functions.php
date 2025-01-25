@@ -44,6 +44,9 @@ function insertAdmin($dbh) {
         $dbh->insertAdmin($admin, $hashedPassword);
     }
 }
+function maskCardNumber($number) {
+    return '**** **** **** ' . substr(strval($number), -4);
+}
 
 function uploadImage($path, $image) {
     // Crea la cartella ricorsivamente se non esiste

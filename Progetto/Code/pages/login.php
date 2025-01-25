@@ -8,6 +8,7 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
     if (isset($_POST["email"]) && isset($_POST["password"])) {
         //controllo admin
         $adminResult = $dbh->getHashedPasswordAdmin($_POST["email"]);
+        //Da fixare
         $loginAdmin = password_verify($_POST["password"], $adminResult[0]["Pw"]);
         if($loginAdmin && $dbh->checkLogin($_POST["email"], $adminResult[0]["Pw"], 1)){
             registerAdminLogged($_POST);

@@ -23,11 +23,11 @@ include("../includes/header.php"); // Include il file header.php
                             </a>
                         </div>
                         <div class="col-md-6 col-sm-12 mb-4">
-                            <a href="miei_ordini.php" class="text-decoration-none">
+                            <a href="mio_ordine.php" class="text-decoration-none">
                                 <div class="card">
                                     <div class="card-body d-flex align-items-center justify-content-start">
                                         <i class="bi bi-cart-check-fill me-3" style="font-size: 2rem;"></i>
-                                        <h5 class="card-title mb-0" style="font-size: 1.5rem;">I miei ordini</h5>
+                                        <h5 class="card-title mb-0" style="font-size: 1.5rem;">Ultimo ordine</h5>
                                     </div>
                                 </div>
                             </a>
