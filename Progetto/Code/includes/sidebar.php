@@ -6,20 +6,22 @@
     $categories = $dbh->getCategories();
 ?>
 
-<!-- Banda laterale -->
-<aside class="col-md-2 col-sm-12 bg-light p-1 px-0 border-end">
-    <h5 class="text-center">Categorie</h5>
-    <ul class="list-group">
+<!-- Barra orizzontale -->
+<nav class="bg-light border-bottom">
+    <h5 class="text-center py-2">Categorie</h5>
+    <ul class="nav nav-pills justify-content-center">
         <?php if (empty($categories)): ?>
-            <li class="list-group-item text-muted">Nessuna categoria disponibile</li>
+            <li class="nav-item">
+                <span class="nav-link disabled text-muted">Nessuna categoria disponibile</span>
+            </li>
         <?php else: ?>
             <?php foreach ($categories as $category): ?>
-                <li class="list-group-item">
-                    <a href="categorySearch.php?categoria=<?php echo urlencode($category['categoryID']); ?>" class="text-decoration-none">
+                <li class="nav-item">
+                    <a href="categorySearch.php?categoria=<?php echo urlencode($category['categoryID']); ?>" class="nav-link">
                         <?php echo htmlspecialchars($category['Nome']); ?>
                     </a>
                 </li>
             <?php endforeach; ?>
         <?php endif; ?>
     </ul>
-</aside>
+</nav>

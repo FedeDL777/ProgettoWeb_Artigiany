@@ -26,5 +26,6 @@ include("../includes/header.php");
 
 <?php
 include("../includes/footer.php");
-session_destroy();
+if (session_status() === PHP_SESSION_ACTIVE)session_destroy();
+
 ?>

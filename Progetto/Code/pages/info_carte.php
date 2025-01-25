@@ -21,7 +21,8 @@ include("../includes/header.php");
 ?>
 
 <main>
-    <link rel="stylesheet" href="../CSS/styles.css">
+    <div class="container-page">
+        <div class="row">
     <div class="container py-5">
         <h1 class="mb-4">Le tue carte di pagamento</h1>
         
@@ -58,6 +59,8 @@ include("../includes/header.php");
         <div class="mt-4">
             <a href="add_card.php" class="btn btn-primary">Aggiungi una carta</a>
         </div>
+    </div>
+</div>
     </div>
 </main>
 

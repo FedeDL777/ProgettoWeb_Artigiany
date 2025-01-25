@@ -15,9 +15,6 @@ include("../includes/header.php");
 ?>
 
 <main class="container my-4">
-    <link rel="stylesheet" href="../CSS/styles.css">
-
-    <body>
         <div class="container-page">
             <div id="main-content">
                 <h1 class="text-center mb-4">Risultati per "<?= htmlspecialchars($searchQuery) ?>"</h1>
@@ -52,7 +49,6 @@ include("../includes/header.php");
                 <?php endif; ?>
             </div>
         </div>
-    </body>
 </main>
 
 <?php include("../includes/footer.php"); ?>
