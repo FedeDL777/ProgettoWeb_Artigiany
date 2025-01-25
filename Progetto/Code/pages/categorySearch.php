@@ -17,7 +17,6 @@ if (!$category) {
 $products = $dbh->getProductsByCategory($categoryID);
 ?>
 
-<link rel="stylesheet" href="../CSS/styles.css">
 
 <main class="container my-4">
     <div class="container-page">

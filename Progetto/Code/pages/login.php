@@ -51,7 +51,7 @@ include("../includes/header.php");
 
 <main class="container-fluid py-4">
 
-    <body>
+    
         <div class="container-page">
         <div id="main-content">
         <link rel="stylesheet" href="../CSS/styles.css">
@@ -85,7 +85,7 @@ include("../includes/header.php");
         </div>
         </div>
         </div>
-    </body>
+    
 </main>
 
 <?php

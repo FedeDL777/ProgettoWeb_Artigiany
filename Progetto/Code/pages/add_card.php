@@ -64,7 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 include("../includes/header.php");
 ?>
-
+<div class="container-page">
+        <div class="row">
 <div class="container py-5">
     <h1>Aggiungi carta</h1>
     
@@ -114,6 +115,8 @@ include("../includes/header.php");
             </button>
         </div>
     </form>
+</div>
+</div>
 </div>
 
 <?php include("../includes/footer.php"); ?>
