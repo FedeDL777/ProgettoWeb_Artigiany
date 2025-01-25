@@ -290,12 +290,15 @@ class DatabaseHelper
     }
     public function decreaseCartProductQuantity($cart_id, $product_id, $quantity)
     {
+        if($quantity > 0){
+            return;
+        }
         $result = $this->getProductInCart($cart_id, $product_id);
-        if(!empty($result) && $result[0]['Quantity'] <= $quantity){
+        if(!empty($result) && $result[0]['Quantity'] + $quantity <= 0 ){
             return $this->deleteProductFromCart($cart_id, $product_id);
         }
         else if(!empty($result)){
-            $query = "UPDATE COMPOSIZIONE_CARRELLO SET Quantity = Quantity - ? WHERE cartID = ? AND productID = ?";
+            $query = "UPDATE COMPOSIZIONE_CARRELLO SET Quantity = Quantity + ? WHERE cartID = ? AND productID = ?";
             $stmt = $this->db->prepare($query);
     
             $stmt->bind_param('iii', $quantity, $cart_id, $product_id);
