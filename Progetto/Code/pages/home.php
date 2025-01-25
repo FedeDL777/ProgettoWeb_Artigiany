@@ -13,7 +13,7 @@ $topProduct = $dbh->getTopSelledProduct();
     <div class="container-page">
         <div class="row">
             <!-- Contenuto principale -->
-            <section class="col-md-9 col-sm-12">
+            <section class="col-md-9 col-sm-12 mx-auto">
                 <div id="main-content">
                     <!-- Contenuto della pagina -->
                     <h1 class="text-center">Benvenuto su CraftMania!</h1>
