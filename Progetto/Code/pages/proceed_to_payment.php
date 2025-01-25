@@ -21,6 +21,6 @@ if (!$userAddress) {
     exit();
 } else {
     // Se esiste un luogo di consegna, reindirizza alla pagina di pagamento
-    header("Location: miei_pagamenti.php");
+    header("Location: mio_ordine.php");
     exit();
 }

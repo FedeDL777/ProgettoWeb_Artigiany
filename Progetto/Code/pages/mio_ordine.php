@@ -58,7 +58,7 @@ include("../includes/header.php");
 
 
             
-        
+        w
             <div class="row">
             <!-- Sezione immagine prodotto -->
             <div class="col-md-5">
