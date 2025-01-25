@@ -385,6 +385,15 @@ public function saveUserAddress($email, $address) {
     return $result->fetch_assoc(); // Cambiato da fetch_all a fetch_assoc
 }
 
+    public function getAllUsers() 
+{
+    $query = "SELECT Email, AdminClient, luogo FROM USERS";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
 
     //permette a un admin di aggiungere una categoria
     public function addCategory($category)
