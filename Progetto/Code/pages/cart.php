@@ -82,7 +82,7 @@ $cart_items = $dbh->searchCartProducts($cart_id);
 
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <a href="home.php" class="btn btn-outline-secondary">Continua lo shopping</a>
-                <a href="miei_pagamenti.php" class="btn btn-success">Procedi al pagamento</a>
+                <a href="miei_ordini.php" class="btn btn-success">Procedi al pagamento</a>
             </div>
 
         <?php endif; ?>
