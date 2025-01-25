@@ -15,6 +15,41 @@ class DatabaseHelper
     }
     //SELECT QUERY
 
+    public function getUserAddress($email)
+{
+    $query = "SELECT luogo FROM users WHERE email = ?";
+    $stmt = $this->db->prepare($query);
+    if ($stmt === false) {
+        error_log("Errore nella preparazione dello statement: " . $this->db->error);
+        return false;
+    }
+    $stmt->bind_param('s', $email);
+    if (!$stmt->execute()) {
+        error_log("Errore nell'esecuzione dello statement: " . $stmt->error);
+        return false;
+    }
+    $result = $stmt->get_result();
+    return $result->fetch_assoc()['luogo'] ?? null;
+}
+
+public function saveUserAddress($email, $address) {
+    $query = "UPDATE users SET luogo = ? WHERE email = ?";
+    $stmt = $this->db->prepare($query);
+    
+    if ($stmt === false) {
+        error_log("Errore nella preparazione dello statement: " . $this->db->error);
+        return false;
+    }
+    
+    $stmt->bind_param('ss', $address, $email);
+    
+    if (!$stmt->execute()) {
+        error_log("Errore nell'esecuzione dello statement: " . $stmt->error);
+        return false;
+    }
+    
+    return true;
+}
     // Recupera i materiali per custom product 
     public function getMaterials()
     {
