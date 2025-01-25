@@ -44,6 +44,7 @@ create table ORDINI (
     Luogo VARCHAR(25) not null,
     Numero CHAR(16) not null, -- Riferimento alla carta di credito
 	Email VARCHAR(100) not null,
+	Totale decimal(8,2) not null,
 	primary key (orderID),
 	unique (Email, Numero, Luogo),
 	unique (cartID));
@@ -93,7 +94,7 @@ create table USERS (
 	Email VARCHAR(100) not null,
 	Pw VARCHAR(255) not null,
 	AdminClient boolean not null,
-	luogo VARCHAR(225) NULL,
+	luogo VARCHAR(255) NULL,
 	primary key (Email));
 
 

@@ -9,6 +9,13 @@ if (!isUserLoggedIn()) {
 
 $email = getloggeduseremail();
 
+$userAddress = $dbh->getUserAddress($email);
+
+if (!$userAddress) {
+    // Se non esiste un luogo di consegna, reindirizza alla pagina delle impostazioni
+    header("Location: impostazioni_consegna.php");
+    exit();
+}
 
 try {
     $cards = $dbh->getUserCards($email);
@@ -26,16 +33,6 @@ include("../includes/header.php");
     <link rel="stylesheet" href="../CSS/styles.css">
     <div class="container py-5">
         <h1 class="mb-4 text-center">I tuoi Ordini</h1>
-
-        <!-- Verifica se non ci sono carte registrate -->
-        <?php if (empty($cards)): ?>
-            <div class="alert alert-warning d-flex justify-content-between align-items-center">
-                <span>Non hai registrato alcuna carta!</span>
-                <a href="add_card.php" class="btn btn-primary btn-sm">
-                    <i class="bi bi-plus-circle"></i> Aggiungi una carta
-                </a>
-            </div>
-        <?php endif; ?>
 
         <!-- Verifica se il carrello è vuoto -->
         <?php if (empty($carrello)): ?>
@@ -84,11 +81,43 @@ include("../includes/header.php");
                         <h4>Totale ordine: € <?= number_format($totale, 2) ?></h4>
                     </div>
                 </div>
+
+
+                        <!-- Verifica se non ci sono carte registrate -->
+        <?php if (empty($cards)): ?>
+            <div class="alert alert-warning d-flex justify-content-between align-items-center">
+                <span>Non hai registrato alcuna carta!</span>
+                <a href="add_card.php" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus-circle"></i> Aggiungi una carta
+                </a>
+            </div>
+        <?php else: ?>
+            <!-- Form per selezionare la carta di credito -->
+            <form method="POST" action="proceed_to_payment.php" class="mb-4">
+                <div class="form-group">
+                    <label for="card-select" class="form-label">Seleziona una carta per il pagamento:</label>
+                    <select name="selected_card" id="card-select" class="form-select">
+                        <?php foreach ($cards as $card): ?>
+                            <option value="<?= htmlspecialchars($card['Nome']) ?>">
+                                <?= htmlspecialchars(maskCardNumber($card['Numero'])) ?> 
+                                (<?= htmlspecialchars($card['Email']) ?> - <?= htmlspecialchars($card['Scadenza']) ?>)
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">
+                    <i class="bi bi-credit-card"></i> Usa questa carta e procedi al pagamento
+                </button>
+            </form>
+        <?php endif; ?>
             </div>
         <?php endif; ?>
     </div>
 </main>
 
 <?php
+function maskCardNumber($number) {
+    return '**** **** **** ' . substr(strval($number), -4);
+}
 include("../includes/footer.php");
 ?>

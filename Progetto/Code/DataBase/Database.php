@@ -290,8 +290,19 @@ public function saveUserAddress($email, $address) {
         $stmt->bind_param('is', $productId, $materiale);
         return $stmt->execute();
     }
-
-
+    public function insertOrder($cart_id, $luogo, $numero, $email, $totale)
+    {
+        $query = "INSERT INTO ORDINE (cartID, Data_, Luogo, Numero, Email, Totale) VALUES (?, NOW(), ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('isssd', $cart_id, $luogo, $numero, $email, $totale);
+        return $stmt->execute();
+    }
+    public function insertNotification($email, $message) {
+        $query = "INSERT INTO NOTIFICHE (Email, Messaggio, Data_) VALUES (?, ?, NOW())";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $email, $message);
+        return $stmt->execute();
+    }
     //DELETE QUERY
 
     // Elimina un cliente
@@ -375,7 +386,14 @@ public function saveUserAddress($email, $address) {
         }
 
     }
+    public function useCart($cart_id)
+    {
+        $query = "UPDATE carrello SET Used = 1 WHERE cartID = ?";
+        $stmt = $this->db->prepare($query);
 
+        $stmt->bind_param('i',$cart_id);
+        return $stmt->execute();
+    }
 
 
     // Recupera la password hashata di un admin
