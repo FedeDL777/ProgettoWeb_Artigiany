@@ -9,23 +9,24 @@ function getIdFromName($name){
     return preg_replace("/[^a-z]/", '', strtolower($name));
 }
 
+// Sostituisci queste funzioni
 function isUserLoggedIn()
 {
-    return isset($_SESSION["logged"]) && !$_SESSION["admin"];
+    return isset($_SESSION["logged"]);
 }
 
 function isAdminLoggedIn()
 {
-    return isset($_SESSION["logged"]) && $_SESSION["admin"];
+    return isset($_SESSION["logged"]) && ($_SESSION["admin"] ?? false);
 }
 
-//ok ma potrebbe essere migliorata
+// Modifica le funzioni di registrazione
 function registerLoggedUser($user){
     $_SESSION["logged"] = true;
     $_SESSION["admin"] = false;
     $_SESSION["email"] = $user["email"];
 }
-//stessa cosa di sopra
+
 function registerAdminLogged($admin){
     $_SESSION["logged"] = true;
     $_SESSION["admin"] = true;
