@@ -133,7 +133,7 @@ public function saveUserAddress($email, $address) {
     // Recupera i prodotti nel carrello
     public function searchCartProducts($cart_id)
     {
-        $query_items = "SELECT p.Nome AS product_name, p.Costo AS price, c.Quantity as quantity, c.productID AS product_id 
+        $query_items = "SELECT p.Nome AS product_name, p.Costo AS price, c.Quantity as quantity, c.productID AS product_id, p.PathImmagine AS PathImmagine
                         FROM COMPOSIZIONE_CARRELLO c
                         INNER JOIN PRODOTTO p ON c.productID = p.productID
                         WHERE c.cartID = ?";
