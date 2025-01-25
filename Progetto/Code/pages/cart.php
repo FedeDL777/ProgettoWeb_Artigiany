@@ -82,11 +82,17 @@ $cart_items = $dbh->searchCartProducts($cart_id);
             </div>
 
             <div class="d-flex justify-content-between align-items-center mt-4">
+<<<<<<< HEAD
     <a href="home.php" class="btn btn-outline-secondary">Continua lo shopping</a>
     <form method="POST" action="proceed_to_payment.php" style="display: inline;">
         <button type="submit" class="btn btn-success">Procedi al pagamento</button>
     </form>
 </div>
+=======
+                <a href="home.php" class="btn btn-outline-secondary">Continua lo shopping</a>
+                <a href="miei_ordini.php" class="btn btn-success">Procedi al pagamento</a>
+            </div>
+>>>>>>> 5a23209cdc3dd762857e94b71074e088e06ea179
 
         <?php endif; ?>
     </div>
