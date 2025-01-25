@@ -33,6 +33,8 @@ $cart_items = $dbh->searchCartProducts($cart_id);
 
 <main>
     <link rel="stylesheet" href="../CSS/styles.css">
+    <div class="container-page">
+        <div class="row">
     <div class="container py-5">
         <h1 class="mb-4 text-center">Il tuo carrello</h1>
 
@@ -90,6 +92,8 @@ $cart_items = $dbh->searchCartProducts($cart_id);
 
         <?php endif; ?>
     </div>
+</div>
+</div>
 </main>
 
 <?php

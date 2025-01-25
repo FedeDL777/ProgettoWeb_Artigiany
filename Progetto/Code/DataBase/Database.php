@@ -13,6 +13,18 @@ class DatabaseHelper
     public function getEmailLength(){
         return $this->emailLength;
     }
+
+    public function beginTransaction() {
+        return $this->db->begin_transaction();
+    }
+    
+    public function commit() {
+        return $this->db->commit();
+    }
+    
+    public function rollback() {
+        return $this->db->rollback();
+    }
     //SELECT QUERY
 
     public function getUserAddress($email)
@@ -233,14 +245,28 @@ public function saveUserAddress($email, $address) {
         $stmt->bind_param('sssis', $email,  $nome, $cognome, $numero, $scadenza);
         return $stmt->execute();
     }
-    public function insertProduct($nome, $descrizione, $costo, $pathImmagine, $categoria)
-    {
-        $query = "INSERT INTO PRODOTTO (Nome, Descrizione, Costo, PathImmagine, Categoria) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $this->db->prepare($query);
 
-        $stmt->bind_param('ssiss', $nome, $descrizione, $costo, $pathImmagine, $categoria);
-        return $stmt->execute();
+    public function insertProduct($nome, $descrizione, $costo, $pathImmagine, $categoryID)
+{
+    $query = "INSERT INTO PRODOTTO (Nome, Descrizione, Costo, PathImmagine, categoryID, Email) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $this->db->prepare($query);
+    
+    // Ottieni l'email dell'utente loggato dalla sessione
+    $email = $_SESSION['email'] ?? null;
+    
+    if (!$email) {
+        throw new Exception("Utente non autenticato");
     }
+
+    $stmt->bind_param('ssdssi', $nome, $descrizione, $costo, $pathImmagine, $categoryID, $email);
+    
+    if ($stmt->execute()) {
+        return $this->db->insert_id;
+    }
+    
+    throw new Exception("Errore nell'inserimento del prodotto: " . $stmt->error);
+}
+
     public function insertCart($email)
     {
         $query = "INSERT INTO carrello (Ora, Email, Used) VALUES (NOW(), ?, ?)";
@@ -249,11 +275,19 @@ public function saveUserAddress($email, $address) {
         $stmt->bind_param('si', $email, $used);
         return $stmt->execute();
     }
+
     public function insertProductInCart($cart_id, $product_id, $quantity)
     {
         $query = "INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID, Quantity) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('iii', $cart_id, $product_id, $quantity);
+        return $stmt->execute();
+    }
+
+    public function insertProductMaterial($productId, $materiale) {
+        $query = "INSERT INTO PRODOTTOMATERIALE (productID, Nome) VALUES (?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('is', $productId, $materiale);
         return $stmt->execute();
     }
 
@@ -428,6 +462,14 @@ public function saveUserAddress($email, $address) {
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return $row['unread_count'];
+    }
+
+    public function getAllProducts() {
+        $query = "SELECT * FROM PRODOTTO";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
 }

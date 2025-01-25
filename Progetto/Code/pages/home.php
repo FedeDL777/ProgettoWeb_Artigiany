@@ -9,11 +9,9 @@ $lastProduct = $dbh->getLastProductID();
 $topProduct = $dbh->getTopSelledProduct();
 ?>
 <main class="container-fluid py-4">
-    <link rel="stylesheet" href="../CSS/styles.css">
+    
     <div class="container-page">
         <div class="row">
-
-
             <!-- Contenuto principale -->
             <section class="col-md-9 col-sm-12">
                 <div id="main-content">
@@ -73,8 +71,7 @@ $topProduct = $dbh->getTopSelledProduct();
                                             <?= htmlspecialchars($lastProduct[0]['Nome']) ?>
                                         </a>
                                     </h5>
-                                    <p class="card-text"><strong>€
-                                            <?= number_format($lastProduct[0]['Costo'], 2) ?></strong></p>
+                                    <p class="card-text"><strong>€ <?= number_format($lastProduct[0]['Costo'], 2) ?></strong></p>
                                 </div>
                                 <?php else: ?>
                                 <div class="card-body">
@@ -100,10 +97,8 @@ $topProduct = $dbh->getTopSelledProduct();
                                             <?= htmlspecialchars($topProduct[0]['Nome']) ?>
                                         </a>
                                     </h5>
-                                    <p class="card-text">Vendite: <?= htmlspecialchars($topProduct[0]['vendite']) ?>
-                                    </p>
-                                    <p class="card-text"><strong>€
-                                            <?= number_format($topProduct[0]['Costo'], 2) ?></strong></p>
+                                    <p class="card-text">Vendite: <?= htmlspecialchars($topProduct[0]['vendite']) ?></p>
+                                    <p class="card-text"><strong>€ <?= number_format($topProduct[0]['Costo'], 2) ?></strong></p>
                                 </div>
                                 <?php else: ?>
                                 <div class="card-body">
@@ -116,12 +111,11 @@ $topProduct = $dbh->getTopSelledProduct();
 
 
                 </div>
-
+            </section>
         </div>
-        </section>
-    </div>
     </div>
 </main>
+
 <?php
 include("../includes/footer.php"); // Include il file footer.php
 ?>

@@ -1,105 +1,142 @@
 <?php
 
 function getLoggedUserEmail() {
-    return isset($_SESSION["email"]) ? $_SESSION["email"] : null;
+    return $_SESSION["email"] ?? null;
 }
 
-//ok
-function getIdFromName($name){
+function getIdFromName($name) {
     return preg_replace("/[^a-z]/", '', strtolower($name));
 }
 
-function isUserLoggedIn()
-{
-    return isset($_SESSION["logged"]) && !$_SESSION["admin"];
+function isUserLoggedIn() {
+    return isset($_SESSION["logged"]);
 }
 
-function isAdminLoggedIn()
-{
-    return isset($_SESSION["logged"]) && $_SESSION["admin"];
+function isAdminLoggedIn() {
+    return isset($_SESSION["logged"]) && ($_SESSION["admin"] ?? false);
 }
 
-//ok ma potrebbe essere migliorata
-function registerLoggedUser($user){
+function registerLoggedUser($user) {
     $_SESSION["logged"] = true;
     $_SESSION["admin"] = false;
     $_SESSION["email"] = $user["email"];
 }
-//stessa cosa di sopra
-function registerAdminLogged($admin){
+
+function registerAdminLogged($admin) {
     $_SESSION["logged"] = true;
     $_SESSION["admin"] = true;
     $_SESSION["email"] = $admin["email"];
 }
-//ok
-function logout()
-{
+
+function logout() {
     unset($_SESSION["logged"]);
     unset($_SESSION["admin"]);
     unset($_SESSION["email"]);
+    session_destroy();
 }
-//aggiungi i messaggi delle notifiche
 
-function insertAdmin($dbh){
-
-    $admin1 = "federico";
-    $admin2 = "pietro";
-    $admin3 = "alex";
+function insertAdmin($dbh) {
+    $admins = ["federico", "pietro", "alex"];
     $password = "admin";
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    //hashed password
-    $dbh->insertAdmin($admin1, $hashedPassword);
-    $dbh->insertAdmin($admin2, $hashedPassword);
-    $dbh->insertAdmin($admin3, $hashedPassword);
+    
+    foreach ($admins as $admin) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $dbh->insertAdmin($admin, $hashedPassword);
+    }
 }
 
-//Per fare l'upload di un'immagine
-function uploadImage($path, $image){
+function uploadImage($path, $image) {
+    // Crea la cartella ricorsivamente se non esiste
+    if (!file_exists($path)) {
+        if (!mkdir($path, 0755, true)) {
+            return [0, "Impossibile creare la cartella di destinazione"];
+        }
+    }
+
     $imageName = basename($image["name"]);
-    $fullPath = $path.$imageName;
+    $fullPath = $path . $imageName;
     
     $maxKB = 500;
-    $acceptedExtensions = array("jpg", "jpeg", "png", "gif");
     $result = 0;
     $msg = "";
-    //Controllo se immagine è veramente un'immagine
-    $imageSize = getimagesize($image["tmp_name"]);
-    if($imageSize === false) {
-        $msg .= "File caricato non è un'immagine! ";
+    
+    // Controllo MIME type reale
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $image["tmp_name"]);
+    finfo_close($finfo);
+    
+    // Mappa MIME types con estensioni consentite
+    $allowedMimes = [
+        'image/jpeg' => ['jpg', 'jpeg'],       // JPEG standard
+        'image/pjpeg' => ['jpg', 'jpeg'],      // JPEG legacy
+        'image/png' => ['png'],
+        'image/gif' => ['gif'],
+        'image/x-png' => ['png']               // PNG alternativo
+    ];
+    
+    // Verifica MIME type consentito
+    if (!array_key_exists($mime, $allowedMimes)) {
+        $msg = "Tipo file non valido! (Rilevato: $mime)";
+        return [$result, $msg];
     }
-    //Controllo dimensione dell'immagine < 500KB
+
+    // Estrazione estensione client
+    $clientExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
+    
+    // Verifica corrispondenza estensione-MIME
+    $expectedExtensions = $allowedMimes[$mime];
+    if (!in_array($clientExtension, $expectedExtensions)) {
+        $msg = "Estensione .$clientExtension non valida per $mime. ";
+        $msg .= "Estensioni consentite: ." . implode(", .", $expectedExtensions);
+        return [$result, $msg];
+    }
+
+    // Controllo dimensione file
     if ($image["size"] > $maxKB * 1024) {
-        $msg .= "File caricato pesa troppo! Dimensione massima è $maxKB KB. ";
+        $msg = "Dimensione massima consentita: {$maxKB}KB";
+        return [$result, $msg];
     }
 
-    //Controllo estensione del file
-    $imageFileType = strtolower(pathinfo($fullPath,PATHINFO_EXTENSION));
-    if(!in_array($imageFileType, $acceptedExtensions)){
-        $msg .= "Accettate solo le seguenti estensioni: ".implode(",", $acceptedExtensions);
-    }
-
-    //Controllo se esiste file con stesso nome ed eventualmente lo rinomino
+    // Genera nome univoco se il file esiste
     if (file_exists($fullPath)) {
         $i = 1;
-        do{
+        $info = pathinfo($imageName);
+        do {
+            $newName = $info['filename'] . "_" . $i . "." . $clientExtension;
+            $fullPath = $path . $newName;
             $i++;
-            $imageName = pathinfo(basename($image["name"]), PATHINFO_FILENAME)."_$i.".$imageFileType;
-        }
-        while(file_exists($path.$imageName));
-        $fullPath = $path.$imageName;
+        } while (file_exists($fullPath));
     }
 
-    //Se non ci sono errori, sposto il file dalla posizione temporanea alla cartella di destinazione
-    if(strlen($msg)==0){
-        if(!move_uploaded_file($image["tmp_name"], $fullPath)){
-            $msg.= "Errore nel caricamento dell'immagine.";
-        }
-        else{
-            $result = 1;
-            $msg = $imageName;
-        }
+    // Tentativo di salvataggio
+    if (move_uploaded_file($image["tmp_name"], $fullPath)) {
+        $result = 1;
+        $msg = basename($fullPath);
+    } else {
+        $error = error_get_last();
+        $msg = "Errore nel salvataggio: " . ($error['message'] ?? 'Sconosciuto');
     }
-    return array($result, $msg);
+    
+    return [$result, $msg];
+}
+
+function sanitizeInput($data) {
+    return htmlspecialchars(stripslashes(trim($data)), ENT_QUOTES, 'UTF-8');
+}
+
+function checkUploadPermissions($path) {
+    if (!is_writable($path)) {
+        return "La cartella non è scrivibile. Permessi: " . decoct(fileperms($path) & 0777);
+    }
+    return true;
+}
+
+// Funzione per debug MIME type
+function getFileMimeType($tmp_name) {
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $tmp_name);
+    finfo_close($finfo);
+    return $mime;
 }
 
 ?>
