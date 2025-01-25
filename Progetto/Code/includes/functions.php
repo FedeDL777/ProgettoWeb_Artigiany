@@ -46,10 +46,11 @@ function insertAdmin($dbh){
     $admin2 = "pietro";
     $admin3 = "alex";
     $password = "admin";
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     //hashed password
-    $dbh->insertAdmin($admin1, $password);
-    $dbh->insertAdmin($admin2, $password);
-    $dbh->insertAdmin($admin3, $password);
+    $dbh->insertAdmin($admin1, $hashedPassword);
+    $dbh->insertAdmin($admin2, $hashedPassword);
+    $dbh->insertAdmin($admin3, $hashedPassword);
 }
 
 //Per fare l'upload di un'immagine
