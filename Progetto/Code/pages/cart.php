@@ -13,6 +13,7 @@ include("../includes/header.php");
 // Recupera l'email dell'utente loggato
 $email = getLoggedUserEmail();
 
+
 // Recupera il cartID dell'utente loggato
 $cart = $dbh->searchClientCart($email);
 
@@ -81,9 +82,11 @@ $cart_items = $dbh->searchCartProducts($cart_id);
             </div>
 
             <div class="d-flex justify-content-between align-items-center mt-4">
-                <a href="home.php" class="btn btn-outline-secondary">Continua lo shopping</a>
-                <a href="miei_pagamenti.php" class="btn btn-success">Procedi al pagamento</a>
-            </div>
+    <a href="home.php" class="btn btn-outline-secondary">Continua lo shopping</a>
+    <form method="POST" action="proceed_to_payment.php" style="display: inline;">
+        <button type="submit" class="btn btn-success">Procedi al pagamento</button>
+    </form>
+</div>
 
         <?php endif; ?>
     </div>
