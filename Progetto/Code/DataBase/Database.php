@@ -133,7 +133,10 @@ public function saveUserAddress($email, $address) {
     // Recupera il carrello di un cliente
     public function searchClientCart($email)
     {
-        $query_cart = "SELECT * FROM `carrello` WHERE Email = ? ORDER BY Ora DESC LIMIT 1";
+        $query_cart = "SELECT * 
+                        FROM `carrello` 
+                        WHERE Email = ? AND Used = 0
+                        ORDER BY Ora DESC LIMIT 1";
         $stmt = $this->db->prepare($query_cart);
 
         $stmt->bind_param('s', $email);
