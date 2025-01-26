@@ -16,7 +16,7 @@ include("../includes/header.php"); // Include il file header.php
                                 <div class="card">
                                     <div class="card-body d-flex align-items-center justify-content-start">
                                         <i class="bi bi-credit-card-2-front-fill me-3" style="font-size: 2rem;"></i>
-                                        <h5 class="card-title mb-0" style="font-size: 1.5rem;">Info Carte</h5>
+                                        <h2 class="card-title mb-0" style="font-size: 1.5rem;">Info Carte</h2>
                                     </div>
                                 </div>
                             </a>
@@ -26,7 +26,7 @@ include("../includes/header.php"); // Include il file header.php
                                 <div class="card">
                                     <div class="card-body d-flex align-items-center justify-content-start">
                                         <i class="bi bi-cart-check-fill me-3" style="font-size: 2rem;"></i>
-                                        <h5 class="card-title mb-0" style="font-size: 1.5rem;">Ultimo ordine</h5>
+                                        <h2 class="card-title mb-0" style="font-size: 1.5rem;">Ultimo ordine</h2>
                                     </div>
                                 </div>
                             </a>
@@ -36,7 +36,7 @@ include("../includes/header.php"); // Include il file header.php
                                 <div class="card">
                                     <div class="card-body d-flex align-items-center justify-content-start">
                                         <i class="bi bi-currency-exchange me-3" style="font-size: 2rem;"></i>
-                                        <h5 class="card-title mb-0" style="font-size: 1.5rem;">I miei pagamenti</h5>
+                                        <h2 class="card-title mb-0" style="font-size: 1.5rem;">I miei pagamenti</h2>
                                     </div>
                                 </div>
                             </a>
@@ -46,7 +46,7 @@ include("../includes/header.php"); // Include il file header.php
                                 <div class="card">
                                     <div class="card-body d-flex align-items-center justify-content-start">
                                         <i class="bi bi-truck me-3" style="font-size: 2rem;"></i>
-                                        <h5 class="card-title mb-0" style="font-size: 1.5rem;">Impostazioni di consegna</h5>
+                                        <h2 class="card-title mb-0" style="font-size: 1.5rem;">Impostazioni di consegna</h2>
                                     </div>
                                 </div>
                             </a>

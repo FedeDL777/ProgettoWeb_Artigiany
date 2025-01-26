@@ -33,12 +33,12 @@ include("../includes/header.php");
                                     alt="<?= htmlspecialchars($product['Nome']) ?>">
                             </a>
                             <div class="card-body">
-                                <h5 class="card-title">
+                                <h2 class="card-title">
                                     <a href="product.php?productId=<?= urlencode($product['productID']) ?>"
                                         class="text-dark">
                                         <?= htmlspecialchars($product['Nome']) ?>
                                     </a>
-                                </h5>
+                                </h2>
                                 <p class="card-text"><?= htmlspecialchars($product['Descrizione']) ?></p>
                                 <p class="card-text"><strong>€ <?= number_format($product['Costo'], 2) ?></strong></p>
                             </div>

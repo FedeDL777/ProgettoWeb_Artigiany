@@ -54,6 +54,7 @@ include("../includes/header.php");
                         <div class="col-lg-6 col-md-12">
                             <div class="mb-4">
                                 <h5>Seleziona Materiale</h5>
+                                 <label for="materialSelect">Materiale:</label>
                                 <select id="materialSelect" class="form-select">
                                     <option value="" selected disabled hidden>Nome materiale - prezzo per cm quadrato</option>
                                     <?php foreach ($materials as $material): ?>
@@ -78,6 +79,7 @@ include("../includes/header.php");
                         <div class="col-lg-8 col-md-12 mx-auto mb-4 text-center">
                             <div class="mb-4">
                                 <h5>Descrizione</h5>
+                                <label for="description">Descrivi il tuo prodotto:</label>
                                 <textarea id="description" class="form-control" rows="4"
                                     placeholder="Descrivi il tuo prodotto (obbligatorio)"></textarea>
                             </div>
