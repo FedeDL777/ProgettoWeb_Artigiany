@@ -102,7 +102,6 @@ include("../includes/header.php");
 ?>
 
 <main class="container-fluid py-4">
-    <link rel="stylesheet" href="../CSS/styles.css">
     <div class="container-page">
         <h1 class="mb-4">Gestione Prodotti</h1>
 
