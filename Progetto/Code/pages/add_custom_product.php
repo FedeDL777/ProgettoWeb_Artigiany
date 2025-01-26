@@ -9,7 +9,6 @@ if (!isUserLoggedIn()) {
 
 $email = getLoggedUserEmail();
 
-// Recupero il carrello dell'utente
 $cart = $dbh->searchClientCart($email);
 
 // Se il carrello non esiste, creane uno nuovo

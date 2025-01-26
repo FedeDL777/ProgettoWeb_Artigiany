@@ -3,7 +3,6 @@ include_once("../includes/bootstrap.php");
 require_once("../includes/functions.php");
 include("../includes/header.php");
 
-// Ottieni l'ID della categoria dall'URL
 $categoryID = isset($_GET['categoria']) ? (int)$_GET['categoria'] : 0;
 
 // Recupera i dettagli della categoria

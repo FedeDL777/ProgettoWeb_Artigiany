@@ -42,11 +42,9 @@ $grid = $dbh->getCustomProductGrid($productID);
                 <?php else: ?>
                     <div class="grid-container" style="display: grid; grid-template-columns: repeat(20, 20px); gap: 1px;">
                         <?php
-                        // Creiamo un array vuoto per rappresentare la griglia
                         $gridSize = 20;
                         $emptyGrid = array_fill(0, $gridSize, array_fill(0, $gridSize, '#ffffff'));
 
-                        // Popoliamo la griglia con i colori delle celle salvate
                         foreach ($grid as $cell) {
                             $row = intval($cell['row']);
                             $col = intval($cell['col']);
@@ -54,7 +52,7 @@ $grid = $dbh->getCustomProductGrid($productID);
                             $emptyGrid[$row][$col] = $color;
                         }
 
-                        // Generiamo la griglia HTML
+                        //griglia HTML
                         for ($row = 0; $row < $gridSize; $row++) {
                             for ($col = 0; $col < $gridSize; $col++) {
                                 $cellColor = $emptyGrid[$row][$col];
