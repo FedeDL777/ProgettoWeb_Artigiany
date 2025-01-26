@@ -28,7 +28,7 @@ $products = $dbh->getProductsByCategory($categoryID);
             <?php else: ?>
                 <div class="row">
                     <?php foreach ($products as $product): ?>
-                        <div class="col-md-4 mb-4">
+                        <div class="col-12 col-sm-6 col-md-4 mb-4">
                             <div class="card h-100">
                                 <a href="product.php?productId=<?= urlencode($product['productID']) ?>">
                                     <img src="<?php echo htmlspecialchars($product['PathImmagine']); ?>" 
