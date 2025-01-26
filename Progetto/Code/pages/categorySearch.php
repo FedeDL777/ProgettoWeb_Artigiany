@@ -26,9 +26,10 @@ $products = $dbh->getProductsByCategory($categoryID);
             <?php if (empty($products)): ?>
                 <p class="text-center">Nessun prodotto disponibile in questa categoria</p>
             <?php else: ?>
-                <div class="row">
+                <div class="row justify-content-center">
                     <?php foreach ($products as $product): ?>
-                        <div class="col-12 col-sm-6 col-md-4 mb-4">
+                        <div class="col-12 col-sm-6 col-md-4 mb-4 pe-1 mx-auto">
+
                             <div class="card h-100">
                                 <a href="product.php?productId=<?= urlencode($product['productID']) ?>">
                                     <img src="<?php echo htmlspecialchars($product['PathImmagine']); ?>" 

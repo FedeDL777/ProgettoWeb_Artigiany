@@ -97,6 +97,18 @@ create table USERS (
 	luogo VARCHAR(255) NULL,
 	primary key (Email));
 
+CREATE TABLE CUSTOM_PRODUCT_GRID (
+    gridID INT NOT NULL AUTO_INCREMENT,
+    productID INT NOT NULL,
+    row INT NOT NULL,
+    col INT NOT NULL,
+    material VARCHAR(25) NOT NULL,
+    color VARCHAR(7) NOT NULL DEFAULT '#ffffff', -- Colonna per il colore del quadrato
+    PRIMARY KEY (gridID),
+    FOREIGN KEY (productID) REFERENCES PRODOTTO(productID),
+    FOREIGN KEY (material) REFERENCES MATERIALE(Nome)
+);
+
 
 -- Constraints Section
 -- ___________________

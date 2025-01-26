@@ -7,6 +7,8 @@ body {
     /* Assicura che l'altezza copra tutta la pagina */
 }
 
+
+
 .carousel {
     display: flex;
     justify-content: center;
@@ -80,8 +82,7 @@ aside {
 
 .card {
     min-width: 300px;
-    min-height: auto;
-    /* Evita che le card diventino troppo strette */
+    box-sizing: border-box;
 }
 
 h1,
@@ -188,6 +189,7 @@ p {
     background-color: #0056b3;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 .blue-e {
     color: blue;
 }
@@ -204,5 +206,5 @@ p {
         width: auto;
         height: auto;
     }
-        
+
 }
