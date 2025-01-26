@@ -22,6 +22,8 @@ include("../includes/header.php");
 
 <main>
     <div class="container-page">
+        
+        <div id="main-content">
         <div class="row">
             <div class="container py-5">
                 <h1 class="mb-4">Le tue carte di pagamento</h1>
@@ -69,6 +71,7 @@ include("../includes/header.php");
                             </a>
                         </div>
             </div>
+     </div>
      </div>
     </div>
 </main>
