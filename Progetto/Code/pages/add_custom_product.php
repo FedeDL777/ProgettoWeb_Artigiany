@@ -96,6 +96,12 @@ try {
 
     // Conferma la transazione
     $dbh->commit();
+    // notifica di un nuovo prodotto personalizzato agli admin
+    $Admins = $dbh->getAdmin();
+    foreach ($Admins as $admin) {
+        $dbh->insertNotification($admin['Email'], "Nuovo prodotto personalizzato " . "E' stato creato un nuovo prodotto personalizzato da " . $email, 0);
+    }
+
     header("Location: cart.php");
     exit();
 
