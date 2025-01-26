@@ -17,7 +17,7 @@ echo $email;
 
 
 // Se il carrello non esiste o 'Used è 1'
-if (!$dbh->searchClientCart($email) ) {
+if (empty($dbh->searchClientCart($email) )) {
     $dbh->insertCart($email);
     echo "Carrello inserito";
     // Dopo l'inserimento, ricarica il carrello aggiornato
@@ -26,6 +26,7 @@ if (!$dbh->searchClientCart($email) ) {
 else {
     $cart = $dbh->searchClientCart($email);
 }
+
 $cart = $cart[0];
 $quantity = (int)$_POST["quantity"]; // Converte in intero
 $productId = $_POST["product_id"] ?? null;
