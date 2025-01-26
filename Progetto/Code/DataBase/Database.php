@@ -159,16 +159,25 @@ public function saveUserAddress($email, $address) {
     public function searchCartProducts($cart_id)
     {
         $query_items = "SELECT p.Nome AS product_name, 
-                           p.Descrizione AS description,
-                           p.Costo AS price, 
-                           c.Quantity as quantity, 
-                           c.productID AS product_id, 
-                           p.PathImmagine AS PathImmagine
-                    FROM COMPOSIZIONE_CARRELLO c
-                    INNER JOIN PRODOTTO p ON c.productID = p.productID
-                    WHERE c.cartID = ?";
-    
+                               p.Descrizione AS description,
+                               p.Costo AS price, 
+                               c.Quantity as quantity, 
+                               c.productID AS product_id, 
+                               p.PathImmagine AS PathImmagine,
+                               EXISTS (
+                                   SELECT 1 
+                                   FROM CUSTOM_PRODUCT_GRID g 
+                                   WHERE g.productID = p.productID
+                               ) AS is_custom  -- Determina se il prodotto è personalizzato
+                        FROM COMPOSIZIONE_CARRELLO c
+                        INNER JOIN PRODOTTO p ON c.productID = p.productID
+                        WHERE c.cartID = ?";
+        
         $stmt = $this->db->prepare($query_items);
+        if ($stmt === false) {
+            error_log("Errore nella preparazione della query: " . $this->db->error);
+            return [];
+        }
         $stmt->bind_param('i', $cart_id);
         $stmt->execute();
         $cart_items = $stmt->get_result();
@@ -224,6 +233,29 @@ public function saveUserAddress($email, $address) {
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
         
+    }
+
+    public function getCustomProductGrid($productID) {
+        $query = "SELECT row, col, material, color FROM CUSTOM_PRODUCT_GRID WHERE productID = ? ORDER BY row, col"; // Ordina per riga e colonna
+        $stmt = $this->db->prepare($query);
+    
+        if (!$stmt) {
+            throw new Exception("Errore nella preparazione della query: " . $this->db->error);
+        }
+    
+        $stmt->bind_param('i', $productID); // Associa il parametro (tipo: intero)
+    
+        if (!$stmt->execute()) {
+            throw new Exception("Errore durante l'esecuzione della query: " . $stmt->error);
+        }
+    
+        $result = $stmt->get_result(); // Ottieni il risultato
+    
+        if (!$result) {
+            throw new Exception("Errore nel recupero del risultato: " . $stmt->error);
+        }
+    
+        return $result->fetch_all(MYSQLI_ASSOC); // Restituisci tutti i risultati come array associativo
     }
 
     public function getNotificationsByEmail($email) {
@@ -330,6 +362,26 @@ public function saveUserAddress($email, $address) {
         $query = "INSERT INTO COMPOSIZIONE_CARRELLO (cartID, productID, Quantity) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('iii', $cart_id, $product_id, $quantity);
+        return $stmt->execute();
+    }
+
+    public function insertCustomProductGrid($productID, $row, $col, $material, $color) {
+        // Aggiungi il parametro 'color' alla query
+        $query = "INSERT INTO CUSTOM_PRODUCT_GRID (productID, row, col, material, color) VALUES (?, ?, ?, ?, ?)";
+        
+        // Prepara la query
+        $stmt = $this->db->prepare($query);
+        
+        // Controlla se la preparazione della query ha avuto successo
+        if ($stmt === false) {
+            error_log("Errore nella preparazione della query: " . $this->db->error);
+            return false;
+        }
+        
+        // Lega i parametri: productID, row, col sono interi (i), material e color sono stringhe (s)
+        $stmt->bind_param('iiiss', $productID, $row, $col, $material, $color);
+        
+        // Esegui la query e restituisci il risultato
         return $stmt->execute();
     }
 

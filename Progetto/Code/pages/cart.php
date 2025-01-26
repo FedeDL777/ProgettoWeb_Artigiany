@@ -46,6 +46,13 @@ $cart_items = $dbh->searchCartProducts($cart_id);
                                 <tr>
                                     <td class="text-center">
                                         <?php echo htmlspecialchars($item['product_name']); ?>
+                                        <!-- Aggiungi il link per visualizzare la griglia se il prodotto è personalizzato -->
+                                        <?php if ($item['is_custom'] == 1): ?>
+                                            <br>
+                                            <a href="custom_product_grid.php?productID=<?php echo $item['product_id']; ?>" class="btn btn-sm btn-info mt-2">
+                                                Visualizza Griglia
+                                            </a>
+                                        <?php endif; ?>
                                     </td>
                                     <td class="text-center description-cell">
                                         <?php echo nl2br(htmlspecialchars($item['description'])); ?>
@@ -57,11 +64,13 @@ $cart_items = $dbh->searchCartProducts($cart_id);
                                         <?php echo number_format($item['quantity'], 0); ?>
                                     </td>
                                     <td class="text-center">
+                                        <!-- Form per aumentare la quantità -->
                                         <form method="POST" action="add_to_cart.php" style="display: inline-block;">
                                             <input type="hidden" name="product_id" value="<?php echo $item['product_id']; ?>">
                                             <input type="hidden" name="quantity" value="1">
                                             <button type="submit" class="btn btn-sm btn-primary">+</button>
                                         </form>
+                                        <!-- Form per diminuire la quantità -->
                                         <form method="POST" action="add_to_cart.php" style="display: inline-block;">
                                             <input type="hidden" name="product_id" value="<?php echo $item['product_id']; ?>">
                                             <input type="hidden" name="quantity" value="-1">

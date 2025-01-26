@@ -12,6 +12,22 @@ $email = getLoggedUserEmail();
 // Recupero il carrello dell'utente
 $cart = $dbh->searchClientCart($email);
 
+// Se il carrello non esiste, creane uno nuovo
+if (empty($cart)) {
+    $dbh->beginTransaction();
+    try {
+        // Crea un nuovo carrello
+        $dbh->insertCart($email);
+        $dbh->commit();
+    } catch (Exception $e) {
+        $dbh->rollback();
+        die("Errore durante la creazione del carrello: " . $e->getMessage());
+    }
+
+    // Ricerca nuovamente il carrello
+    $cart = $dbh->searchClientCart($email);
+}
+
 $cart_id = $cart[0]['cartID'];
 
 // Recupero e valido i dati inviati dal form
@@ -59,6 +75,23 @@ try {
         $dbh->insertProductMaterial($lastProductId, $firstMaterial); 
     } else {
         die("Errore: nessun materiale selezionato.");
+    }
+
+    if (!is_array($selectedCells)) {
+        die("Errore: selectedCells non è un array valido.");
+    }
+    
+    foreach ($selectedCells as $cell) {
+        if (!isset($cell['row']) || !isset($cell['col']) || !isset($cell['material']) || !isset($cell['color'])) {
+            die("Errore: formato di selectedCells non valido.");
+        }
+    
+        $row = $cell['row'];
+        $col = $cell['col'];
+        $material = $cell['material'];
+        $color = $cell['color']; // Aggiungi il colore
+    
+        $dbh->insertCustomProductGrid($lastProductId, $row, $col, $material, $color);
     }
 
     // Conferma la transazione
