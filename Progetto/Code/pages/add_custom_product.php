@@ -48,7 +48,7 @@ $dbh->beginTransaction();
 
 try {
     // Aggiungi il prodotto personalizzato
-    $result = $dbh->insertProduct($productName, $description, $totalPrice, "C:\xampp1\htdocs\dashboard\ProgettoWeb_Artigiany\Progetto\Code\pages\images\CUSTOMPRODUCT.png", 1, $email);
+    $result = $dbh->insertProduct($productName, $description, $totalPrice, "../pages/images/CUSTOMPRODUCT.png", 1, $email);
 
     if (!$result) {
         throw new Exception("Errore durante la creazione del prodotto personalizzato.");
