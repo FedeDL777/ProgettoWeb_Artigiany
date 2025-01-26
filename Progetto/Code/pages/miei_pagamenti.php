@@ -15,11 +15,12 @@ try {
     error_log("Errore: " . $e->getMessage());
     $orders = [];
 }
-
 include("../includes/header.php");
 ?>
 
 <main>
+<div class="container-page">
+<div class="row">
     <div class="container py-5">
         <h1 class="mb-4">I miei Pagamenti</h1>
 
@@ -38,25 +39,35 @@ include("../includes/header.php");
                                     Luogo di consegna: <strong><?= htmlspecialchars($order['Luogo']) ?></strong>
                                 </p>
 
-                                <div class="carousel slide mb-3" id="carousel-<?= $order['orderID'] ?>" data-bs-ride="carousel">
+                                <div class="carousel slide mb-3" id="carousel-<?= $order['ID'] ?>" data-bs-ride="carousel">
                                     <div class="carousel-inner">
-                                        <?php $products = $dbh->searchCartProducts($order['orderID']); ?>
-                                        <?php foreach ($products as $product): ?>
-                                            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                                                <img src="<?= htmlspecialchars($product['PathImmagine']) ?>" 
-                                                     class="d-block w-100 rounded" 
-                                                     alt="<?= htmlspecialchars($product['Nome']) ?>">
-                                                <div class="carousel-caption">
-                                                    <p><?= htmlspecialchars($product['Nome']) ?></p>
+                                        <?php $products = $dbh->searchCartProducts($order['ID']); 
+                                        ?>
+                                            <?php foreach ($products as $product): ?>
+                                                <div class="carousel-item active">
+                                                    <img src="<?= htmlspecialchars($product['PathImmagine']) ?>" 
+                                                        class="d-block w-100 rounded" 
+                                                        alt="<?= htmlspecialchars($product['product_name']) ?>">
+                                                    <div class="carousel-caption bg-dark bg-opacity-75 p-2 rounded">
+                                                        <h5 class="text-light"><?= htmlspecialchars($product['product_name']) ?></h5>
+                                                        <p class="text-light mb-1">
+                                                            <strong>Descrizione:</strong> <?= htmlspecialchars($product['description']) ?>
+                                                        </p>
+                                                        <p class="text-light mb-1">
+                                                            <strong>Prezzo:</strong> €<?= number_format($product['price'], 2) ?>
+                                                        </p>
+                                                        <p class="text-light mb-0">
+                                                            <strong>Quantità:</strong> <?= htmlspecialchars($product['quantity']) ?>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        <?php endforeach; ?>
+                                            <?php endforeach; ?>
                                     </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?= $order['orderID'] ?>" data-bs-slide="prev">
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?= $order['ID'] ?>" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-<?= $order['orderID'] ?>" data-bs-slide="next">
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-<?= $order['ID'] ?>" data-bs-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>

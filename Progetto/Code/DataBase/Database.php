@@ -252,7 +252,7 @@ public function saveUserAddress($email, $address) {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     public function getOrdersByEmail($email) {
-        $query = "SELECT orderID as ID
+        $query = "SELECT orderID as ID, Data_, Luogo, Numero, Totale
                         FROM ORDINI 
                         WHERE Email = ?
                         ORDER BY Data_ DESC";
