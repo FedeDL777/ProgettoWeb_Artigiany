@@ -32,7 +32,6 @@ include("../includes/header.php");
 ?>
 
 <main class="container my-4">
-    <link rel="stylesheet" href="../CSS/styles.css">
     
     <div class="container-page">
         <div id="main-content">

@@ -30,8 +30,7 @@ include("../includes/header.php");
 ?>
 
 <main>
-    <link rel="stylesheet" href="../CSS/styles.css">
-    <div class="container py-5">
+        <div class="container py-5">
         <h1 class="mb-4 text-center">I tuoi Ordini</h1>
 
         <!-- Verifica se il carrello è vuoto -->

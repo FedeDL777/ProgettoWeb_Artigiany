@@ -36,7 +36,6 @@ include("../includes/header.php");
 <main>
     <div class="container-page">
         <div id="main-content">
-    <link rel="stylesheet" href="../CSS/styles.css">
     <div class="d-flex justify-content-center align-items-center vh-90">
         <div class="container-fluid text-center px-3">
             <?php if (isUserLoggedIn()): ?>

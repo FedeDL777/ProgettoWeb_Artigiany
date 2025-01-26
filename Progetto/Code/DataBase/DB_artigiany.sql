@@ -229,7 +229,7 @@ create unique index ID_USERS
 INSERT INTO USERS (Email, Pw, AdminClient) VALUES
 ('utente1@example.com', 'password1', false),
 ('utente2@example.com', 'password2', false),
-('admin@example.com', 'adminpass', true);
+('admin@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', true);
 
 -- Popolamento tabella CATEGORIE
 INSERT INTO CATEGORIE (Nome) VALUES

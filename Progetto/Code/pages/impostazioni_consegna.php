@@ -39,8 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
 <main>
     <div class="container-page">
         <div id="main-content">
-    <link rel="stylesheet" href="../CSS/styles.css">
-    <div class="container py-5">
+                <div class="container py-5">
         <h1 class="mb-4 text-center">Informazioni di Spedizione</h1>
 
         <form method="POST" action="" onsubmit="combineAddressFields()">

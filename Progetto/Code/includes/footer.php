@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <span class="text-muted"> 
-                    <i class="bi bi-envelope-at-fill"></i>Email: Artigiany@nomail.it
+                    <i class="bi bi-envelope-at-fill"></i>Email: Artigian-e@nomail.it
 
                 </span>
                 
@@ -30,7 +30,7 @@
         </div>
         <div class="row">
             <div class="col-12 text-center">
-                <span class="text-muted">&copy; 2025 CraftMania. Tutti i diritti riservati. I marchi e i prodotti appartengono ai rispettivi creatori.
+                <span class="text-muted">&copy; 2025 Artigian-e. Tutti i diritti riservati. I marchi e i prodotti appartengono ai rispettivi creatori.
 
                 </span>
                 

@@ -2,11 +2,10 @@
 include("../includes/header.php"); // Include il file header.php
 ?>
 <main class="container-fluid py-4">
-    <link rel="stylesheet" href="../CSS/styles.css">
     <div class="container-page">
         <div class="row">
             <!-- Contenuto principale -->
-            <section class="col-md-12">
+            <section class="col-md-8 col-sm-12 mx-auto">
                 <div id="main-content">
                     <!-- Contenuto della pagina admin -->
                     <h1 class="text-center">Account Admin:</h1>
