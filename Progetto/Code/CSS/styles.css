@@ -78,6 +78,11 @@ aside {
     margin: 20px auto;
 }
 
+.card {
+    min-width: 250px;
+    /* Evita che le card diventino troppo strette */
+}
+
 h1,
 p {
     text-align: center;
