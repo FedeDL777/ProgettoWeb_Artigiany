@@ -18,6 +18,8 @@ include("../includes/header.php");
 ?>
 
 <main>
+<div class="container-page">
+    <div id="main-content">
         <div class="container py-5">
         <h1 class="mb-4">Gestione Utenti Registrati</h1>
         
@@ -50,6 +52,8 @@ include("../includes/header.php");
             <div class="alert alert-info">Nessun utente registrato nel sistema</div>
         <?php endif; ?>
     </div>
+</div>
+</div>
 </main>
 
 <?php

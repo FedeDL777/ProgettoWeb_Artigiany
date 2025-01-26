@@ -43,6 +43,14 @@ class DatabaseHelper
     $result = $stmt->get_result();
     return $result->fetch_assoc()['luogo'] ?? null;
 }
+    public function getUser($email){
+        $query = "SELECT * FROM users WHERE email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
 public function saveUserAddress($email, $address) {
     $query = "UPDATE users SET luogo = ? WHERE email = ?";
@@ -98,7 +106,8 @@ public function saveUserAddress($email, $address) {
         $query = "SELECT C.* 
                   FROM carta_di_credito AS C 
                   WHERE C.Email = ? 
-                  AND C.Scadenza >= CURDATE()"; // Controllo diretto sulla data
+                  AND C.Scadenza >= CURDATE()
+                  ORDER BY C.Scadenza ASC"; // Controllo diretto sulla data
         
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $email);

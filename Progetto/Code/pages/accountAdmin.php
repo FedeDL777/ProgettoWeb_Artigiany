@@ -31,6 +31,7 @@ include("../includes/header.php"); // Include il file header.php
                                 </div>
                             </a>
                         </div>
+                        <!--
                         <div class="col-md-6 col-sm-12 mb-4">
                             <a href="info_pagamenti.php" class="text-decoration-none">
                                 <div class="card">
@@ -50,7 +51,7 @@ include("../includes/header.php"); // Include il file header.php
                                     </div>
                                 </div>
                             </a>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </section>
