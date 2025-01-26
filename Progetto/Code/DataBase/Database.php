@@ -206,14 +206,21 @@ public function saveUserAddress($email, $address) {
         $result = $this->db->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getLatestProduct(){
+        $query = "SELECT productID, Nome, PathImmagine, Costo FROM PRODOTTO WHERE Email=0 ORDER BY productID DESC LIMIT 1";
+        $result = $this->db->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
     public function getTopSelledProduct()
 {
     $query = "SELECT p.productID, p.Nome, p.PathImmagine, p.Costo
-              FROM composizione_carrello cc
-              INNER JOIN PRODOTTO p ON cc.productID = p.productID
-              GROUP BY p.productID, p.Nome, p.PathImmagine, p.Costo
-              ORDER BY SUM(cc.Quantity) DESC
-              LIMIT 1;";
+          FROM composizione_carrello cc
+          INNER JOIN PRODOTTO p ON cc.productID = p.productID
+          WHERE p.Email=0
+          GROUP BY p.productID, p.Nome, p.PathImmagine, p.Costo
+          ORDER BY SUM(cc.Quantity) DESC
+          LIMIT 1;";
     $result = $this->db->query($query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
@@ -343,7 +350,7 @@ public function saveUserAddress($email, $address) {
         return $stmt->execute();
     }
 
-    public function insertProduct($nome, $descrizione, $costo, $pathImmagine, $categoryID)
+    public function insertProduct($nome, $descrizione, $costo, $pathImmagine, $categoryID, $email)
 {
     $query = "INSERT INTO PRODOTTO (Nome, Descrizione, Costo, PathImmagine, categoryID, Email) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $this->db->prepare($query);
@@ -355,7 +362,7 @@ public function saveUserAddress($email, $address) {
         throw new Exception("Utente non autenticato");
     }
 
-    $stmt->bind_param('ssdssi', $nome, $descrizione, $costo, $pathImmagine, $categoryID, $email);
+    $stmt->bind_param('ssdsis', $nome, $descrizione, $costo, $pathImmagine, $categoryID, $email);
     
     if ($stmt->execute()) {
         return $this->db->insert_id;

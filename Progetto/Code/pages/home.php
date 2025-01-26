@@ -3,7 +3,7 @@ include("../includes/header.php"); // Include il file header.php
 include("../includes/sidebar.php");
 // Ottieni le categorie dalla funzione
 // Recupera l'ultimo prodotto
-$lastProduct = $dbh->getLastProductID();
+$lastProduct = $dbh->getLatestProduct();
 
 // Recupera il prodotto più venduto
 $topProduct = $dbh->getTopSelledProduct();
