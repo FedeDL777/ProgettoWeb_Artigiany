@@ -54,6 +54,7 @@ include("../includes/header.php");
                             <div class="mb-4">
                                 <h5>Seleziona Materiale</h5>
                                 <select id="materialSelect" class="form-select">
+                                    <option value="" selected disabled hidden>Nome materiale - prezzo per cm quadrato</option>
                                     <?php foreach ($materials as $material): ?>
                                     <option value="<?= htmlspecialchars($material['Nome']) ?>">
                                         <?= htmlspecialchars($material['Nome']) ?> - €
@@ -84,6 +85,14 @@ include("../includes/header.php");
                         </div>
                     </div>
                 </div>
+
+                <form id="customProductForm" method="POST" action="add_custom_product.php">
+                <input type="hidden" name="material" id="formMaterial">
+                <input type="hidden" name="description" id="formDescription">
+                <input type="hidden" name="selectedCells" id="formSelectedCells">
+                <input type="hidden" name="totalPrice" id="formTotalPrice">
+                </form>
+
 
                 <script>
                 const gridSize = 20;
@@ -195,6 +204,24 @@ include("../includes/header.php");
                         }
                     }
                 }
+
+                submitBtn.addEventListener('click', () => {
+                const materialSelect = document.getElementById('materialSelect');
+                const material = materialSelect.options[materialSelect.selectedIndex].text.split(" - ")[0];
+                const pricePerQuadretto = parseFloat(materialSelect.options[materialSelect.selectedIndex].text.split("€")[1].trim().replace(',', '.'));
+
+                const totalQuadretti = selectedCells.length;
+                const totalPrice = (pricePerQuadretto * totalQuadretti).toFixed(2);
+
+                // Compila i campi del modulo
+                document.getElementById('formMaterial').value = material;
+                document.getElementById('formDescription').value = description.value;
+                document.getElementById('formSelectedCells').value = JSON.stringify(selectedCells);
+                document.getElementById('formTotalPrice').value = totalPrice;
+
+                // Invia il modulo
+                document.getElementById('customProductForm').submit();
+            });
 
                 </script>
             </div>
