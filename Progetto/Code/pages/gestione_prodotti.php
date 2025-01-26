@@ -62,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $descrizione,
                 $costo,
                 $immaginePath,
-                $categoryID
+                $categoryID,
+                0
             );
 
             if (!$productId) {

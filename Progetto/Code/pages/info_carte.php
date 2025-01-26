@@ -25,6 +25,7 @@ include("../includes/header.php");
         
         <div id="main-content">
         <div class="row">
+   
             <div class="container py-5">
                 <h1 class="mb-4">Le tue carte di pagamento</h1>
                 
@@ -64,7 +65,7 @@ include("../includes/header.php");
                                 </table>
                             </div>
                         <?php endif; ?>
-
+             
                         <div class="d-flex justify-content-center mt-4">
                             <a href="add_card.php" class="btn btn-success btn-lg">
                                 <i class="bi bi-plus-circle"></i> Aggiungi una carta
