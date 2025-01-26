@@ -233,15 +233,16 @@ INSERT INTO USERS (Email, Pw, AdminClient) VALUES
 
 -- Popolamento tabella CATEGORIE
 INSERT INTO CATEGORIE (Nome) VALUES
+('CUSTOM PRODUCT'),
 ('Gioielli'),
 ('Abbigliamento'),
 ('Decorazioni');
 
 -- Popolamento tabella PRODOTTO
 INSERT INTO PRODOTTO (Costo, Nome, Descrizione, PathImmagine, categoryID, Email) VALUES
-(29.99, 'Anello di argento', 'Un bellissimo anello fatto a mano.', '../pages/images/anello.jpg', 1, 'utente1@example.com'),
-(15.50, 'Sciarpa di lana', 'Sciarpa calda realizzata a maglia.', '../pages/images/sciarpa.jpg', 2, 'utente2@example.com'),
-(45.00, 'Quadretto dipinto a mano', 'Quadretto decorativo per la casa.', '../pages/images/quadretto.jpg', 3, 'utente1@example.com');
+(29.99, 'Anello di argento', 'Un bellissimo anello fatto a mano.', '../pages/images/anello.jpg', 2, 'utente1@example.com'),
+(15.50, 'Sciarpa di lana', 'Sciarpa calda realizzata a maglia.', '../pages/images/sciarpa.jpg', 3, 'utente2@example.com'),
+(45.00, 'Quadretto dipinto a mano', 'Quadretto decorativo per la casa.', '../pages/images/quadretto.jpg', 4, 'utente1@example.com');
 
 
 -- Popolamento tabella MATERIALE
