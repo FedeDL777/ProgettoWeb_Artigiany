@@ -23,7 +23,6 @@ include("../includes/header.php");
 <main>
     <div class="container-page">
         <div id="main-content">
-    <link rel="stylesheet" href="../CSS/styles.css">
     <div class="container py-5">
         <div class="row">
             <!-- Sezione immagine prodotto -->
