@@ -30,6 +30,8 @@ include("../includes/header.php");
 ?>
 
 <main>
+<div class="container-page">
+<div id="main-content">
         <div class="container py-5">
         <h1 class="mb-4 text-center">I tuoi Ordini</h1>
 
@@ -113,6 +115,8 @@ include("../includes/header.php");
             </div>
         <?php endif; ?>
     </div>
+</div>
+</div>
 </main>
 
 <?php
