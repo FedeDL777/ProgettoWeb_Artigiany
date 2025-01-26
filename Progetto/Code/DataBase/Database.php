@@ -158,17 +158,23 @@ public function saveUserAddress($email, $address) {
     // Recupera i prodotti nel carrello
     public function searchCartProducts($cart_id)
     {
-        $query_items = "SELECT p.Nome AS product_name, p.Costo AS price, c.Quantity as quantity, c.productID AS product_id, p.PathImmagine AS PathImmagine
-                        FROM COMPOSIZIONE_CARRELLO c
-                        INNER JOIN PRODOTTO p ON c.productID = p.productID
-                        WHERE c.cartID = ?";
+        $query_items = "SELECT p.Nome AS product_name, 
+                           p.Descrizione AS description,
+                           p.Costo AS price, 
+                           c.Quantity as quantity, 
+                           c.productID AS product_id, 
+                           p.PathImmagine AS PathImmagine
+                    FROM COMPOSIZIONE_CARRELLO c
+                    INNER JOIN PRODOTTO p ON c.productID = p.productID
+                    WHERE c.cartID = ?";
+    
         $stmt = $this->db->prepare($query_items);
-
         $stmt->bind_param('i', $cart_id);
         $stmt->execute();
         $cart_items = $stmt->get_result();
         return $cart_items->fetch_all(MYSQLI_ASSOC);
     }
+    
     public function getLastProductID()
     {
         $query = "SELECT productID, Nome, PathImmagine, Costo FROM PRODOTTO ORDER BY productID DESC LIMIT 1;";
