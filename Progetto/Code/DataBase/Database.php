@@ -173,12 +173,19 @@ public function saveUserAddress($email, $address) {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     public function getTopSelledProduct()
-    {
-        //count from dettaglio_ordine and group by productID
-        $query = "SELECT productID, COUNT(*) AS vendite FROM DETTAGLIO_ORDINE GROUP BY productID ORDER BY vendite DESC LIMIT 1";
-        $result = $this->db->query($query);
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+{
+    $query = "SELECT p.productID, p.Nome, p.PathImmagine, p.Costo
+              FROM composizione_carrello cc
+              INNER JOIN PRODOTTO p ON cc.productID = p.productID
+              GROUP BY p.productID, p.Nome, p.PathImmagine, p.Costo
+              ORDER BY SUM(cc.Quantity) DESC
+              LIMIT 1;";
+    $result = $this->db->query($query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+
+
 
     public function getCategoryById($categoryID) {
         $query = "SELECT * FROM CATEGORIE WHERE categoryID = ?";

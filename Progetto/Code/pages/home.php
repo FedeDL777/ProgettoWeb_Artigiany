@@ -55,59 +55,61 @@ $topProduct = $dbh->getTopSelledProduct();
                     <!-- Sezione Prodotti -->
 
                     <div class="row mt-4 text-center justify-content-center">
-                        <!-- Ultimi prodotti -->
-                        <div class="col-md-5 offset-md-1">
-                            <div class="card">
-                                <?php if (!empty($lastProduct) && isset($lastProduct[0]['Nome'], $lastProduct[0]['PathImmagine'], $lastProduct[0]['Costo'])): ?>
-                                <a href="product.php?productId=<?= urlencode($lastProduct[0]['productID']) ?>">
-                                    <img src="<?= htmlspecialchars($lastProduct[0]['PathImmagine']) ?>"
-                                        class="card-img-top mx-auto"
-                                        alt="<?= htmlspecialchars($lastProduct[0]['Nome']) ?>">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a href="product.php?productId=<?= urlencode($lastProduct[0]['productID']) ?>"
-                                            class="text-dark">
-                                            <?= htmlspecialchars($lastProduct[0]['Nome']) ?>
-                                        </a>
-                                    </h5>
-                                    <p class="card-text"><strong>€ <?= number_format($lastProduct[0]['Costo'], 2) ?></strong></p>
-                                </div>
-                                <?php else: ?>
-                                <div class="card-body">
-                                    <p class="card-text">Nessun prodotto trovato.</p>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
+    <!-- Ultimi prodotti -->
+    <div class="col-md-6 offset-md-1">
+        <h3 class="text-center mb-3">Ultime Novità:</h3>
+        <div class="card">
+            <?php if (!empty($lastProduct) && isset($lastProduct[0]['Nome'], $lastProduct[0]['PathImmagine'], $lastProduct[0]['Costo'])): ?>
+            <a href="product.php?productId=<?= urlencode($lastProduct[0]['productID']) ?>">
+                <img src="<?= htmlspecialchars($lastProduct[0]['PathImmagine']) ?>"
+                    class="card-img-top mx-auto"
+                    alt="<?= htmlspecialchars($lastProduct[0]['Nome']) ?>">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="product.php?productId=<?= urlencode($lastProduct[0]['productID']) ?>"
+                        class="text-dark">
+                        <?= htmlspecialchars($lastProduct[0]['Nome']) ?>
+                    </a>
+                </h5>
+                <p class="card-text"><strong>€ <?= number_format($lastProduct[0]['Costo'], 2) ?></strong></p>
+            </div>
+            <?php else: ?>
+            <div class="card-body">
+                <p class="card-text">Nessun prodotto trovato.</p>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
 
-                        <!-- Top prodotti del mese -->
-                        <div class="col-md-5">
-                            <div class="card">
-                                <?php if (!empty($topProduct) && isset($topProduct[0]['Nome'], $topProduct[0]['PathImmagine'], $topProduct[0]['Costo'], $topProduct[0]['vendite'])): ?>
-                                <a href="product.php?productId=<?= urlencode($topProduct[0]['productID']) ?>">
-                                    <img src="<?= htmlspecialchars($topProduct[0]['PathImmagine']) ?>"
-                                        class="card-img-top mx-auto"
-                                        alt="<?= htmlspecialchars($topProduct[0]['Nome']) ?>">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a href="product.php?productId=<?= urlencode($topProduct[0]['productID']) ?>"
-                                            class="text-dark">
-                                            <?= htmlspecialchars($topProduct[0]['Nome']) ?>
-                                        </a>
-                                    </h5>
-                                    <p class="card-text">Vendite: <?= htmlspecialchars($topProduct[0]['vendite']) ?></p>
-                                    <p class="card-text"><strong>€ <?= number_format($topProduct[0]['Costo'], 2) ?></strong></p>
-                                </div>
-                                <?php else: ?>
-                                <div class="card-body">
-                                    <p class="card-text">Nessun prodotto trovato.</p>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Top prodotti del mese -->
+    <div class="col-md-5">
+        <h3 class="text-center mb-3">Prodotto Popolare:</h3>
+        <div class="card">
+            <?php if (!empty($topProduct) && isset($topProduct[0]['Nome'], $topProduct[0]['PathImmagine'], $topProduct[0]['Costo'])): ?>
+            <a href="product.php?productId=<?= urlencode($topProduct[0]['productID']) ?>">
+                <img src="<?= htmlspecialchars($topProduct[0]['PathImmagine']) ?>"
+                    class="card-img-top mx-auto"
+                    alt="<?= htmlspecialchars($topProduct[0]['Nome']) ?>">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="product.php?productId=<?= urlencode($topProduct[0]['productID']) ?>"
+                        class="text-dark">
+                        <?= htmlspecialchars($topProduct[0]['Nome']) ?>
+                    </a>
+                </h5>
+                <p class="card-text"><strong>€ <?= number_format($topProduct[0]['Costo'], 2) ?></strong></p>
+            </div>
+            <?php else: ?>
+            <div class="card-body">
+                <p class="card-text">Nessun prodotto trovato.</p>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
 
 
                 </div>
