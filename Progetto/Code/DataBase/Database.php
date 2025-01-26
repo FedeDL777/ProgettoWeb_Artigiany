@@ -251,6 +251,17 @@ public function saveUserAddress($email, $address) {
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    public function getOrdersByEmail($email) {
+        $query = "SELECT orderID as ID
+                        FROM ORDINI 
+                        WHERE Email = ?
+                        ORDER BY Data_ DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     //INSERT QUERY
     // Inserimento di un nuovo cliente
