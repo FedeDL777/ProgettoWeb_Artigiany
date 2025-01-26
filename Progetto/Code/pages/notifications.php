@@ -32,7 +32,6 @@ include("../includes/header.php");
 ?>
 
 <main class="container my-4">
-    
     <div class="container-page">
         <div id="main-content">
             <h1 class="text-center mb-4">Le tue notifiche</h1>
@@ -51,36 +50,23 @@ include("../includes/header.php");
                                             <?= date('d/m/Y H:i', strtotime($notification['Data_'])) ?>
                                         </small>
                                     </div>
-                                    <div class="d-flex flex-column align-items-end">
-                                        <?php if (!$notification['Letto']): ?>
-                                            <span class="badge bg-primary mb-2">Nuova</span>
-                                        <?php endif; ?>
-                                        <form method="POST" class="mt-auto">
-                                            <input type="hidden" name="notification_data" value="<?= $notification['Data_'] ?>">
-                                            <button type="submit" name="delete_notification" class="btn btn-danger btn-sm" title="Elimina notifica">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+            
                                 </div>
-                                
-                                <?php if ($notification['orderID']): ?>
-                                    <div class="mt-2">
-                                        <a href="order_details.php?orderID=<?= $notification['orderID'] ?>" 
-                                           class="btn btn-sm btn-outline-secondary">
-                                            Dettagli ordine
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
 
+                <!-- Sezione pulsanti azione -->
                 <div class="mt-4 text-center">
-                    <form method="POST">
+                    <form method="POST" class="d-inline">
                         <button type="submit" name="mark_all_read" class="btn btn-primary">
                             <i class="bi bi-check-all"></i> Segna tutte come lette
+                        </button>
+                    </form>
+                    <form method="POST" class="d-inline">
+                        <button type="submit" name="delete_all_notifications" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Elimina tutte
                         </button>
                     </form>
                 </div>
@@ -88,5 +74,6 @@ include("../includes/header.php");
         </div>
     </div>
 </main>
+
 
 <?php include("../includes/footer.php"); ?>

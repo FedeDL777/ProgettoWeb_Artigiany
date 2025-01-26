@@ -12,7 +12,9 @@ $email = getLoggedUserEmail();
 $cart = $dbh->searchClientCart($email);
 
 if (!$cart) {
-    echo "<div class='container py-5'><div class='alert alert-info'>Il tuo carrello non esiste!</div></div>";
+    echo "<div class='container py-5'><div class='container-page'>
+        <div id='main-content'><div class='alert alert-info'>Il tuo carrello non esiste!</div></div></div></div>";
+    include("../includes/footer.php");
     exit();
 }
 

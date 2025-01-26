@@ -22,6 +22,8 @@ include("../includes/header.php");
 
 <main>
     <div class="container-page">
+        
+        <div id="main-content">
         <div class="row">
    
             <div class="container py-5">
@@ -70,9 +72,8 @@ include("../includes/header.php");
                             </a>
                         </div>
             </div>
-
-
-        </div>
+     </div>
+     </div>
     </div>
 </main>
 
