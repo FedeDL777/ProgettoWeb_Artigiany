@@ -6,46 +6,45 @@ require_once("../includes/functions.php");
 unset($login_error);
 if (!isUserLoggedIn() && !isAdminLoggedIn()) {
     if (isset($_POST["email"]) && isset($_POST["password"])) {
-        //controllo admin
-        $adminResult = $dbh->getHashedPasswordAdmin($_POST["email"]);
-        //Da fixare
-        $loginAdmin = password_verify($_POST["password"], $adminResult[0]["Pw"]);
-        if($loginAdmin && $dbh->checkLogin($_POST["email"], $adminResult[0]["Pw"], 1)){
-            registerAdminLogged($_POST);
-            unset($login_error);
-            header("Location: accountAdmin.php");
-            exit();
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+
+        // Controllo admin
+        $adminResult = $dbh->getHashedPasswordAdmin($email);
+        if (!empty($adminResult) && isset($adminResult[0]["Pw"]) && is_string($adminResult[0]["Pw"])) {
+            $loginAdmin = password_verify($password, $adminResult[0]["Pw"]);
+            if ($loginAdmin && $dbh->checkLogin($email, $adminResult[0]["Pw"], 1)) {
+                registerAdminLogged($_POST);
+                unset($login_error);
+                header("Location: accountAdmin.php");
+                exit();
+            }
         }
-        //controllo client 
-        $clientResult = $dbh->getHashedPasswordClient($_POST["email"]);
-        $loginClient = password_verify($_POST["password"], $clientResult[0]["Pw"]);
-        if($loginClient && $dbh->checkLogin($_POST["email"], $clientResult[0]["Pw"], 0)){
-            registerLoggedUser($_POST);
-            unset($login_error);
-            header("Location: accountClient.php");
-            exit();
+
+        // Controllo client
+        $clientResult = $dbh->getHashedPasswordClient($email);
+        if (!empty($clientResult) && isset($clientResult[0]["Pw"]) && is_string($clientResult[0]["Pw"])) {
+            $loginClient = password_verify($password, $clientResult[0]["Pw"]);
+            if ($loginClient && $dbh->checkLogin($email, $clientResult[0]["Pw"], 0)) {
+                registerLoggedUser($_POST);
+                unset($login_error);
+                header("Location: accountClient.php");
+                exit();
+            }
         }
-        else {
-            $login_error = "Errore! Controllare email o password!";
-        }
-        
-    }
-    /*
-    else {
+
+        // Errore generico
         $login_error = "Errore! Controllare email o password!";
-    }*/
-}
-else {
-    // Se già loggato, reindirizza alla pagina corretta
+    }
+} else {
+    // Se già loggato, reindirizza
     if (isAdminLoggedIn()) {
         header("Location: accountAdmin.php");
-    
     } else {
         header("Location: accountClient.php");
     }
     exit();
 }
-
 
 include("../includes/header.php");
 ?>
