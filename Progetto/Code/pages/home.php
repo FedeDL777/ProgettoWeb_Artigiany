@@ -16,7 +16,8 @@ $topProduct = $dbh->getTopSelledProduct();
             <section class="col-md-9 col-sm-12 mx-auto">
                 <div id="main-content">
                     <!-- Contenuto della pagina -->
-                    <h1 class="text-center">Benvenuto su CraftMania!</h1>
+                    <h1 class="text-center">Benvenuto su Artigian<span class="blue-e">-e</span>!</h1>
+
                     <p class="text-center">Esplora la nostra collezione di prodotti artigianali.</p>
 
                     <!-- Slider -->

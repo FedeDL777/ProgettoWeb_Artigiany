@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/styles.css">
 </head>
+
 <?php
 include_once("../includes/bootstrap.php");
 include_once("../includes/functions.php");
@@ -25,8 +26,9 @@ if (isUserLoggedIn()) {
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid"><a class="navbar-brand" href="home.php"><strong>Artigiany</strong></a><button
-                class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.php"><strong>Artigian<span style="color: blue;">-e</span></strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"><span
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarContent">
