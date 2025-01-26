@@ -223,7 +223,7 @@ include("../includes/header.php");
                                 <th>Nome</th>
                                 <th>Prezzo</th>
                                 <th>Categoria</th>
-                                <th>Azioni</th>
+                
                             </tr>
                         </thead>
                         <tbody>
@@ -235,18 +235,7 @@ include("../includes/header.php");
                                     <td><?= htmlspecialchars($prodotto['Nome']) ?></td>
                                     <td>€ <?= number_format($prodotto['Costo'], 2) ?></td>
                                     <td><?= htmlspecialchars($categoria['Nome'] ?? 'N/A') ?></td>
-                                    <td>
-                                        <a href="modifica_prodotto.php?id=<?= $prodotto['productID'] ?>" 
-                                           class="btn btn-sm btn-warning" 
-                                           title="Modifica">
-                                           <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a href="elimina_prodotto.php?id=<?= $prodotto['productID'] ?>" 
-                                           class="btn btn-sm btn-danger" 
-                                           title="Elimina"
-                                           onclick="return confirm('Sei sicuro di voler eliminare questo prodotto?')">
-                                           <i class="bi bi-trash"></i>
-                                        </a>
+                                    
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

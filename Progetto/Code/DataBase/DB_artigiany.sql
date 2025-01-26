@@ -238,23 +238,27 @@ create unique index ID_USERS
 -- Popolamento del database db_artigiany
 
 -- Popolamento tabella USERS
-INSERT INTO USERS (Email, Pw, AdminClient) VALUES
-('utente1@example.com', 'password1', false),
-('utente2@example.com', 'password2', false),
-('admin@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', true);
+INSERT INTO USERS (Email, Pw, AdminClient, luogo) VALUES
+('utente1@example.com', 'password1', false, NULL),
+('utente2@example.com', 'password2', false, NULL),
+('admin@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', true,	NULL);
 
 -- Popolamento tabella CATEGORIE
 INSERT INTO CATEGORIE (Nome) VALUES
 ('CUSTOM PRODUCT'),
 ('Gioielli'),
 ('Abbigliamento'),
-('Decorazioni');
+('Decorazioni'),
+('Falegnameria');
+
 
 -- Popolamento tabella PRODOTTO
 INSERT INTO PRODOTTO (Costo, Nome, Descrizione, PathImmagine, categoryID, Email) VALUES
-(29.99, 'Anello di argento', 'Un bellissimo anello fatto a mano.', '../pages/images/anello.jpg', 2, 'utente1@example.com'),
+(29.99, 'Anello di argento', 'Un bellissimo anello fatto a mano.', '../pages/images/anello.jpg', 2, ''),
+(10.00, 'Maglione di lana', 'Maglione caldo realizzato a maglia.', '../pages/images/maglione.jpg', 3, ''),
 (15.50, 'Sciarpa di lana', 'Sciarpa calda realizzata a maglia.', '../pages/images/sciarpa.jpg', 3, 'utente2@example.com'),
-(45.00, 'Quadretto dipinto a mano', 'Quadretto decorativo per la casa.', '../pages/images/quadretto.jpg', 4, 'utente1@example.com');
+(45.00, 'Quadretto dipinto a mano', 'Quadretto decorativo per la casa.', '../pages/images/quadretto.jpg', 4, 'utente1@example.com'),
+(999.00, 'Tavolo in legno', 'Tavolo in legno massello.', '../pages/images/tavolo.jpg', 5, ');
 
 
 -- Popolamento tabella MATERIALE
