@@ -258,7 +258,7 @@ INSERT INTO PRODOTTO (Costo, Nome, Descrizione, PathImmagine, categoryID, Email)
 (10.00, 'Maglione di lana', 'Maglione caldo realizzato a maglia.', '../pages/images/maglione.jpg', 3, ''),
 (15.50, 'Sciarpa di lana', 'Sciarpa calda realizzata a maglia.', '../pages/images/sciarpa.jpg', 3, 'utente2@example.com'),
 (45.00, 'Quadretto dipinto a mano', 'Quadretto decorativo per la casa.', '../pages/images/quadretto.jpg', 4, 'utente1@example.com'),
-(999.00, 'Tavolo in legno', 'Tavolo in legno massello.', '../pages/images/tavolo.jpg', 5, ');
+(999.00, 'Tavolo in legno', 'Tavolo in legno massello.', '../pages/images/tavolo.jpg', 5, '');
 
 
 -- Popolamento tabella MATERIALE
