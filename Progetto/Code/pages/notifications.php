@@ -10,11 +10,11 @@ if (!isset($_SESSION['email'])) {
 
 // Gestione delle azioni
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['delete_notification'])) {
+    if (isset($_POST['delete_all_notifications'])) {
         // Elimina singola notifica
         $email = $_SESSION['email'];
-        $data = $_POST['notification_data'];
-        $dbh->deleteNotification($email, $data);
+        $data = $_POST['delete_all_notifications'];
+        $dbh->deleteNotifications($email);
     } elseif (isset($_POST['mark_all_read'])) {
         // Segna tutte come lette
         $dbh->markAllNotificationsAsRead($_SESSION['email']);

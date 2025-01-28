@@ -467,10 +467,10 @@ public function saveUserAddress($email, $address) {
         return $stmt->execute();
     }
 
-    public function deleteNotification($email, $data) {
-        $query = "DELETE FROM NOTIFICHE WHERE Email = ? AND Data_ = ?";
+    public function deleteNotifications($email) {
+        $query = "DELETE FROM NOTIFICHE WHERE Email = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ss', $email, $data);
+        $stmt->bind_param('s', $email);
         return $stmt->execute();
     }
 
